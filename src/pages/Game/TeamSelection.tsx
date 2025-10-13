@@ -17,6 +17,7 @@ const TeamSelection = (props: PlayerHistoryProps) => {
 
     return (
         <div className="border">
+            {/* TODO: Convert Table to Cards for better mobile support */}
             <Table>
                 <TableBody>
                     <TableRow>

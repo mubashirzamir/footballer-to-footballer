@@ -9,8 +9,10 @@ function App() {
     return (
         <BrowserRouter>
             <ThemeProvider>
-                <div className="p-4">
-                    <ModeToggle />
+                <div>
+                    <div className="absolute top-4 right-4">
+                        <ModeToggle />
+                    </div>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/play/{start_id}/{end_id}" element={<Game />} />

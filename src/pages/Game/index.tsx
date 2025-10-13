@@ -50,7 +50,7 @@ const Game = () => {
     }
 
     return (
-        <div>
+        <div className="p-16">
             <GameSummary />
             <hr className="my-4" />
             <Path state={state} />
