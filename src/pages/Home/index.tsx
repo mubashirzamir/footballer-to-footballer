@@ -1,6 +1,6 @@
-import Direction from '@/components/Direction.tsx'
-import PrimaryPlayer from '@/components/PrimaryPlayer.tsx'
 import Start from '@/components/Start.tsx'
+import Direction from '@/components/Direction.tsx'
+import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
 
 const Home = () => {
     return (

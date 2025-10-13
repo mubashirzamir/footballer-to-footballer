@@ -2,7 +2,7 @@ import PlayerImage from '@/components/PlayerImage.tsx'
 
 const PrimaryPlayer = () => {
     return (
-        <div>
+        <div className="size-96">
             <PlayerImage />
         </div>
     )

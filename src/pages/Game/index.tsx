@@ -1,12 +1,12 @@
-import TeamSelection from '@/components/TeamSelection.tsx'
-import GameSummary from '@/components/GameSummary.tsx'
+import TeamSelection from './TeamSelection.tsx'
 import { useEffect, useState } from 'react'
-import Win from '@/components/Win.tsx'
-import PlayerSelection from '@/components/PlayerSelection.tsx'
+import Win from './Win.tsx'
+import PlayerSelection from './PlayerSelection.tsx'
 import Path from '@/pages/Game/Path.tsx'
+import GameSummary from '@/pages/Game/GameSummary.tsx'
 
 export type GameState = {
-    phase: string, // make this stricter
+    phase: string // make this stricter
 }
 
 const GamePhase = {
@@ -25,12 +25,12 @@ const Game = () => {
 
     const teamSetter = (teamId: string) => {
         setTeam(teamId)
-        setState(state => ({...state, phase: GamePhase.PlayerSelection}))
+        setState((state) => ({ ...state, phase: GamePhase.PlayerSelection }))
     }
 
     const playerSetter = (playerId: string) => {
         setPlayer(playerId)
-        setState(state => ({...state, phase: GamePhase.TeamSelection}))
+        setState((state) => ({ ...state, phase: GamePhase.TeamSelection }))
         validator(state)
     }
 
@@ -52,7 +52,9 @@ const Game = () => {
     return (
         <div>
             <GameSummary />
+            <hr className="my-4" />
             <Path state={state} />
+            <hr className="my-4" />
             {render()}
         </div>
     )

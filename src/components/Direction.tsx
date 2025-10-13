@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button } from '@/components/ui/button.tsx'
 
 interface DirectionProps {
     mutable?: boolean
@@ -20,9 +21,19 @@ const Direction = (props: DirectionProps) => {
         setDirection(direction === DIRECTION_LEFT ? DIRECTION_RIGHT : DIRECTION_LEFT)
     }
 
+    const arrow = () => {
+        return <span className="text-4xl">{direction === DIRECTION_LEFT ? '←' : '→'}</span>
+    }
+
     return (
         <div>
-            <button onClick={onClick}>{direction === DIRECTION_LEFT ? '←' : '→'}</button>
+            {mutable ? (
+                <Button variant="ghost" onClick={onClick}>
+                    {arrow()}
+                </Button>
+            ) : (
+                arrow()
+            )}
         </div>
     )
 }

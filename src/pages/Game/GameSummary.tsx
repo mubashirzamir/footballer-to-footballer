@@ -1,13 +1,13 @@
-import PrimaryPlayer from '@/components/PrimaryPlayer.tsx'
 import Direction from '@/components/Direction.tsx'
+import PlayerImage from '@/components/PlayerImage.tsx'
 
 const GameSummary = () => {
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-center space-x-8">
-                <PrimaryPlayer />
+                <div className="size-28"><PlayerImage /></div>
                 <Direction />
-                <PrimaryPlayer />
+                <div className="size-28"><PlayerImage /></div>
             </div>
         </div>
     )
