@@ -1,31 +1,46 @@
 import { Input } from '@/components/ui/input.tsx'
 import PlayerImage from '@/components/PlayerImage.tsx'
+import type { Team } from '@/pages/Game/index.tsx'
+import { type Player, playerList } from '@/hooks/useGameInfo.tsx'
+import { useEffect, useState } from 'react'
 
 interface PlayerSelectionProps {
-    team: string
-    setPlayer: (playerId: string) => void
+    team: Team
+    setPlayer: (player: Player) => void
 }
 
 const PlayerSelection = (props: PlayerSelectionProps) => {
     const { team, setPlayer } = props
+    const [players, setPlayers] = useState<Player[]>([])
 
-    console.log(team)
+    useEffect(() => {
+        setPlayers(playerList)
+    }, [team])
 
-    const onPlayerSelect = () => {
-        setPlayer('xyz')
+    const onPlayerSelect = (player: Player) => {
+        setPlayer(player)
     }
 
     return (
         <div>
-            <div className="mb-2 text-lg font-medium flex justify-center">22 September 2022 - 25 September 2025</div>
+            <div className="mb-2 text-lg font-medium flex justify-center">
+                {team.startDate} - {team.endDate}
+            </div>
             <Search />
             <hr />
-            <div className="flex flex-row items-center gap-12 mt-4 cursor-pointer" onClick={onPlayerSelect}>
-                <div className="size-36">
-                    <PlayerImage />
+
+            {players.map((player) => (
+                <div
+                    key={player.id}
+                    className="flex flex-row items-center gap-12 mt-4 cursor-pointer"
+                    onClick={() => onPlayerSelect(player)}
+                >
+                    <div className="size-36">
+                        <PlayerImage />
+                    </div>
+                    <span>{player.name}</span>
                 </div>
-                <span>Fernando Torres</span>
-            </div>
+            ))}
         </div>
     )
 }

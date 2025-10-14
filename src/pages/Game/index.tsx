@@ -2,47 +2,59 @@ import TeamSelection from './TeamSelection.tsx'
 import { useEffect, useState } from 'react'
 import Win from './Win.tsx'
 import PlayerSelection from './PlayerSelection.tsx'
-import Path from '@/pages/Game/Path.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
+import useGameInfo, { type Player } from '@/hooks/useGameInfo.tsx'
+import Path from '@/pages/Game/Path.tsx'
 
-export type GameState = {
-    phase: string // make this stricter
+export type Team = {
+    id: string
+    name: string
+    startDate: string
+    endDate: string
 }
+
+type Stackable = {
+    type: 'team' | 'player'
+} & (Team | Player)
+
+export type GameState = Stackable[]
 
 const GamePhase = {
     PlayerSelection: 'PLAYER_SELECTION',
     TeamSelection: 'TEAM_SELECTION',
-    Connected: 'CONNECTED',
+    Won: 'WON',
 }
 
 const Game = () => {
-    const [state, setState] = useState<GameState>({
-        phase: GamePhase.TeamSelection,
-    }) // track player and team selections with time period
+    const gameInfo = useGameInfo()
 
-    const [player, setPlayer] = useState<string>('Initial Player') // set initial and handle initial
-    const [team, setTeam] = useState<string>('Initial Team')
+    const [gameState, setGameState] = useState<GameState>([{ type: 'player', ...gameInfo.startPlayer }])
 
-    const teamSetter = (teamId: string) => {
-        setTeam(teamId)
-        setState((state) => ({ ...state, phase: GamePhase.PlayerSelection }))
+    const phase =
+        gameState[gameState.length - 1].type === 'player' ? GamePhase.TeamSelection : GamePhase.PlayerSelection
+
+    const teamSetter = (team: Team) => {
+        setGameState((state) => [...state, { type: 'team', ...team }])
     }
 
-    const playerSetter = (playerId: string) => {
-        setPlayer(playerId)
-        setState((state) => ({ ...state, phase: GamePhase.TeamSelection }))
-        validator(state)
+    const playerSetter = (player: Player) => {
+        setGameState((state) => [...state, { type: 'player', ...player }])
     }
 
-    useEffect(() => {}, [])
+    useEffect(() => {
+        validator(gameState)
+    }, [gameState])
 
     const render = () => {
-        switch (state.phase) {
+        switch (phase) {
             case GamePhase.TeamSelection:
-                return <TeamSelection player={player} setTeam={teamSetter} />
+                return <TeamSelection player={gameState[gameState.length - 1]} setTeam={teamSetter} />
             case GamePhase.PlayerSelection:
-                return <PlayerSelection team={team} setPlayer={playerSetter} />
-            case GamePhase.Connected:
+                // @TODO: Find a better way to handle this
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                return <PlayerSelection team={gameState[gameState.length - 1]} setPlayer={playerSetter} />
+            case GamePhase.Won:
                 return <Win />
             default:
                 return <div>Unknown game phase</div>
@@ -53,7 +65,7 @@ const Game = () => {
         <div className="p-16">
             <GameSummary />
             <hr className="my-4" />
-            <Path state={state} />
+            <Path gameState={gameState} />
             <hr className="my-4" />
             {render()}
         </div>

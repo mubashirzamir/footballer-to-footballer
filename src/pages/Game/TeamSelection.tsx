@@ -1,18 +1,24 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@/components/ui/table.tsx'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
+import type { Team } from '@/pages/Game/index.tsx'
+import { type Player, teamList } from '@/hooks/useGameInfo.tsx'
+import { useEffect, useState } from 'react'
 
 interface PlayerHistoryProps {
-    player: string
-    setTeam: (teamId: string) => void
+    player: Player
+    setTeam: (team: Team) => void
 }
 
 const TeamSelection = (props: PlayerHistoryProps) => {
+    const [teams, setTeams] = useState<Team[]>([])
     const { player, setTeam } = props
 
-    console.log(player)
+    useEffect(() => {
+        setTeams(teamList)
+    }, [player])
 
-    const onTeamSelect = () => {
-        setTeam('abc')
+    const onTeamSelect = (team: Team) => {
+        setTeam(team)
     }
 
     return (
@@ -33,21 +39,23 @@ const TeamSelection = (props: PlayerHistoryProps) => {
                     </TableRow>
                 </TableBody>
                 <TableBody>
-                    <TableRow className="cursor-pointer" onClick={onTeamSelect}>
-                        <TableCell>
-                            <div className="flex flex-col">
-                                <div className="flex flex-row items-center gap-2">
-                                    <Avatar className="size-12">
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>Crest</AvatarFallback>
-                                    </Avatar>
-                                    <span>Manchester United</span>
+                    {teams.map((team) => (
+                        <TableRow key={team.id} className="cursor-pointer" onClick={() => onTeamSelect(team)}>
+                            <TableCell>
+                                <div className="flex flex-col">
+                                    <div className="flex flex-row items-center gap-2">
+                                        <Avatar className="size-12">
+                                            <AvatarImage src="https://github.com/shadcn.png" />
+                                            <AvatarFallback>{team.name}</AvatarFallback>
+                                        </Avatar>
+                                        <span>{team.name}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </TableCell>
-                        <TableCell>22 September 2022</TableCell>
-                        <TableCell>25 September 2025</TableCell>
-                    </TableRow>
+                            </TableCell>
+                            <TableCell>{team.startDate}</TableCell>
+                            <TableCell>{team.endDate}</TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         </div>

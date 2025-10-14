@@ -3,24 +3,25 @@ import PlayerImage from '@/components/PlayerImage.tsx'
 import Direction from '@/components/Direction.tsx'
 
 interface PathProps {
-    state: GameState
+    gameState: GameState
 }
 
 const Path = (props: PathProps) => {
-    const { state } = props
+    const { gameState } = props
 
-    console.log(state)
+    console.log(gameState)
 
     return (
         <div className="flex flex-col">
             <div className="flex flex-row space-x-8">
-                <div className="size-16">
-                    <PlayerImage />
-                </div>
-                <Direction /> {/* TODO: Size too big, maybe configurable? */}
-                <div className="size-16">
-                    <PlayerImage />
-                </div>
+                {gameState.map((_, index) => (
+                    <div className="flex items-center space-x-4" key={index}>
+                        <div className="size-16">
+                            <PlayerImage />
+                        </div>
+                        <Direction />
+                    </div>
+                ))}
             </div>
         </div>
     )
