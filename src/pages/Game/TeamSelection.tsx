@@ -1,16 +1,17 @@
-import type { Team } from '@/pages/Game/index.tsx'
-import { type Player, teamList } from '@/hooks/useGameInfo.tsx'
+import { teamList } from '@/hooks/useGameInfo.tsx'
 import { useEffect, useState } from 'react'
 import PlayerImage from '@/components/PlayerImage.tsx'
 import { Search } from '@/pages/Game/PlayerSelection.tsx'
 import { DELAY } from '@/utils/constants.ts'
+import { Player } from '@/structures/Player.ts'
+import { Team } from '@/structures/Team.ts'
 
-interface PlayerHistoryProps {
+interface TeamSelectionProps {
     player: Player
     setTeam: (team: Team) => void
 }
 
-const TeamSelection = (props: PlayerHistoryProps) => {
+const TeamSelection = (props: TeamSelectionProps) => {
     const [teams, setTeams] = useState<Team[]>([])
     const { player, setTeam } = props
 

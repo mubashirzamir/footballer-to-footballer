@@ -12,9 +12,3 @@ export type GameDriver = {
     gameInfo: GameInfo
     loading: boolean
 }
-
-export const GamePhase = {
-    PlayerSelection: 'PLAYER_SELECTION',
-    TeamSelection: 'TEAM_SELECTION',
-    Won: 'WON',
-}

@@ -1,5 +1,5 @@
 import PlayerImage from '@/components/PlayerImage.tsx'
-import { type Player } from '@/hooks/useGameInfo.tsx'
+import { Player } from '@/structures/Player.ts'
 
 interface PrimaryPlayerProps {
     player: Player

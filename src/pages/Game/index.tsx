@@ -6,46 +6,42 @@ import GameSummary from '@/pages/Game/GameSummary.tsx'
 import Path from '@/pages/Game/Path.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
-import type { Team } from '@/structures/Team.ts'
-import { GamePhase, type GameState } from '@/structures'
-import type { Player } from '@/structures/Player.ts'
+import { Team } from '@/structures/Team.ts'
+import { type GameState } from '@/structures'
+import { Player } from '@/structures/Player.ts'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
-    const [gameState, setGameState] = useState<GameState>([{ type: 'player', ...gameInfo.startPlayer }])
+    const [gameState, setGameState] = useState<GameState>([gameInfo.startPlayer])
+
+    const tail = gameState[gameState.length - 1]
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     useEffect(() => {
         console.error('mushi Game', gameInfo)
-        setGameState([{ type: 'player', ...gameInfo.startPlayer }])
+        setGameState([gameInfo.startPlayer])
     }, [gameInfo])
-
-    const phase =
-        gameState[gameState.length - 1].type === 'player' ? GamePhase.TeamSelection : GamePhase.PlayerSelection
-
-    const teamSetter = (team: Team) => {
-        setGameState((state) => [...state, { type: 'team', ...team }])
-    }
-
-    const playerSetter = (player: Player) => {
-        setGameState((state) => [...state, { type: 'player', ...player }])
-    }
 
     useEffect(() => {
         validator(gameState)
     }, [gameState])
 
+    const teamSetter = (team: Team) => {
+        setGameState((state) => [...state, team])
+    }
+
+    const playerSetter = (player: Player) => {
+        setGameState((state) => [...state, player])
+    }
+
     const render = () => {
-        switch (phase) {
-            case GamePhase.TeamSelection:
-                return <TeamSelection player={gameState[gameState.length - 1]} setTeam={teamSetter} />
-            case GamePhase.PlayerSelection:
-                // @TODO: Find a better way to handle this
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                return <PlayerSelection team={gameState[gameState.length - 1]} setPlayer={playerSetter} />
-            case GamePhase.Won:
+        switch (true) {
+            case tail.id === gameInfo.endPlayer.id:
                 return <Win />
+            case tail instanceof Player:
+                return <TeamSelection player={tail} setTeam={teamSetter} />
+            case tail instanceof Team:
+                return <PlayerSelection team={tail} setPlayer={playerSetter} />
             default:
                 return <div>Unknown game phase</div>
         }
