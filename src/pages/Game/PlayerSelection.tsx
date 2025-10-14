@@ -1,67 +1,43 @@
-import { Input } from '@/components/ui/input.tsx'
-import PlayerImage from '@/components/PlayerImage.tsx'
-import { useEffect, useState } from 'react'
-import { DELAY } from '@/utils/constants.ts'
 import { Team } from '@/structures/Team.ts'
 import { Player } from '@/structures/Player.ts'
-import { playerList } from '@/utils/mock.ts'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
+import Search from '@/pages/Game/Search.tsx'
+import usePlayers from '@/hooks/usePlayers.tsx'
+import type { Playable } from '@/structures/Playable.ts'
+import PlayerCard from '@/components/ui/PlayerCard.tsx'
+import TurnInfo from '@/components/ui/TurnInfo.tsx'
 
 interface PlayerSelectionProps {
     team: Team
-    setPlayer: (player: Player) => void
+    updateGameState: (playable: Playable) => void
 }
 
 const PlayerSelection = (props: PlayerSelectionProps) => {
-    const { team, setPlayer } = props
+    const { team, updateGameState } = props
 
-    const [players, setPlayers] = useState<Player[]>([])
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setPlayers(playerList)
-            setLoading(false)
-        }, DELAY)
-    }, [team])
+    const { players, loading } = usePlayers(team)
 
     const onPlayerSelect = (player: Player) => {
-        setPlayer(player)
+        updateGameState(player)
     }
 
     if (loading) {
         return <BaseSpinner className="size-8" />
     }
 
-    // TODO: Why size difference between PlayerSelection and TeamSelection on mobile?
-    // TODO: Lots of overlap between PlayerSelection and TeamSelection. Refactor.
     return (
         <div>
-            <div className="text-xl font-medium flex justify-center">
+            <TurnInfo>
                 {team.startDate} - {team.endDate}
-            </div>
+            </TurnInfo>
             <div className="my-2">
                 <Search />
             </div>
             {players.map((player) => (
-                <div
-                    key={player.id}
-                    className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted p-2"
-                    onClick={() => onPlayerSelect(player)}
-                >
-                    <div className="size-32">
-                        <PlayerImage imageUrl={player.imageUrl} />
-                    </div>
-                    <span>{player.name}</span>
-                </div>
+                <PlayerCard player={player} onPlayerSelect={onPlayerSelect} />
             ))}
         </div>
     )
-}
-
-export const Search = () => {
-    return <Input name="search" placeholder="Filter:" />
 }
 
 export default PlayerSelection

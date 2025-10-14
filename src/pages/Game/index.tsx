@@ -9,6 +9,7 @@ import BaseSpinner from '@/components/BaseSpinner.tsx'
 import { Team } from '@/structures/Team.ts'
 import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
+import type { Playable } from '@/structures/Playable.ts'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
@@ -26,12 +27,8 @@ const Game = () => {
         validator(gameState)
     }, [gameState])
 
-    const teamSetter = (team: Team) => {
-        setGameState((state) => [...state, team])
-    }
-
-    const playerSetter = (player: Player) => {
-        setGameState((state) => [...state, player])
+    const updateGameState = (playable: Playable) => {
+        setGameState((state) => [...state, playable])
     }
 
     const render = () => {
@@ -39,15 +36,14 @@ const Game = () => {
             case tail.id === gameInfo.endPlayer.id:
                 return <Win />
             case tail instanceof Player:
-                return <TeamSelection player={tail} setTeam={teamSetter} />
+                return <TeamSelection player={tail} updateGameState={updateGameState} />
             case tail instanceof Team:
-                return <PlayerSelection team={tail} setPlayer={playerSetter} />
+                return <PlayerSelection team={tail} updateGameState={updateGameState} />
             default:
                 return <div>Unknown game phase</div>
         }
     }
 
-    // TODO: Maybe a better approach then a spinner?
     if (gameInfoLoading) {
         return <BaseSpinner className="size-12" />
     }
