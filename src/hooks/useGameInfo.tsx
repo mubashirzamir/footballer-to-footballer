@@ -1,4 +1,6 @@
 import { games } from '@/utils/db.tsx'
+import { useEffect, useState } from 'react'
+import { DELAY } from '@/utils/constants.ts'
 
 export type GameInfo = {
     startPlayer: Player
@@ -11,10 +13,15 @@ export type Player = {
     imageUrl: string
 }
 
-const useGameInfo = (): GameInfo => {
-    const date = new Date().toISOString().split('T')[0]
+type GameDriver = {
+    gameInfo: GameInfo
+    loading: boolean
+}
 
-    return {
+const useGameInfo = (): GameDriver => {
+    const date = new Date().toISOString().split('T')[0]
+    const [loading, setLoading] = useState(false)
+    const [info, setInfo] = useState<GameInfo>({
         startPlayer: {
             id: games[date].start_player_id,
             name: games[date].start_player_name,
@@ -25,7 +32,31 @@ const useGameInfo = (): GameInfo => {
             name: games[date].end_player_name,
             imageUrl: '/ball.svg',
         },
-    }
+    })
+
+    // TODO: Awfully similar to useGameInfoFromLocation, refactor to remove duplication
+    useEffect(() => {
+        // Placeholder for API call to fetch player info
+        setLoading(true)
+        setTimeout(() => {
+            setInfo((info) => ({
+                startPlayer: {
+                    id: info.startPlayer.id,
+                    name: playerList.find((p) => p.id === info.startPlayer.id)?.name ?? '',
+                    imageUrl: 'https://github.com/shadcn.png',
+                },
+                endPlayer: {
+                    id: info.endPlayer.id,
+                    name: playerList.find((p) => p.id === info.endPlayer.id)?.name ?? '',
+                    imageUrl: 'https://github.com/shadcn.png',
+                },
+            }))
+
+            setLoading(false)
+        }, DELAY)
+    }, [])
+
+    return { gameInfo: info, loading }
 }
 
 export default useGameInfo

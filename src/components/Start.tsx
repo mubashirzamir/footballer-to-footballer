@@ -1,9 +1,13 @@
 import { Link } from 'react-router'
 import { Button } from '@/components/ui/button.tsx'
-import useGameInfo from '@/hooks/useGameInfo.tsx'
+import { type GameInfo } from '@/hooks/useGameInfo.tsx'
 
-const Start = () => {
-    const {startPlayer, endPlayer} = useGameInfo()
+interface StartProps {
+    gameInfo: GameInfo
+}
+
+const Start = ({ gameInfo }: StartProps) => {
+    const { startPlayer, endPlayer } = gameInfo
 
     return (
         <Button className="cursor-pointer">

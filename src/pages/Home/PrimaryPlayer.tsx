@@ -1,35 +1,20 @@
 import PlayerImage from '@/components/PlayerImage.tsx'
-import { useEffect, useState } from 'react'
-import { type Player, playerList } from '@/hooks/useGameInfo.tsx'
-import { DELAY } from '@/utils/constants.ts'
+import { type Player } from '@/hooks/useGameInfo.tsx'
 
 interface PrimaryPlayerProps {
     player: Player
 }
 
 const PrimaryPlayer = (props: PrimaryPlayerProps) => {
-    const { player: initialPlayer } = props
-
-    const [player, setPlayer] = useState<Player>()
-
-    useEffect(() => {
-        /**
-         * TODO:
-         * Placeholder for fetching player data from an API
-         * Abort if user starts game before fetch completes
-         */
-        setTimeout(() => {
-            setPlayer(playerList.find((p) => p.id === initialPlayer.id) ?? playerList[0])
-        }, DELAY)
-    }, [initialPlayer])
+    const { player } = props
 
     return (
         <div>
             <div className="md:size-80 sm:size-64 size-24">
-                <PlayerImage imageUrl={player?.imageUrl} />
+                <PlayerImage imageUrl={player.imageUrl} />
             </div>
             <div className="flex flex-col items-center">
-                <span className="text-xl font-bold mt-4">{player?.name || initialPlayer.name}</span>
+                <span className="text-xl font-bold mt-4">{player.name}</span>
             </div>
         </div>
     )
