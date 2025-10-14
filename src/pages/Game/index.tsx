@@ -10,12 +10,15 @@ import { Team } from '@/structures/Team.ts'
 import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import type { Playable } from '@/structures/Playable.ts'
+import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
     const [gameState, setGameState] = useState<GameState>([gameInfo.startPlayer])
+    useGameNavigation(gameState, setGameState)
 
     const tail = gameState[gameState.length - 1]
+    const gameIsOver = tail.id === gameInfo.endPlayer.id
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     useEffect(() => {
@@ -36,7 +39,7 @@ const Game = () => {
 
     const render = () => {
         switch (true) {
-            case tail.id === gameInfo.endPlayer.id:
+            case gameIsOver:
                 return <Win />
             case tail instanceof Player:
                 return <TeamSelection player={tail} updateGameState={updateGameState} />
