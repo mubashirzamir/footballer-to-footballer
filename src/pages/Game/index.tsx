@@ -10,7 +10,7 @@ import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import useGameState from '@/hooks/useGameState.tsx'
-import Win from '@/pages/Game/Win.tsx'
+import Win from '@/pages/Game/Win/index.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
