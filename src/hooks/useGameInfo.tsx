@@ -1,22 +1,7 @@
 import { games } from '@/utils/db.tsx'
 import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
-
-export type GameInfo = {
-    startPlayer: Player
-    endPlayer: Player
-}
-
-export type Player = {
-    id: string
-    name: string
-    imageUrl: string
-}
-
-type GameDriver = {
-    gameInfo: GameInfo
-    loading: boolean
-}
+import type { GameDriver, GameInfo, Player } from '@/structures'
 
 const useGameInfo = (): GameDriver => {
     const date = new Date().toISOString().split('T')[0]

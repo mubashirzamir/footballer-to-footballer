@@ -3,30 +3,12 @@ import { useEffect, useState } from 'react'
 import Win from './Win.tsx'
 import PlayerSelection from './PlayerSelection.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
-import { type Player } from '@/hooks/useGameInfo.tsx'
 import Path from '@/pages/Game/Path.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
-
-export type Team = {
-    id: string
-    name: string
-    startDate: string
-    endDate: string
-    imageUrl: string
-}
-
-type Stackable = {
-    type: 'team' | 'player'
-} & (Team | Player)
-
-export type GameState = Stackable[]
-
-const GamePhase = {
-    PlayerSelection: 'PLAYER_SELECTION',
-    TeamSelection: 'TEAM_SELECTION',
-    Won: 'WON',
-}
+import type { Team } from '@/structures/Team.ts'
+import { GamePhase, type GameState } from '@/structures'
+import type { Player } from '@/structures/Player.ts'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
@@ -60,7 +42,7 @@ const Game = () => {
             case GamePhase.PlayerSelection:
                 // @TODO: Find a better way to handle this
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
+                // @ts-ignore
                 return <PlayerSelection team={gameState[gameState.length - 1]} setPlayer={playerSetter} />
             case GamePhase.Won:
                 return <Win />
@@ -68,7 +50,6 @@ const Game = () => {
                 return <div>Unknown game phase</div>
         }
     }
-
 
     // TODO: Maybe a better approach then a spinner?
     if (gameInfoLoading) {
@@ -92,7 +73,7 @@ const Game = () => {
 // Set limits
 // Check win condition
 const validator = (state: GameState) => {
-    // console.log(state)
+    console.log('validator', state)
 }
 
 export default Game
