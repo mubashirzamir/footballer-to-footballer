@@ -1,5 +1,5 @@
 import TeamSelection from './TeamSelection.tsx'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Win from './Win.tsx'
 import PlayerSelection from './PlayerSelection.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
@@ -9,42 +9,35 @@ import BaseSpinner from '@/components/BaseSpinner.tsx'
 import { Team } from '@/structures/Team.ts'
 import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
-import type { Playable } from '@/structures/Playable.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
+import useGameState from '@/hooks/useGameState.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
-    const [gameState, setGameState] = useState<GameState>([gameInfo.startPlayer])
+    const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
     useGameNavigation(gameState, setGameState)
 
     const tail = gameState[gameState.length - 1]
-    const gameIsOver = tail.id === gameInfo.endPlayer.id
+    const gameOver = tail.id === gameInfo.endPlayer.id
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
+    // If gameInfo changes (e.g. changing the direction), reset the game state.
     useEffect(() => {
         setGameState([gameInfo.startPlayer])
-    }, [gameInfo])
+    }, [gameInfo, setGameState])
 
     useEffect(() => {
         validator(gameState)
     }, [gameState])
 
-    const updateGameState = (playable: Playable) => {
-        setGameState((state) => [...state, playable])
-    }
-
-    const chopGameState = (index: number) => {
-        setGameState((state) => state.slice(0, index + 1))
-    }
-
     const render = () => {
         switch (true) {
-            case gameIsOver:
+            case gameOver:
                 return <Win />
             case tail instanceof Player:
-                return <TeamSelection player={tail} updateGameState={updateGameState} />
+                return <TeamSelection player={tail} updateGameState={append} />
             case tail instanceof Team:
-                return <PlayerSelection team={tail} updateGameState={updateGameState} />
+                return <PlayerSelection team={tail} updateGameState={append} />
             default:
                 return <div>Unknown game phase</div>
         }
@@ -60,16 +53,14 @@ const Game = () => {
                 <GameSummary gameInfo={gameInfo} />
             </div>
             <div className="my-4">
-                <Path chopGameState={chopGameState} gameState={gameState} />
+                <Path chopGameState={chop} gameState={gameState} />
             </div>
             <div>{render()}</div>
         </div>
     )
 }
 
-// Avoid circles
-// Set limits
-// Check win condition
+// TODO: Avoid circles, set limits, check win condition
 const validator = (state: GameState) => {
     console.log('validator', state)
 }
