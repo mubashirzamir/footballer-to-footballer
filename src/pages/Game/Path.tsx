@@ -13,12 +13,13 @@ const Path = (props: PathProps) => {
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row space-x-8">
+            <div className="flex flex-row flex-wrap space-x-4">
                 {gameState.map((_, index) => (
                     <div className="flex items-center space-x-4" key={index}>
-                        <div className="size-16">
+                        <div className="size-8">
                             <PlayerImage />
                         </div>
+                        {gameState.length - 1 === index && <span>{gameState[index].name}</span>}
                         <Direction />
                     </div>
                 ))}

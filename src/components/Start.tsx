@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button.tsx'
 
 const Start = () => {
     return (
-        <Button>
+        <Button className="cursor-pointer">
             <Link to="play/{start_id}/{end_id}">Start</Link>
         </Button>
     )

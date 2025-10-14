@@ -14,11 +14,11 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
     }, [player])
 
     return (
-        <div>
-            <div className="size-96">
+        <div className="flex flex-col items-center">
+            <div className="md:size-80 sm:size-64 size-24">
                 <PlayerImage />
             </div>
-            <span className="text-xl font-bold mt-4 block text-center">{player.name}</span>
+            <span className="text-xl size-24 font-bold mt-4">{player.name}</span>
         </div>
     )
 }

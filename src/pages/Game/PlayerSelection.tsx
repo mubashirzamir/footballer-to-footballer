@@ -21,21 +21,23 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
         setPlayer(player)
     }
 
+    // TODO: Why size difference between PlayerSelection and TeamSelection on mobile?
+    // TODO: Lots of overlap between PlayerSelection and TeamSelection. Refactor.
     return (
         <div>
-            <div className="mb-2 text-lg font-medium flex justify-center">
+            <div className="text-xl font-medium flex justify-center">
                 {team.startDate} - {team.endDate}
             </div>
-            <Search />
-            <hr />
-
+            <div className="my-2">
+                <Search />
+            </div>
             {players.map((player) => (
                 <div
                     key={player.id}
-                    className="flex flex-row items-center gap-12 mt-4 cursor-pointer"
+                    className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted p-2"
                     onClick={() => onPlayerSelect(player)}
                 >
-                    <div className="size-36">
+                    <div className="size-32">
                         <PlayerImage />
                     </div>
                     <span>{player.name}</span>
@@ -45,8 +47,8 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     )
 }
 
-const Search = () => {
-    return <Input name="search" placeholder="Search player..." />
+export const Search = () => {
+    return <Input name="search" placeholder="Filter:" />
 }
 
 export default PlayerSelection

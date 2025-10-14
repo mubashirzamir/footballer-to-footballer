@@ -62,12 +62,16 @@ const Game = () => {
     }
 
     return (
-        <div className="p-16">
-            <GameSummary />
-            <hr className="my-4" />
-            <Path gameState={gameState} />
-            <hr className="my-4" />
-            {render()}
+        <div className="p-8">
+            <div>
+                <GameSummary />
+            </div>
+            <div className="my-4">
+                <Path gameState={gameState} />
+            </div>
+            <div>
+                {render()}
+            </div>
         </div>
     )
 }

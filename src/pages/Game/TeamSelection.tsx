@@ -1,8 +1,8 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@/components/ui/table.tsx'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import type { Team } from '@/pages/Game/index.tsx'
 import { type Player, teamList } from '@/hooks/useGameInfo.tsx'
 import { useEffect, useState } from 'react'
+import PlayerImage from '@/components/PlayerImage.tsx'
+import { Search } from '@/pages/Game/PlayerSelection.tsx'
 
 interface PlayerHistoryProps {
     player: Player
@@ -21,43 +21,30 @@ const TeamSelection = (props: PlayerHistoryProps) => {
         setTeam(team)
     }
 
+    // TODO: Dates do not look good.
     return (
-        <div className="border">
-            {/* TODO: Convert Table to Cards for better mobile support */}
-            <Table>
-                <TableBody>
-                    <TableRow>
-                        <TableHead>
-                            <strong>Club</strong>
-                        </TableHead>
-                        <TableHead>
-                            <strong>Start Date</strong>
-                        </TableHead>
-                        <TableHead>
-                            <strong>End Date</strong>
-                        </TableHead>
-                    </TableRow>
-                </TableBody>
-                <TableBody>
-                    {teams.map((team) => (
-                        <TableRow key={team.id} className="cursor-pointer" onClick={() => onTeamSelect(team)}>
-                            <TableCell>
-                                <div className="flex flex-col">
-                                    <div className="flex flex-row items-center gap-2">
-                                        <Avatar className="size-12">
-                                            <AvatarImage src="https://github.com/shadcn.png" />
-                                            <AvatarFallback>{team.name}</AvatarFallback>
-                                        </Avatar>
-                                        <span>{team.name}</span>
-                                    </div>
-                                </div>
-                            </TableCell>
-                            <TableCell>{team.startDate}</TableCell>
-                            <TableCell>{team.endDate}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+        <div>
+            <div className="text-xl font-medium flex justify-center">
+                History of {player.name}
+            </div>
+            <div className="my-2">
+                <Search />
+            </div>
+            {teams.map((team) => (
+                <div
+                    key={team.id}
+                    className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted p-2"
+                    onClick={() => onTeamSelect(team)}
+                >
+                    <div className="size-32">
+                        <PlayerImage />
+                    </div>
+                    <div>
+                        <div>{team.name}</div>
+                        <div><em>{team.startDate} - {team.endDate}</em></div>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }
