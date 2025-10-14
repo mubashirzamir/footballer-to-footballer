@@ -16,7 +16,7 @@ const JourneyItem = (props: JourneyItemProps) => {
     return (
         <div className="flex flex-col items-start space-x-4" key={playable.id}>
             <div className="flex flex-row items-center space-x-4">
-                {isTeam && <div className="text-bold">{(index + 1) / 2}</div>}
+                {isTeam && <div className="text-lg">{(index + 1) / 2}</div>}
                 <div className={`size-16`}>
                     <PlayerImage imageUrl={playable.imageUrl} />
                 </div>

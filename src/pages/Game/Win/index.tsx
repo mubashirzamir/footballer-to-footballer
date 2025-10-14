@@ -16,7 +16,7 @@ const Win = (props: WinProps) => {
             <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                     <TimeCard />
-                    <DistanceCard />
+                    <DistanceCard distance={(gameState.length - 1) / 2} />
                 </div>
                 <ShortestPossible />
                 <Journey gameState={gameState} />
