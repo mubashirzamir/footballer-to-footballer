@@ -6,6 +6,7 @@ import GameSummary from '@/pages/Game/GameSummary.tsx'
 import { type Player } from '@/hooks/useGameInfo.tsx'
 import Path from '@/pages/Game/Path.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
+import BaseSpinner from '@/components/BaseSpinner.tsx'
 
 export type Team = {
     id: string
@@ -28,7 +29,7 @@ const GamePhase = {
 }
 
 const Game = () => {
-    const gameInfo = useGameInfoFromLocation()
+    const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
     const [gameState, setGameState] = useState<GameState>([{ type: 'player', ...gameInfo.startPlayer }])
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
@@ -66,6 +67,12 @@ const Game = () => {
             default:
                 return <div>Unknown game phase</div>
         }
+    }
+
+
+    // TODO: Maybe a better approach then a spinner?
+    if (gameInfoLoading) {
+        return <BaseSpinner className="size-12" />
     }
 
     return (

@@ -14,7 +14,7 @@ const GameSummary = ({ gameInfo }: GameSummaryProps) => {
                 <div className="size-24">
                     <PlayerImage imageUrl={gameInfo.startPlayer.imageUrl} />
                 </div>
-                <Direction className="text-2xl" />
+                <Direction mutable={true} className="text-2xl" />
                 <div className="size-24">
                     <PlayerImage imageUrl={gameInfo.endPlayer.imageUrl} />
                 </div>

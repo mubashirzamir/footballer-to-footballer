@@ -1,9 +1,14 @@
-import type { GameInfo } from '@/hooks/useGameInfo.tsx'
+import { type GameInfo, playerList } from '@/hooks/useGameInfo.tsx'
 import { useLocation, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
 
-const useGameInfoFromLocation = (): GameInfo => {
+type GameDriver = {
+    gameInfo: GameInfo
+    loading: boolean
+}
+
+const useGameInfoFromLocation = (): GameDriver => {
     const { start_player_id: startPlayerId, end_player_id: endPlayerId } = useParams()
     const location = useLocation()
 
@@ -17,7 +22,8 @@ const useGameInfoFromLocation = (): GameInfo => {
         throw new Error('Missing player IDs in URL parameters')
     }
 
-    const [info, setInfo] = useState({
+    const [loading, setLoading] = useState(false)
+    const [info, setInfo] = useState<GameInfo>({
         startPlayer: {
             id: startPlayerId,
             name: '',
@@ -31,23 +37,27 @@ const useGameInfoFromLocation = (): GameInfo => {
     })
 
     useEffect(() => {
+        // Placeholder for API call to fetch player info
+        setLoading(true)
         setTimeout(() => {
-            setInfo((info) => ({
+            setInfo(() => ({
                 startPlayer: {
-                    id: info.startPlayer.id,
-                    name: 'Fernando Torres',
+                    id: startPlayerId,
+                    name: playerList.find((p) => p.id === startPlayerId)?.name ?? '',
                     imageUrl: 'https://github.com/shadcn.png',
                 },
                 endPlayer: {
-                    id: info.endPlayer.id,
-                    name: 'Wayne Rooney',
+                    id: endPlayerId,
+                    name: playerList.find((p) => p.id === endPlayerId)?.name ?? '',
                     imageUrl: 'https://github.com/shadcn.png',
                 },
             }))
-        }, DELAY)
-    }, [])
 
-    return info
+            setLoading(false)
+        }, DELAY)
+    }, [startPlayerId, endPlayerId])
+
+    return { gameInfo: info, loading }
 }
 
 export default useGameInfoFromLocation
