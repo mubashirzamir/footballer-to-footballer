@@ -14,8 +14,8 @@ import useGameState from '@/hooks/useGameState.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
-    const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
-    useGameNavigation(gameState, setGameState)
+    const { gameState, setGameState, pop, append, chop } = useGameState([gameInfo.startPlayer])
+    useGameNavigation(gameState, pop)
 
     const tail = gameState[gameState.length - 1]
     const gameOver = tail.id === gameInfo.endPlayer.id

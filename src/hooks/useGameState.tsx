@@ -13,7 +13,17 @@ const useGameState = (state: Playable[]) => {
         setGameState((state) => state.slice(0, index + 1))
     }
 
-    return { gameState, setGameState, append, chop }
+    const pop = () => {
+        setGameState((state) => {
+            if (state.length > 1) {
+                return state.slice(0, -1)
+            }
+
+            return state
+        })
+    }
+
+    return { gameState, setGameState, append, pop, chop }
 }
 
 export default useGameState

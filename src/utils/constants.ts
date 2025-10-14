@@ -1,1 +1,1 @@
-export const DELAY = 3000 // 3 seconds
+export const DELAY = 0 // 3 seconds
