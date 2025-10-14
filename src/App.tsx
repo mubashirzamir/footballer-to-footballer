@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider.tsx'
 import NavBar from '@/components/NavBar.tsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import Fallback from '@/components/Fallback.tsx'
+import NotFound from '@/pages/NotFound'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/play/{start_id}/{end_id}" element={<Game />} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
                 </ThemeProvider>
