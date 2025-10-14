@@ -2,23 +2,17 @@ import Start from '@/components/Start.tsx'
 import Direction from '@/components/Direction.tsx'
 import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
 import useGameInfo from '@/hooks/useGameInfo.tsx'
-import { useEffect } from 'react'
-
 
 const Home = () => {
-    const { startPlayer, endPlayer } = useGameInfo() // TODO: Optimize
-
-    useEffect(() => {
-        // API call to fetch player data
-    }, [startPlayer, endPlayer])
+    const { startPlayer, endPlayer } = useGameInfo() // TODO: Optimize with context
 
     // TODO: Optimize tailwind
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-8">
             <div className="flex flex-row items-center justify-center space-x-4 md:space-x-8 w-full max-w-md">
-                <PrimaryPlayer player={startPlayer} />
+                <PrimaryPlayer initialPlayer={startPlayer} />
                 <Direction />
-                <PrimaryPlayer player={endPlayer} />
+                <PrimaryPlayer initialPlayer={endPlayer} />
             </div>
             <div className="mt-4">
                 <Start />

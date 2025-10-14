@@ -1,14 +1,18 @@
 import { games } from '@/utils/db.tsx'
 
 export type GameInfo = {
-    startPlayer: Player
-    endPlayer: Player
+    startPlayer: InitialPlayer
+    endPlayer: InitialPlayer
 }
 
-export type Player = {
+export type InitialPlayer = {
     id: string
     name: string
 }
+
+export type Player = {
+    imageUrl: string
+} & InitialPlayer
 
 const useGameInfo = (): GameInfo => {
     const date = new Date().toISOString().split('T')[0]
@@ -28,12 +32,12 @@ const useGameInfo = (): GameInfo => {
 export default useGameInfo
 
 export const playerList: Player[] = [
-    { id: 'abc', name: 'Fernando Torres' },
-    { id: 'def', name: 'Cristiano Ronaldo' },
-    { id: 'ghi', name: 'Lionel Messi' },
-    { id: 'jkl', name: 'Neymar Jr.' },
-    { id: 'mno', name: 'Kylian Mbappé' },
-    { id: 'pqr', name: 'Zlatan Ibrahimović' },
+    { id: 'abc', name: 'Fernando Torres', imageUrl: 'https://github.com/shadcn.png' },
+    { id: 'xyz', name: 'Wayne Rooney', imageUrl: 'https://github.com/shadcn.png' },
+    { id: 'ghi', name: 'Lionel Messi', imageUrl: 'https://github.com/shadcn.png' },
+    { id: 'jkl', name: 'Neymar Jr.', imageUrl: 'https://github.com/shadcn.png' },
+    { id: 'mno', name: 'Kylian Mbappé', imageUrl: 'https://github.com/shadcn.png' },
+    { id: 'pqr', name: 'Zlatan Ibrahimović', imageUrl: 'https://github.com/shadcn.png' },
 ]
 
 export const teamList = [

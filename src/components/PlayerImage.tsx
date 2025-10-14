@@ -1,10 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
+import ball from '@/assets/ball.svg'
 
-const PlayerImage = () => {
+interface PlayerImageProps {
+    imageUrl?: string
+}
+
+const PlayerImage = ({ imageUrl }: PlayerImageProps) => {
+    // TODO: Sensible fallback image in assets
     return (
         <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>Player Image</AvatarFallback>
+            <AvatarImage src={imageUrl} />
+            <AvatarFallback>
+                <img src={ball} alt="Fallback" />
+            </AvatarFallback>
         </Avatar>
     )
 }

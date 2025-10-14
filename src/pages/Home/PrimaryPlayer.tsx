@@ -1,25 +1,29 @@
 import PlayerImage from '@/components/PlayerImage.tsx'
-import { useEffect } from 'react'
-import type { Player } from '@/hooks/useGameInfo.tsx'
+import { useEffect, useState } from 'react'
+import { type InitialPlayer, type Player, playerList } from '@/hooks/useGameInfo.tsx'
 
 interface PrimaryPlayerProps {
-    player: Player
+    initialPlayer: InitialPlayer
 }
 
 const PrimaryPlayer = (props: PrimaryPlayerProps) => {
-    const { player } = props
+    const { initialPlayer } = props
+
+    const [player, setPlayer] = useState<Player>()
 
     useEffect(() => {
-        // API call to fetch player image or data if needed
-    }, [player])
+        setTimeout(() => {
+            setPlayer(playerList.find((p) => p.id === initialPlayer.id) ?? playerList[0])
+        }, 3000)
+    }, [initialPlayer])
 
     return (
         <div>
             <div className="md:size-80 sm:size-64 size-24">
-                <PlayerImage />
+                <PlayerImage imageUrl={player?.imageUrl} />
             </div>
             <div className="flex flex-col items-center">
-                <span className="text-xl font-bold mt-4">{player.name}</span>
+                <span className="text-xl font-bold mt-4">{player?.name || initialPlayer.name}</span>
             </div>
         </div>
     )
