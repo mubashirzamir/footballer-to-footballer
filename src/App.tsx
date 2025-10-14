@@ -11,13 +11,13 @@ import NotFound from '@/pages/NotFound'
 function App() {
     return (
         <BrowserRouter>
-            <ErrorBoundary fallback={<Fallback />}>
+            <ErrorBoundary FallbackComponent={Fallback}>
                 <ThemeProvider>
                     <NavBar />
                     <div>
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/play/:start_id/:end_id" element={<Game />} />
+                            <Route path="/play/:start_player_id/:end_player_id" element={<Game />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>

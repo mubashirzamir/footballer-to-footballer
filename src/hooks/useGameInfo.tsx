@@ -1,18 +1,15 @@
 import { games } from '@/utils/db.tsx'
 
 export type GameInfo = {
-    startPlayer: InitialPlayer
-    endPlayer: InitialPlayer
-}
-
-export type InitialPlayer = {
-    id: string
-    name: string
+    startPlayer: Player
+    endPlayer: Player
 }
 
 export type Player = {
+    id: string
+    name: string
     imageUrl: string
-} & InitialPlayer
+}
 
 const useGameInfo = (): GameInfo => {
     const date = new Date().toISOString().split('T')[0]
@@ -21,10 +18,12 @@ const useGameInfo = (): GameInfo => {
         startPlayer: {
             id: games[date].start_player_id,
             name: games[date].start_player_name,
+            imageUrl: "/ball.svg",
         },
         endPlayer: {
             id: games[date].end_player_id,
             name: games[date].end_player_name,
+            imageUrl: "/ball.svg",
         },
     }
 }

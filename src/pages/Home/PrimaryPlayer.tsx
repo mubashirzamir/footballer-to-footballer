@@ -1,17 +1,22 @@
 import PlayerImage from '@/components/PlayerImage.tsx'
 import { useEffect, useState } from 'react'
-import { type InitialPlayer, type Player, playerList } from '@/hooks/useGameInfo.tsx'
+import { type Player, playerList } from '@/hooks/useGameInfo.tsx'
 
 interface PrimaryPlayerProps {
-    initialPlayer: InitialPlayer
+    player: Player
 }
 
 const PrimaryPlayer = (props: PrimaryPlayerProps) => {
-    const { initialPlayer } = props
+    const { player: initialPlayer } = props
 
     const [player, setPlayer] = useState<Player>()
 
     useEffect(() => {
+        /**
+         * TODO:
+         * Placeholder for fetching player data from an API
+         * Abort if user starts game before fetch completes
+         */
         setTimeout(() => {
             setPlayer(playerList.find((p) => p.id === initialPlayer.id) ?? playerList[0])
         }, 3000)

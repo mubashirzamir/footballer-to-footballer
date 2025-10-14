@@ -10,9 +10,9 @@ const Home = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-8">
             <div className="flex flex-row items-center justify-center space-x-4 md:space-x-8 w-full max-w-md">
-                <PrimaryPlayer initialPlayer={startPlayer} />
+                <PrimaryPlayer player={startPlayer} />
                 <Direction />
-                <PrimaryPlayer initialPlayer={endPlayer} />
+                <PrimaryPlayer player={endPlayer} />
             </div>
             <div className="mt-4">
                 <Start />

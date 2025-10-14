@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 import Win from './Win.tsx'
 import PlayerSelection from './PlayerSelection.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
-import useGameInfo, { type Player } from '@/hooks/useGameInfo.tsx'
+import { type Player } from '@/hooks/useGameInfo.tsx'
 import Path from '@/pages/Game/Path.tsx'
+import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 
 export type Team = {
     id: string
@@ -26,7 +27,7 @@ const GamePhase = {
 }
 
 const Game = () => {
-    const gameInfo = useGameInfo()
+    const gameInfo = useGameInfoFromLocation()
 
     const [gameState, setGameState] = useState<GameState>([{ type: 'player', ...gameInfo.startPlayer }])
 
@@ -69,9 +70,7 @@ const Game = () => {
             <div className="my-4">
                 <Path gameState={gameState} />
             </div>
-            <div>
-                {render()}
-            </div>
+            <div>{render()}</div>
         </div>
     )
 }
