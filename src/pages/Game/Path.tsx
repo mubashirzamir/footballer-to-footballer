@@ -20,7 +20,7 @@ const Path = (props: PathProps) => {
                             <PlayerImage />
                         </div>
                         {gameState.length - 1 === index && <span>{gameState[index].name}</span>}
-                        <Direction />
+                        <Direction className="text-xl" />
                     </div>
                 ))}
             </div>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button.tsx'
 
 interface DirectionProps {
+    className?: string
     mutable?: boolean
 }
 
@@ -11,7 +12,7 @@ const DIRECTION_RIGHT = 'right'
 type DirectionType = typeof DIRECTION_LEFT | typeof DIRECTION_RIGHT
 
 const Direction = (props: DirectionProps) => {
-    const { mutable = false } = props
+    const { className = 'text-6xl', mutable = false } = props
 
     const [direction, setDirection] = useState<DirectionType>(DIRECTION_RIGHT)
 
@@ -22,7 +23,7 @@ const Direction = (props: DirectionProps) => {
     }
 
     const arrow = () => {
-        return <span className="text-4xl">{direction === DIRECTION_LEFT ? '←' : '→'}</span>
+        return <span className={className}>{direction === DIRECTION_LEFT ? '←' : '→'}</span>
     }
 
     return (
