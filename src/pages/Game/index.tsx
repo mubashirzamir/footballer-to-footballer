@@ -1,6 +1,5 @@
 import TeamSelection from './TeamSelection.tsx'
 import { useEffect } from 'react'
-import Win from './Win.tsx'
 import PlayerSelection from './PlayerSelection.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
 import Path from '@/pages/Game/Path.tsx'
@@ -11,6 +10,7 @@ import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import useGameState from '@/hooks/useGameState.tsx'
+import Win from '@/pages/Game/Win.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
@@ -32,8 +32,6 @@ const Game = () => {
 
     const render = () => {
         switch (true) {
-            case gameOver:
-                return <Win />
             case tail instanceof Player:
                 return <TeamSelection player={tail} updateGameState={append} />
             case tail instanceof Team:
@@ -52,10 +50,18 @@ const Game = () => {
             <div>
                 <GameSummary gameInfo={gameInfo} />
             </div>
-            <div className="my-4">
-                <Path chopGameState={chop} gameState={gameState} />
-            </div>
-            <div>{render()}</div>
+            {gameOver ? (
+                <div className="my-4">
+                    <Win gameState={gameState} />
+                </div>
+            ) : (
+                <>
+                    <div className="my-4">
+                        <Path chopGameState={chop} gameState={gameState} />
+                    </div>
+                    {render()}
+                </>
+            )}
         </div>
     )
 }
