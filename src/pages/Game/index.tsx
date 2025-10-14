@@ -19,7 +19,6 @@ const Game = () => {
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     useEffect(() => {
-        console.error('mushi Game', gameInfo)
         setGameState([gameInfo.startPlayer])
     }, [gameInfo])
 
@@ -29,6 +28,10 @@ const Game = () => {
 
     const updateGameState = (playable: Playable) => {
         setGameState((state) => [...state, playable])
+    }
+
+    const chopGameState = (index: number) => {
+        setGameState((state) => state.slice(0, index + 1))
     }
 
     const render = () => {
@@ -54,7 +57,7 @@ const Game = () => {
                 <GameSummary gameInfo={gameInfo} />
             </div>
             <div className="my-4">
-                <Path gameState={gameState} />
+                <Path chopGameState={chopGameState} gameState={gameState} />
             </div>
             <div>{render()}</div>
         </div>
