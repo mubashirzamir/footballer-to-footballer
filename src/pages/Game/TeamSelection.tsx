@@ -5,6 +5,7 @@ import { DELAY } from '@/utils/constants.ts'
 import { Player } from '@/structures/Player.ts'
 import { Team } from '@/structures/Team.ts'
 import { teamList } from '@/utils/mock.ts'
+import BaseSpinner from '@/components/BaseSpinner.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -12,17 +13,25 @@ interface TeamSelectionProps {
 }
 
 const TeamSelection = (props: TeamSelectionProps) => {
-    const [teams, setTeams] = useState<Team[]>([])
     const { player, setTeam } = props
 
+    const [teams, setTeams] = useState<Team[]>([])
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
+        setLoading(true)
         setTimeout(() => {
             setTeams(teamList)
+            setLoading(false)
         }, DELAY)
     }, [player])
 
     const onTeamSelect = (team: Team) => {
         setTeam(team)
+    }
+
+    if (loading) {
+        return <BaseSpinner className="size-8" />
     }
 
     // TODO: Dates do not look good.

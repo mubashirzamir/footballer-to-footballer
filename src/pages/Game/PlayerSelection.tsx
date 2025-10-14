@@ -5,6 +5,7 @@ import { DELAY } from '@/utils/constants.ts'
 import { Team } from '@/structures/Team.ts'
 import { Player } from '@/structures/Player.ts'
 import { playerList } from '@/utils/mock.ts'
+import BaseSpinner from '@/components/BaseSpinner.tsx'
 
 interface PlayerSelectionProps {
     team: Team
@@ -13,16 +14,24 @@ interface PlayerSelectionProps {
 
 const PlayerSelection = (props: PlayerSelectionProps) => {
     const { team, setPlayer } = props
+
     const [players, setPlayers] = useState<Player[]>([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         setTimeout(() => {
             setPlayers(playerList)
+            setLoading(false)
         }, DELAY)
     }, [team])
 
     const onPlayerSelect = (player: Player) => {
         setPlayer(player)
+    }
+
+    if (loading) {
+        return <BaseSpinner className="size-8" />
     }
 
     // TODO: Why size difference between PlayerSelection and TeamSelection on mobile?
