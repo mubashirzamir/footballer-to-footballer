@@ -1,9 +1,9 @@
-import { playerList } from '@/hooks/useGameInfo.tsx'
 import { useLocation, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
 import { Player } from '@/structures/Player.ts'
 import type { GameInfo } from '@/structures'
+import { playerList } from '@/utils/mock.ts'
 
 type GameDriver = {
     gameInfo: GameInfo

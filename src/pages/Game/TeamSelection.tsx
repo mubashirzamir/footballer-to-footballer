@@ -1,10 +1,10 @@
-import { teamList } from '@/hooks/useGameInfo.tsx'
 import { useEffect, useState } from 'react'
 import PlayerImage from '@/components/PlayerImage.tsx'
 import { Search } from '@/pages/Game/PlayerSelection.tsx'
 import { DELAY } from '@/utils/constants.ts'
 import { Player } from '@/structures/Player.ts'
 import { Team } from '@/structures/Team.ts'
+import { teamList } from '@/utils/mock.ts'
 
 interface TeamSelectionProps {
     player: Player

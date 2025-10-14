@@ -1,10 +1,10 @@
 import Start from '@/components/Start.tsx'
 import Direction from '@/components/Direction.tsx'
 import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
-import useGameInfo from '@/hooks/useGameInfo.tsx'
+import useGameInfoFromDb from '@/hooks/useGameInfoFromDb.tsx'
 
 const Home = () => {
-    const { gameInfo } = useGameInfo() // TODO: Optimize with context
+    const { gameInfo } = useGameInfoFromDb() // TODO: Optimize with context
 
     // TODO: Optimize tailwind
     return (
