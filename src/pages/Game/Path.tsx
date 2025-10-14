@@ -1,6 +1,6 @@
-import type { GameState } from '@/pages/Game/index.tsx'
 import PlayerImage from '@/components/PlayerImage.tsx'
 import Direction from '@/components/Direction.tsx'
+import type { GameState } from '@/structures'
 
 interface PathProps {
     gameState: GameState

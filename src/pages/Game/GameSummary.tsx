@@ -1,6 +1,6 @@
 import Direction from '@/components/Direction.tsx'
 import PlayerImage from '@/components/PlayerImage.tsx'
-import type { GameInfo } from '@/hooks/useGameInfo.tsx'
+import type { GameInfo } from '@/structures'
 
 interface GameSummaryProps {
     gameInfo: GameInfo

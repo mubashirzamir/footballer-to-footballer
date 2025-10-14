@@ -1,7 +1,9 @@
-import { type GameInfo, playerList } from '@/hooks/useGameInfo.tsx'
+import { playerList } from '@/hooks/useGameInfo.tsx'
 import { useLocation, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
+import { Player } from '@/structures/Player.ts'
+import type { GameInfo } from '@/structures'
 
 type GameDriver = {
     gameInfo: GameInfo
@@ -24,16 +26,8 @@ const useGameInfoFromLocation = (): GameDriver => {
 
     const [loading, setLoading] = useState(false)
     const [info, setInfo] = useState<GameInfo>({
-        startPlayer: {
-            id: startPlayerId,
-            name: '',
-            imageUrl: '/ball.svg',
-        },
-        endPlayer: {
-            id: endPlayerId,
-            name: '',
-            imageUrl: '/ball.svg',
-        },
+        startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('./ball.svg'),
+        endPlayer: Player.instance(endPlayerId).setName('').setImageUrl('./ball.svg'),
     })
 
     useEffect(() => {
@@ -41,16 +35,12 @@ const useGameInfoFromLocation = (): GameDriver => {
         setLoading(true)
         setTimeout(() => {
             setInfo(() => ({
-                startPlayer: {
-                    id: startPlayerId,
-                    name: playerList.find((p) => p.id === startPlayerId)?.name ?? '',
-                    imageUrl: 'https://github.com/shadcn.png',
-                },
-                endPlayer: {
-                    id: endPlayerId,
-                    name: playerList.find((p) => p.id === endPlayerId)?.name ?? '',
-                    imageUrl: 'https://github.com/shadcn.png',
-                },
+                startPlayer: Player.instance(startPlayerId)
+                    .setName(playerList.find((p) => p.id === startPlayerId)?.name ?? '')
+                    .setImageUrl('https://github.com/shadcn.png'),
+                endPlayer: Player.instance(endPlayerId)
+                    .setName(playerList.find((p) => p.id === endPlayerId)?.name ?? '')
+                    .setImageUrl('https://github.com/shadcn.png'),
             }))
 
             setLoading(false)
