@@ -17,7 +17,7 @@ function App() {
                     <div>
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/play/{start_id}/{end_id}" element={<Game />} />
+                            <Route path="/play/:start_id/:end_id" element={<Game />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
