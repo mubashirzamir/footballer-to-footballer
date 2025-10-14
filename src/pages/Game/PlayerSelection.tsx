@@ -3,6 +3,7 @@ import PlayerImage from '@/components/PlayerImage.tsx'
 import type { Team } from '@/pages/Game/index.tsx'
 import { type Player, playerList } from '@/hooks/useGameInfo.tsx'
 import { useEffect, useState } from 'react'
+import { DELAY } from '@/utils/constants.ts'
 
 interface PlayerSelectionProps {
     team: Team
@@ -14,7 +15,9 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     const [players, setPlayers] = useState<Player[]>([])
 
     useEffect(() => {
-        setPlayers(playerList)
+        setTimeout(() => {
+            setPlayers(playerList)
+        }, DELAY)
     }, [team])
 
     const onPlayerSelect = (player: Player) => {
@@ -38,7 +41,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
                     onClick={() => onPlayerSelect(player)}
                 >
                     <div className="size-32">
-                        <PlayerImage />
+                        <PlayerImage imageUrl={player.imageUrl} />
                     </div>
                     <span>{player.name}</span>
                 </div>

@@ -3,6 +3,7 @@ import { type Player, teamList } from '@/hooks/useGameInfo.tsx'
 import { useEffect, useState } from 'react'
 import PlayerImage from '@/components/PlayerImage.tsx'
 import { Search } from '@/pages/Game/PlayerSelection.tsx'
+import { DELAY } from '@/utils/constants.ts'
 
 interface PlayerHistoryProps {
     player: Player
@@ -14,7 +15,9 @@ const TeamSelection = (props: PlayerHistoryProps) => {
     const { player, setTeam } = props
 
     useEffect(() => {
-        setTeams(teamList)
+        setTimeout(() => {
+            setTeams(teamList)
+        }, DELAY)
     }, [player])
 
     const onTeamSelect = (team: Team) => {
@@ -24,9 +27,7 @@ const TeamSelection = (props: PlayerHistoryProps) => {
     // TODO: Dates do not look good.
     return (
         <div>
-            <div className="text-xl font-medium flex justify-center">
-                History of {player.name}
-            </div>
+            <div className="text-xl font-medium flex justify-center">History of {player.name}</div>
             <div className="my-2">
                 <Search />
             </div>
@@ -37,11 +38,15 @@ const TeamSelection = (props: PlayerHistoryProps) => {
                     onClick={() => onTeamSelect(team)}
                 >
                     <div className="size-32">
-                        <PlayerImage />
+                        <PlayerImage imageUrl={team.imageUrl} />
                     </div>
                     <div>
                         <div>{team.name}</div>
-                        <div><em>{team.startDate} - {team.endDate}</em></div>
+                        <div>
+                            <em>
+                                {team.startDate} - {team.endDate}
+                            </em>
+                        </div>
                     </div>
                 </div>
             ))}
