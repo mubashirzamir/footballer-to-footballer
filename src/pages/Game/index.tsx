@@ -12,6 +12,7 @@ export type Team = {
     name: string
     startDate: string
     endDate: string
+    imageUrl: string
 }
 
 type Stackable = {
@@ -28,8 +29,13 @@ const GamePhase = {
 
 const Game = () => {
     const gameInfo = useGameInfoFromLocation()
-
     const [gameState, setGameState] = useState<GameState>([{ type: 'player', ...gameInfo.startPlayer }])
+
+    // TODO: This causes lots of re-rendering, find a better way to initialize state from props
+    useEffect(() => {
+        console.error('mushi Game', gameInfo)
+        setGameState([{ type: 'player', ...gameInfo.startPlayer }])
+    }, [gameInfo])
 
     const phase =
         gameState[gameState.length - 1].type === 'player' ? GamePhase.TeamSelection : GamePhase.PlayerSelection
@@ -65,7 +71,7 @@ const Game = () => {
     return (
         <div className="p-8">
             <div>
-                <GameSummary />
+                <GameSummary gameInfo={gameInfo} />
             </div>
             <div className="my-4">
                 <Path gameState={gameState} />
@@ -77,8 +83,9 @@ const Game = () => {
 
 // Avoid circles
 // Set limits
+// Check win condition
 const validator = (state: GameState) => {
-    console.log(state)
+    // console.log(state)
 }
 
 export default Game

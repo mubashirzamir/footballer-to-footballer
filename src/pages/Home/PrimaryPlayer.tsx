@@ -1,6 +1,7 @@
 import PlayerImage from '@/components/PlayerImage.tsx'
 import { useEffect, useState } from 'react'
 import { type Player, playerList } from '@/hooks/useGameInfo.tsx'
+import { DELAY } from '@/utils/constants.ts'
 
 interface PrimaryPlayerProps {
     player: Player
@@ -19,7 +20,7 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
          */
         setTimeout(() => {
             setPlayer(playerList.find((p) => p.id === initialPlayer.id) ?? playerList[0])
-        }, 3000)
+        }, DELAY)
     }, [initialPlayer])
 
     return (

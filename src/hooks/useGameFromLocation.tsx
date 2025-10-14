@@ -1,5 +1,7 @@
 import type { GameInfo } from '@/hooks/useGameInfo.tsx'
 import { useLocation, useParams } from 'react-router'
+import { useEffect, useState } from 'react'
+import { DELAY } from '@/utils/constants.ts'
 
 const useGameInfoFromLocation = (): GameInfo => {
     const { start_player_id: startPlayerId, end_player_id: endPlayerId } = useParams()
@@ -15,7 +17,7 @@ const useGameInfoFromLocation = (): GameInfo => {
         throw new Error('Missing player IDs in URL parameters')
     }
 
-    return {
+    const [info, setInfo] = useState({
         startPlayer: {
             id: startPlayerId,
             name: '',
@@ -26,7 +28,26 @@ const useGameInfoFromLocation = (): GameInfo => {
             name: '',
             imageUrl: '/ball.svg',
         },
-    }
+    })
+
+    useEffect(() => {
+        setTimeout(() => {
+            setInfo((info) => ({
+                startPlayer: {
+                    id: info.startPlayer.id,
+                    name: 'Fernando Torres',
+                    imageUrl: 'https://github.com/shadcn.png',
+                },
+                endPlayer: {
+                    id: info.endPlayer.id,
+                    name: 'Wayne Rooney',
+                    imageUrl: 'https://github.com/shadcn.png',
+                },
+            }))
+        }, DELAY)
+    }, [])
+
+    return info
 }
 
 export default useGameInfoFromLocation
