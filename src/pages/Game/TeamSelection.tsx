@@ -4,8 +4,8 @@ import BaseSpinner from '@/components/BaseSpinner.tsx'
 import type { Playable } from '@/structures/Playable.ts'
 import useTeams from '@/hooks/useTeams.tsx'
 import Search from '@/pages/Game/Search.tsx'
-import TeamCard from '@/components/ui/TeamCard.tsx'
-import TurnInfo from '@/components/ui/TurnInfo.tsx'
+import TeamCard from '@/components/TeamCard.tsx'
+import TurnInfo from '@/components/TurnInfo.tsx'
 
 interface TeamSelectionProps {
     player: Player
