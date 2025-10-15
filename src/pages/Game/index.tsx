@@ -48,18 +48,16 @@ const Game = () => {
             <div>
                 <GameSummary gameInfo={gameInfo} />
             </div>
-            {gameOver ? (
-                <div className="my-4">
+            <div className="my-4">
+                {gameOver ? (
                     <Win timeTaken={timeTaken} gameState={gameState} />
-                </div>
-            ) : (
-                <>
-                    <div className="my-4">
+                ) : (
+                    <>
                         <Path chopGameState={chop} gameState={gameState} />
-                    </div>
-                    {render()}
-                </>
-            )}
+                        {render()}
+                    </>
+                )}
+            </div>
         </div>
     )
 }
