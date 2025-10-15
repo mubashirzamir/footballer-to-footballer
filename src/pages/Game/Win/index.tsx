@@ -3,6 +3,7 @@ import TimeCard from '@/pages/Game/Win/TimeCard.tsx'
 import DistanceCard from '@/pages/Game/Win/DistanceCard.tsx'
 import ShortestPossiblePath from '@/pages/Game/Win/ShortestPossiblePath.tsx'
 import Journey from '@/pages/Game/Win/Journey.tsx'
+import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
 
 interface WinProps {
     gameState: GameState
@@ -19,8 +20,13 @@ const Win = (props: WinProps) => {
                     <TimeCard time={timeTaken} />
                     <DistanceCard distance={(gameState.length - 1) / 2} />
                 </div>
-                <ShortestPossiblePath gameState={gameState} />
-                <Journey gameState={gameState} />
+                <JourneyCard>
+                    <ShortestPossiblePath gameState={gameState} />
+                </JourneyCard>
+                <JourneyCard>
+                    <div className="text-xl mb-4 text-center">Journey</div>
+                    <Journey gameState={gameState} />
+                </JourneyCard>
             </div>
         </div>
     )

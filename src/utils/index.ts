@@ -21,3 +21,15 @@ export const debounce = (func: (...args: any[]) => void, wait: number) => {
         }, wait)
     }
 }
+
+export const secondstoHourMinutesSeconds = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600)
+    const mins = Math.floor((seconds % 3600) / 60)
+    const secs = seconds % 60
+
+    const hh = hrs.toString().padStart(2, '0')
+    const mm = mins.toString().padStart(2, '0')
+    const ss = secs.toString().padStart(2, '0')
+
+    return `${hh}:${mm}:${ss}`
+}
