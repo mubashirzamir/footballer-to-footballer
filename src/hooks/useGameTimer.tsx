@@ -15,12 +15,18 @@ const useGameTimer = () => {
         return () => clearInterval(interval) // cleanup
     }, [running]) // re-run when running changes
 
+    const reset = () => {
+        setTime(0)
+        setTimeTaken(0)
+        setRunning(true)
+    }
+
     const buzzer = () => {
         setTimeTaken(time) // capture
         setRunning(false) // stop
     }
 
-    return { time, timeTaken, buzzer }
+    return { time, timeTaken, reset, buzzer }
 }
 
 export default useGameTimer

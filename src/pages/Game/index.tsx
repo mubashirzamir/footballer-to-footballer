@@ -15,17 +15,21 @@ import Path from '@/pages/Game/Path/index.tsx'
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
     const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
-    const { time, timeTaken, buzzer } = useGameTimer()
+    const { time, timeTaken, reset, buzzer } = useGameTimer()
 
+    // TODO: This causes lots of re-rendering, find a better way to initialize state from props
+    // If gameInfo changes (e.g. changing the direction), reset the game state and timer.
+    useEffect(() => {
+        setGameState([gameInfo.startPlayer])
+        reset()
+    }, [gameInfo, setGameState])
+
+
+    // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
+    // Since they will be the same we hit the game over condition, so we need to reset the timer.
     const tail = gameState[gameState.length - 1]
     const gameOver = tail.id === gameInfo.endPlayer.id
     if (gameOver && timeTaken === 0) buzzer()
-
-    // TODO: This causes lots of re-rendering, find a better way to initialize state from props
-    // If gameInfo changes (e.g. changing the direction), reset the game state.
-    useEffect(() => {
-        setGameState([gameInfo.startPlayer])
-    }, [gameInfo, setGameState])
 
     const render = () => {
         switch (true) {

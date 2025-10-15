@@ -6,6 +6,7 @@ interface DirectionProps {
     mutable?: boolean
 }
 
+// TODO: Separate logic and presentation
 const Direction = (props: DirectionProps) => {
     const { className = 'text-6xl', mutable = false } = props
 
