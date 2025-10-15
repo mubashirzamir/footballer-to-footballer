@@ -1,4 +1,4 @@
-import type { Playable, PlayableType } from '@/structures/Playable.ts'
+import type { Playable } from '@/structures/Playable.ts'
 
 export class Team implements Playable {
     id: string
@@ -8,7 +8,7 @@ export class Team implements Playable {
     seasonStart: string = ''
     seasonEnd: string = ''
     imageUrl: string = '/ball.svg'
-    type: PlayableType = 'team'
+    readonly entityType = 'team'
 
     constructor(id: string) {
         this.id = id
@@ -70,6 +70,7 @@ export class Team implements Playable {
 
     static convertToYear(season: string) {
         const year = parseInt(season.split('/')[0])
+
         return year >= 50 ? 1900 + year : 2000 + year
     }
 }

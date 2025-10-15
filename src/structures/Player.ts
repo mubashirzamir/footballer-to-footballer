@@ -1,10 +1,10 @@
-import type { Playable, PlayableType } from '@/structures/Playable.ts'
+import type { Playable } from '@/structures/Playable.ts'
 
 export class Player implements Playable {
     id: string
     name: string = ''
     imageUrl: string = '/ball.svg'
-    type: PlayableType = 'player'
+    readonly entityType = 'player'
 
     constructor(id: string) {
         this.id = id

@@ -11,7 +11,7 @@ interface JourneyItemProps {
 const JourneyItem = (props: JourneyItemProps) => {
     const { playable, index, isLast } = props
 
-    const isTeam = playable.type === 'team'
+    const isTeam = playable.entityType === 'team'
 
     return (
         <div className="flex flex-col items-start space-x-4" key={playable.id}>

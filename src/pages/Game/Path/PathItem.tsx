@@ -16,12 +16,28 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
         chopGameState(index)
     }
 
+    const renderSeason = () => {
+        if (playable.entityType === 'team') {
+            return (
+                <span>
+                    {/*TODO: TypeScript should be able to infer this but not doing so for some reason?*/}
+                    {/*@ts-ignore*/}
+                    {playable.seasonStart} - {playable.seasonEnd}
+                </span>
+            )
+        }
+    }
+
     return (
         <div className="flex items-center space-x-4 cursor-pointer" key={playable.id} onClick={handleClick}>
             <div className="size-8">
                 <PlayableImage imageUrl={playable.imageUrl} />
             </div>
-            {isLast && <span>{playable.name}</span>}
+            {isLast && (
+                <span>
+                    {playable.name} {renderSeason()}
+                </span>
+            )}
             <Direction className="text-xl" />
         </div>
     )
