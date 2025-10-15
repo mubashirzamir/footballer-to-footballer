@@ -1,4 +1,4 @@
-import Start from '@/components/Start.tsx'
+import Start from './Start.tsx'
 import Direction from '@/components/Direction.tsx'
 import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
 import useGameInfoFromDb from '@/hooks/useGameInfoFromDb.tsx'

@@ -4,15 +4,15 @@ import BaseSpinner from '@/components/BaseSpinner.tsx'
 import Search from '@/pages/Game/Search.tsx'
 import usePlayers from '@/hooks/usePlayers.tsx'
 import type { Playable } from '@/structures/Playable.ts'
-import PlayerCard from '@/components/PlayerCard.tsx'
-import TurnInfo from '@/components/TurnInfo.tsx'
+import PlayerCard from './PlayerCard.tsx'
+import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 
 interface PlayerSelectionProps {
     team: Team
     updateGameState: (playable: Playable) => void
 }
 
-const PlayerSelection = (props: PlayerSelectionProps) => {
+const Index = (props: PlayerSelectionProps) => {
     const { team, updateGameState } = props
 
     const { players, loading } = usePlayers(team)
@@ -40,4 +40,4 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     )
 }
 
-export default PlayerSelection
+export default Index

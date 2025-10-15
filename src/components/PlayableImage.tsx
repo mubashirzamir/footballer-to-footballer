@@ -5,7 +5,7 @@ interface PlayerImageProps {
     imageUrl?: string
 }
 
-const PlayerImage = ({ imageUrl }: PlayerImageProps) => {
+const PlayableImage = ({ imageUrl }: PlayerImageProps) => {
     // TODO: Sensible fallback image in assets
     return (
         <Avatar>
@@ -17,4 +17,4 @@ const PlayerImage = ({ imageUrl }: PlayerImageProps) => {
     )
 }
 
-export default PlayerImage
+export default PlayableImage

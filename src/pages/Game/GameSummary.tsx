@@ -1,5 +1,5 @@
 import Direction from '@/components/Direction.tsx'
-import PlayerImage from '@/components/PlayerImage.tsx'
+import PlayableImage from '@/components/PlayableImage.tsx'
 import type { GameInfo } from '@/structures'
 
 interface GameSummaryProps {
@@ -12,11 +12,11 @@ const GameSummary = ({ gameInfo }: GameSummaryProps) => {
         <div className="flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-center space-x-8">
                 <div className="size-24">
-                    <PlayerImage imageUrl={gameInfo.startPlayer.imageUrl} />
+                    <PlayableImage imageUrl={gameInfo.startPlayer.imageUrl} />
                 </div>
                 <Direction mutable={true} className="text-2xl" />
                 <div className="size-24">
-                    <PlayerImage imageUrl={gameInfo.endPlayer.imageUrl} />
+                    <PlayableImage imageUrl={gameInfo.endPlayer.imageUrl} />
                 </div>
             </div>
         </div>

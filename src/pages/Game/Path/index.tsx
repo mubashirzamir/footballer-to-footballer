@@ -1,12 +1,12 @@
 import type { GameState } from '@/structures'
-import PathItem from '@/components/PathItem.tsx'
+import PathItem from './PathItem.tsx'
 
 interface PathProps {
     gameState: GameState
     chopGameState: (index: number) => void
 }
 
-const Path = (props: PathProps) => {
+const Index = (props: PathProps) => {
     const { gameState, chopGameState } = props
 
     return (
@@ -25,4 +25,4 @@ const Path = (props: PathProps) => {
     )
 }
 
-export default Path
+export default Index

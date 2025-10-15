@@ -1,5 +1,5 @@
 import type { Playable } from '@/structures/Playable.ts'
-import PlayerImage from '@/components/PlayerImage.tsx'
+import PlayableImage from '@/components/PlayableImage.tsx'
 import Direction from '@/components/Direction.tsx'
 
 interface PathItemProps {
@@ -19,7 +19,7 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
     return (
         <div className="flex items-center space-x-4 cursor-pointer" key={playable.id} onClick={handleClick}>
             <div className="size-8">
-                <PlayerImage imageUrl={playable.imageUrl} />
+                <PlayableImage imageUrl={playable.imageUrl} />
             </div>
             {isLast && <span>{playable.name}</span>}
             <Direction className="text-xl" />

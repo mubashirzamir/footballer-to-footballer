@@ -1,4 +1,4 @@
-import PlayerImage from '@/components/PlayerImage.tsx'
+import PlayableImage from '@/components/PlayableImage.tsx'
 import Direction from '@/components/Direction.tsx'
 import type { Playable } from '@/structures/Playable.ts'
 
@@ -18,7 +18,7 @@ const JourneyItem = (props: JourneyItemProps) => {
             <div className="flex flex-row items-center space-x-4">
                 {isTeam && <div className="text-lg">{(index + 1) / 2}</div>}
                 <div className={`size-16`}>
-                    <PlayerImage imageUrl={playable.imageUrl} />
+                    <PlayableImage imageUrl={playable.imageUrl} />
                 </div>
                 <span className="text-lg">{playable.name}</span>
             </div>

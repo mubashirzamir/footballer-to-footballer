@@ -1,8 +1,5 @@
-import TeamSelection from './TeamSelection.tsx'
 import { useEffect } from 'react'
-import PlayerSelection from './PlayerSelection.tsx'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
-import Path from '@/pages/Game/Path.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
 import { Team } from '@/structures/Team.ts'
@@ -13,6 +10,9 @@ import useGameState from '@/hooks/useGameState.tsx'
 import Win from '@/pages/Game/Win/index.tsx'
 import useGameTimer from '@/hooks/useGameTimer.tsx'
 import Timer from '@/pages/Game/Timer.tsx'
+import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
+import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
+import Path from '@/pages/Game/Path/index.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()

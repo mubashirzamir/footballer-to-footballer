@@ -1,4 +1,4 @@
-import PlayerImage from '@/components/PlayerImage.tsx'
+import PlayableImage from '@/components/PlayableImage.tsx'
 import { Player } from '@/structures/Player.ts'
 
 interface PrimaryPlayerProps {
@@ -11,7 +11,7 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
     return (
         <div>
             <div className="md:size-80 sm:size-64 size-24">
-                <PlayerImage imageUrl={player.imageUrl} />
+                <PlayableImage imageUrl={player.imageUrl} />
             </div>
             <div className="flex flex-col items-center">
                 <span className="text-xl font-bold mt-4">{player.name}</span>

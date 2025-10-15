@@ -1,4 +1,4 @@
-import PlayerImage from '@/components/PlayerImage.tsx'
+import PlayableImage from '@/components/PlayableImage.tsx'
 import { Team } from '@/structures/Team.ts'
 
 interface TeamCardProps {
@@ -13,7 +13,7 @@ const TeamCard = ({ team, onTeamSelect }: TeamCardProps) => {
             onClick={() => onTeamSelect(team)}
         >
             <div className="size-32">
-                <PlayerImage imageUrl={team.imageUrl} />
+                <PlayableImage imageUrl={team.imageUrl} />
             </div>
             <div>
                 <div>{team.name}</div>
