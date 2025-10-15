@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react'
 import type { GameState } from '@/structures'
 import { useNavigate } from 'react-router'
 
-// TODO: Recheck
+// Unnecessary complexity.
+// Works fine stand alone, but when game state is changed from path, we cannot keep browser history in sync.
+// useGameNavigation(gameState, pop)
 const useGameNavigation = (gameState: GameState, pop: () => void) => {
     const navigate = useNavigate()
     const prevLength = useRef(gameState.length)

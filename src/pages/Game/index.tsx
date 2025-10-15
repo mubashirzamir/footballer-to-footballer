@@ -3,7 +3,6 @@ import GameSummary from '@/pages/Game/GameSummary.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
 import { Team } from '@/structures/Team.ts'
-import { type GameState } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import useGameState from '@/hooks/useGameState.tsx'
 import Win from '@/pages/Game/Win/index.tsx'
@@ -12,16 +11,11 @@ import Timer from '@/pages/Game/Timer.tsx'
 import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
 import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
-import { Logger } from '@/utils'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
     const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
     const { time, timeTaken, buzzer } = useGameTimer()
-
-    // Unnecessary complexity.
-    // Works fine stand alone, but when game state is changed from path, we cannot keep browser history in sync.
-    // useGameNavigation(gameState, pop)
 
     const tail = gameState[gameState.length - 1]
     const gameOver = tail.id === gameInfo.endPlayer.id
@@ -32,10 +26,6 @@ const Game = () => {
     useEffect(() => {
         setGameState([gameInfo.startPlayer])
     }, [gameInfo, setGameState])
-
-    useEffect(() => {
-        validator(gameState)
-    }, [gameState])
 
     const render = () => {
         switch (true) {
@@ -72,11 +62,6 @@ const Game = () => {
             )}
         </div>
     )
-}
-
-// TODO: Avoid circles, set limits, check win condition
-const validator = (state: GameState) => {
-    Logger.log('validator', state)
 }
 
 export default Game
