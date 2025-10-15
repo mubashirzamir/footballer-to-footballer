@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
 import type { GameDriver, GameInfo } from '@/structures'
 import { Player } from '@/structures/Player.ts'
-import { playerList } from '@/utils/mock.ts'
 import { Logger } from '@/utils'
 
 const useGameInfoFromDb = (): GameDriver => {
@@ -15,15 +14,6 @@ const useGameInfoFromDb = (): GameDriver => {
         // Placeholder for API call to fetch player info
         setLoading(true)
         setTimeout(() => {
-            setInfo((info) => ({
-                startPlayer: Player.instance(info.startPlayer.id)
-                    .setName(playerList.find((p) => p.id === info.startPlayer.id)?.name ?? '')
-                    .setImageUrl('https://github.com/shadcn.png'),
-                endPlayer: Player.instance(info.endPlayer.id)
-                    .setName(playerList.find((p) => p.id === info.endPlayer.id)?.name ?? '')
-                    .setImageUrl('https://github.com/shadcn.png'),
-            }))
-
             setLoading(false)
         }, DELAY)
     }, [])

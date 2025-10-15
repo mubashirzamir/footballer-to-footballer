@@ -18,9 +18,9 @@ const TeamCard = ({ team, onTeamSelect }: TeamCardProps) => {
             <div>
                 <div>{team.name}</div>
                 <div>
-                    <em>
-                        {team.startDate} - {team.endDate}
-                    </em>
+                    <strong>
+                        {team.seasonStart} - {team.seasonEnd}
+                    </strong>
                 </div>
             </div>
         </div>

@@ -7,6 +7,8 @@ import type { Playable } from '@/structures/Playable.ts'
 import PlayerCard from './PlayerCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
+import SeasonSelector from '@/pages/Game/PlayerSelection/SeasonSelector.tsx'
+import { useState } from 'react'
 
 interface PlayerSelectionProps {
     team: Team
@@ -16,8 +18,12 @@ interface PlayerSelectionProps {
 const Index = (props: PlayerSelectionProps) => {
     const { team, updateGameState } = props
 
-    const { players, loading } = usePlayers(team)
-    const { filteredItems, handleSearchChange } = useSearch(players)
+    const [season, setSeason] = useState(team.getSeasons()[0].id)
+
+    const { players, loading } = usePlayers(team, season)
+    const { filteredItems, handleSearchChange } = useSearch(players) // TODO
+
+    const onSeasonChange = (seasonId: string) => setSeason(seasonId)
 
     const onPlayerSelect = (player: Player) => {
         updateGameState(player)
@@ -30,7 +36,7 @@ const Index = (props: PlayerSelectionProps) => {
     return (
         <div>
             <TurnInfo>
-                {team.startDate} - {team.endDate}
+                <SeasonSelector seasonId={season} seasons={team.getSeasons()} onChange={onSeasonChange} />
             </TurnInfo>
             <div className="my-2">
                 <Search onChange={handleSearchChange} />

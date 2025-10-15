@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
 import { Player } from '@/structures/Player.ts'
 import type { GameInfo } from '@/structures'
-import { playerList } from '@/utils/mock.ts'
 
 type GameDriver = {
     gameInfo: GameInfo
@@ -26,23 +25,14 @@ const useGameInfoFromLocation = (): GameDriver => {
 
     const [loading, setLoading] = useState(false)
     const [info, setInfo] = useState<GameInfo>({
-        startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('./ball.svg'),
-        endPlayer: Player.instance(endPlayerId).setName('').setImageUrl('./ball.svg'),
+        startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('/ball.svg'),
+        endPlayer: Player.instance(endPlayerId).setName('').setImageUrl('/ball.svg'),
     })
 
     useEffect(() => {
         // Placeholder for API call to fetch player info
         setLoading(true)
         setTimeout(() => {
-            setInfo(() => ({
-                startPlayer: Player.instance(startPlayerId)
-                    .setName(playerList.find((p) => p.id === startPlayerId)?.name ?? '')
-                    .setImageUrl('https://github.com/shadcn.png'),
-                endPlayer: Player.instance(endPlayerId)
-                    .setName(playerList.find((p) => p.id === endPlayerId)?.name ?? '')
-                    .setImageUrl('https://github.com/shadcn.png'),
-            }))
-
             setLoading(false)
         }, DELAY)
     }, [startPlayerId, endPlayerId])

@@ -24,6 +24,8 @@ const useTeams = (player: Player) => {
     return { teams, loading }
 }
 
+// TODO: Handle loans
+// TODO: The season calculation is not entirely accurate
 const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     if (transfers.length === 0) return []
 
@@ -32,11 +34,13 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     for (let i = 0; i < transfers.length; i++) {
         const transfer = transfers[i]
         const previousTransfer = transfers[i - 1]
+
         const team = new Team(transfer.clubTo.id)
             .setName(transfer.clubTo.name)
             .setStartDate(transfer.date)
             .setEndDate(previousTransfer ? previousTransfer.date : 'Present')
-            .setSeason(transfer.season)
+            .setSeasonStart(transfer.season)
+            .setSeasonEnd(previousTransfer ? previousTransfer.season : 'Present')
 
         if (shouldAddTeam(team)) result.push(team)
     }

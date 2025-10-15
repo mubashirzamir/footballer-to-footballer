@@ -3,9 +3,10 @@ import type { Playable, PlayableType } from '@/structures/Playable.ts'
 export class Team implements Playable {
     id: string
     name: string = ''
-    startDate: string = '2024-01-01'
-    endDate: string = '2024-12-31'
-    season: string = ''
+    startDate: string = ''
+    endDate: string = ''
+    seasonStart: string = ''
+    seasonEnd: string = ''
     imageUrl: string = '/ball.svg'
     type: PlayableType = 'team'
 
@@ -35,8 +36,14 @@ export class Team implements Playable {
         return this
     }
 
-    setSeason(season: string) {
-        this.season = season
+    setSeasonStart(season: string) {
+        this.seasonStart = season
+
+        return this
+    }
+
+    setSeasonEnd(season: string) {
+        this.seasonEnd = season
 
         return this
     }
@@ -45,5 +52,24 @@ export class Team implements Playable {
         this.imageUrl = imageUrl
 
         return this
+    }
+
+    // TODO: This method is not entirely accurate
+    // TODO: Invert the loop instead of reversing the array at the end
+    getSeasons() {
+        const seasons = []
+        const firstSeasonYear = Team.convertToYear(this.seasonStart) // e.g., "04/05" -> 2004
+        const lastSeasonYear = Team.convertToYear(this.seasonEnd) // e.g., "10/11" -> 2010
+
+        for (let year = firstSeasonYear; year <= lastSeasonYear; year++) {
+            seasons.push({ id: `${year}`, text: `${year}/${year + 1}` }) // e.g., 2004 -> "2004/2005"
+        }
+
+        return seasons.reverse()
+    }
+
+    static convertToYear(season: string) {
+        const year = parseInt(season.split('/')[0])
+        return year >= 50 ? 1900 + year : 2000 + year
     }
 }

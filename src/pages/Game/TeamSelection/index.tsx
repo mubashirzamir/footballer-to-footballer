@@ -17,7 +17,7 @@ const Index = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
     const { teams, loading } = useTeams(player)
-    const { filteredItems, handleSearchChange } = useSearch(teams)
+    const { filteredItems, handleSearchChange } = useSearch(teams) // TODO
 
     const onTeamSelect = (team: Team) => {
         updateGameState(team)
