@@ -17,7 +17,7 @@ const useGameNavigation = (gameState: GameState, pop: () => void) => {
         prevLength.current = gameState.length
     }, [gameState, navigate])
 
-    // TODO: Adding pop to the dependency array breaks the feature. Investigate why?
+    // Adding pop to the dependency array breaks the feature. Not sure why.
     useEffect(() => {
         const handlePopState = () => {
             pop()
