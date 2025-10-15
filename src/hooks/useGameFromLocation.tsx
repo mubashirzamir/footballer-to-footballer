@@ -23,6 +23,10 @@ const useGameInfoFromLocation = (): GameDriver => {
         throw new Error('Missing player IDs in URL parameters')
     }
 
+    if (startPlayerId === endPlayerId) {
+        throw new Error('Start and end player IDs cannot be the same')
+    }
+
     const [loading, setLoading] = useState(false)
     const [info, setInfo] = useState<GameInfo>({
         startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('/ball.svg'),
