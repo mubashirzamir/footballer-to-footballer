@@ -24,7 +24,6 @@ const Game = () => {
         reset()
     }, [gameInfo, setGameState])
 
-
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.
     const tail = gameState[gameState.length - 1]
@@ -52,12 +51,14 @@ const Game = () => {
             <div>
                 <GameSummary gameInfo={gameInfo} />
             </div>
-            <div className="my-4">
+            <div className="my-8">
                 {gameOver ? (
                     <Win timeTaken={timeTaken} gameState={gameState} />
                 ) : (
                     <>
-                        <Path chopGameState={chop} gameState={gameState} />
+                        <div className="mb-4">
+                            <Path gameState={gameState} chopGameState={chop} />
+                        </div>
                         {render()}
                     </>
                 )}
