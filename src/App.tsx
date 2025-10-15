@@ -7,7 +7,6 @@ import NavBar from '@/components/NavBar.tsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import Fallback from '@/components/Fallback.tsx'
 import NotFound from '@/pages/NotFound'
-import NoGame from '@/pages/NoGame'
 
 function App() {
     return (
@@ -19,7 +18,6 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/play/:start_player_id/:end_player_id" element={<Game />} />
-                            <Route path="/no-game" element={<NoGame />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
