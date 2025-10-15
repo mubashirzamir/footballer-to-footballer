@@ -8,4 +8,13 @@ export default defineConfig({
     resolve: {
         alias: [{ find: '@', replacement: '/src' }],
     },
+    server: {
+        proxy: {
+            '/api': {
+                target: 'https://transfermarkt-api.fly.dev',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
+    },
 })

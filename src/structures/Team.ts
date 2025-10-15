@@ -5,6 +5,7 @@ export class Team implements Playable {
     name: string = ''
     startDate: string = '2024-01-01'
     endDate: string = '2024-12-31'
+    season: string = ''
     imageUrl: string = '/ball.svg'
     type: PlayableType = 'team'
 
@@ -30,6 +31,12 @@ export class Team implements Playable {
 
     setEndDate(endDate: string) {
         this.endDate = endDate
+
+        return this
+    }
+
+    setSeason(season: string) {
+        this.season = season
 
         return this
     }

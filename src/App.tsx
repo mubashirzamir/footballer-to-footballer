@@ -7,21 +7,26 @@ import NavBar from '@/components/NavBar.tsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import Fallback from '@/components/Fallback.tsx'
 import NotFound from '@/pages/NotFound'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-function App() {
+const queryClient = new QueryClient()
+
+const App = () => {
     return (
         <BrowserRouter>
             <ErrorBoundary FallbackComponent={Fallback}>
-                <ThemeProvider>
-                    <NavBar />
-                    <div>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/play/:start_player_id/:end_player_id" element={<Game />} />
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    </div>
-                </ThemeProvider>
+                <QueryClientProvider client={queryClient}>
+                    <ThemeProvider>
+                        <NavBar />
+                        <div>
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/play/:start_player_id/:end_player_id" element={<Game />} />
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </div>
+                    </ThemeProvider>
+                </QueryClientProvider>
             </ErrorBoundary>
         </BrowserRouter>
     )
