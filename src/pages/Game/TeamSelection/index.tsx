@@ -6,6 +6,7 @@ import useTeams from '@/hooks/useTeams.tsx'
 import Search from '@/pages/Game/Search.tsx'
 import TeamCard from './TeamCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
+import useSearch from '@/hooks/useSearch.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -16,6 +17,7 @@ const Index = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
     const { teams, loading } = useTeams(player)
+    const { filteredItems, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {
         updateGameState(team)
@@ -29,9 +31,9 @@ const Index = (props: TeamSelectionProps) => {
         <div>
             <TurnInfo>History of {player.name}</TurnInfo>
             <div className="my-2">
-                <Search />
+                <Search onChange={handleSearchChange} />
             </div>
-            {teams.map((team) => (
+            {filteredItems.map((team) => (
                 <TeamCard team={team} onTeamSelect={onTeamSelect} />
             ))}
         </div>

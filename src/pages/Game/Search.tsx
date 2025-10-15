@@ -1,7 +1,11 @@
 import { Input } from '@/components/ui/input.tsx'
 
-const Search = () => {
-    return <Input name="search" placeholder="Filter:" />
+interface SearchProps {
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const Search = ({ onChange }: SearchProps) => {
+    return <Input name="search" placeholder="Filter:" onChange={onChange} />
 }
 
 export default Search

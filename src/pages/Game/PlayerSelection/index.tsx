@@ -6,6 +6,7 @@ import usePlayers from '@/hooks/usePlayers.tsx'
 import type { Playable } from '@/structures/Playable.ts'
 import PlayerCard from './PlayerCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
+import useSearch from '@/hooks/useSearch.tsx'
 
 interface PlayerSelectionProps {
     team: Team
@@ -16,6 +17,7 @@ const Index = (props: PlayerSelectionProps) => {
     const { team, updateGameState } = props
 
     const { players, loading } = usePlayers(team)
+    const { filteredItems, handleSearchChange } = useSearch(players)
 
     const onPlayerSelect = (player: Player) => {
         updateGameState(player)
@@ -31,9 +33,9 @@ const Index = (props: PlayerSelectionProps) => {
                 {team.startDate} - {team.endDate}
             </TurnInfo>
             <div className="my-2">
-                <Search />
+                <Search onChange={handleSearchChange} />
             </div>
-            {players.map((player) => (
+            {filteredItems.map((player) => (
                 <PlayerCard player={player} onPlayerSelect={onPlayerSelect} />
             ))}
         </div>
