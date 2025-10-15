@@ -11,14 +11,18 @@ import { Player } from '@/structures/Player.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import useGameState from '@/hooks/useGameState.tsx'
 import Win from '@/pages/Game/Win/index.tsx'
+import useGameTimer from '@/hooks/useGameTimer.tsx'
+import Timer from '@/pages/Game/Timer.tsx'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
     const { gameState, setGameState, pop, append, chop } = useGameState([gameInfo.startPlayer])
+    const { time, timeTaken, buzzer } = useGameTimer()
     useGameNavigation(gameState, pop)
 
     const tail = gameState[gameState.length - 1]
     const gameOver = tail.id === gameInfo.endPlayer.id
+    if (gameOver && timeTaken === 0) buzzer()
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     // If gameInfo changes (e.g. changing the direction), reset the game state.
@@ -47,12 +51,13 @@ const Game = () => {
 
     return (
         <div className="p-8">
+            {!gameOver && <Timer time={time} />}
             <div>
                 <GameSummary gameInfo={gameInfo} />
             </div>
             {gameOver ? (
                 <div className="my-4">
-                    <Win gameState={gameState} />
+                    <Win timeTaken={timeTaken} gameState={gameState} />
                 </div>
             ) : (
                 <>
