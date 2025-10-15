@@ -20,7 +20,7 @@ const Game = () => {
     const { time, timeTaken, buzzer } = useGameTimer()
 
     // Unnecessary complexity.
-    // Works fine stand alone, but when game state is changed from path, we cannot keep the
+    // Works fine stand alone, but when game state is changed from path, we cannot keep browser history in sync.
     // useGameNavigation(gameState, pop)
 
     const tail = gameState[gameState.length - 1]
