@@ -3,9 +3,14 @@ import Direction from '@/components/Direction.tsx'
 import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
 import useGameInfoFromDb from '@/hooks/useGameInfoFromDb.tsx'
 import NextGameTimer from '@/pages/Home/NextGameTimer.tsx'
+import NoGame from '@/pages/NoGame'
 
 const Home = () => {
     const { gameInfo } = useGameInfoFromDb() // TODO: Optimize with context
+
+    if (gameInfo.startPlayer.id === 'unknown') {
+        return <NoGame />
+    }
 
     // TODO: Optimize tailwind
     return (

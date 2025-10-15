@@ -12,6 +12,7 @@ import Timer from '@/pages/Game/Timer.tsx'
 import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
 import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
+import { Logger } from '@/utils'
 
 const Game = () => {
     const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
@@ -75,7 +76,7 @@ const Game = () => {
 
 // TODO: Avoid circles, set limits, check win condition
 const validator = (state: GameState) => {
-    console.log('validator', state)
+    Logger.log('validator', state)
 }
 
 export default Game
