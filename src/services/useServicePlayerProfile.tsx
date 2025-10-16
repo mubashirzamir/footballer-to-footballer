@@ -1,6 +1,6 @@
 import { Player } from '@/structures/Player.ts'
 import { API_IMPLEMENTATION, API_IMPLEMENTATIONS } from '@/utils/constants.ts'
-import useServicePlayerProfileTransfrMarket from '@/services/transfrmarket/player/useServiceProfile.tsx'
+import useServicePlayerProfileTransferMarkt from '@/services/transfermarkt/player/useServiceProfile.tsx'
 import useServicePlayerProfileMock from '@/services/mock/useServicePlayerProfile.tsx'
 
 export interface UseServicePlayerProfileContract {
@@ -14,7 +14,7 @@ export interface UseServicePlayerProfileContract {
 
 // choose which implementation to use BEFORE calling the hook
 const implementationMap = {
-    [API_IMPLEMENTATIONS.TRANSFRMARKET]: useServicePlayerProfileTransfrMarket,
+    [API_IMPLEMENTATIONS.TRANSFRMARKET]: useServicePlayerProfileTransferMarkt,
     [API_IMPLEMENTATIONS.MOCK]: useServicePlayerProfileMock,
 }
 

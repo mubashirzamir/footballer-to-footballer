@@ -1,7 +1,7 @@
 import { API_IMPLEMENTATION, API_IMPLEMENTATIONS } from '@/utils/constants.ts'
 import type { Team } from '@/structures/Team.ts'
 import type { Player } from '@/structures/Player.ts'
-import useServiceTeamsTransfermarkt from '@/services/transfrmarket/player/useServiceTransfers.tsx'
+import useServiceTeamsTransfermarkt from '@/services/transfermarkt/player/useServiceTransfers.tsx'
 import useServiceTeamsMock from '@/services/mock/useServiceTeams.tsx'
 
 export interface UseServiceTeamsContract {
