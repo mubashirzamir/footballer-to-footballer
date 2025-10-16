@@ -19,6 +19,7 @@ const Game = () => {
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     // If gameInfo changes (e.g. changing the direction), reset the game state and timer.
+    // Do not include reset, it is breaking the timer.
     useEffect(() => {
         setGameState([gameInfo.startPlayer])
         reset()

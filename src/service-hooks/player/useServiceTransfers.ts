@@ -1,21 +1,47 @@
+import request from '@/request.js'
 import { Player } from '@/structures/Player.ts'
 import { useQuery } from '@tanstack/react-query'
-import { fetchTransfers, type Transfer, type TransferResponse } from '@/services/TeamsService.ts'
 import { Team } from '@/structures/Team.ts'
 import { Logger } from '@/utils'
 
-const useTeams = (player: Player) => {
+type TransferResponse = {
+    id: string
+    transfers: Transfer[]
+    updatedAt: string
+    youthClubs: string[]
+}
+
+type Transfer = {
+    id: string
+    clubFrom: {
+        id: string
+        name: string
+    }
+    clubTo: {
+        id: string
+        name: string
+    }
+    date: string
+    upcoming: boolean
+    season: string
+    marketValue: number
+}
+
+export const getTransfers = async (playerId: string): Promise<TransferResponse[]> => {
+    return await request.get(`/players/${playerId}/transfers`)
+}
+
+const useServiceTransfers = (player: Player) => {
     const { data: teams, isLoading: loading } = useQuery({
         placeholderData: [],
         queryKey: ['teams', player.id],
         queryFn: async (): Promise<Team[]> => {
             try {
-                // TODO
-                // @ts-ignore
-                const response: TransferResponse = await fetchTransfers(player.id)
+                // @ts-ignore // TODO
+                const response: TransferResponse = await getTransfers(player.id)
                 return transformTransfersToTeams(response.transfers)
             } catch (error) {
-                Logger.log('useTeams:', error)
+                Logger.log('useTransfers:', error)
                 return []
             }
         },
@@ -52,4 +78,4 @@ const shouldAddTeam = (team: Team): boolean => {
     return team.name.trim().toLowerCase() !== 'retired'
 }
 
-export default useTeams
+export default useServiceTransfers

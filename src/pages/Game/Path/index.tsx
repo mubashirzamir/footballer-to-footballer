@@ -6,7 +6,7 @@ interface PathProps {
     chopGameState: (index: number) => void
 }
 
-const Index = (props: PathProps) => {
+const Path = (props: PathProps) => {
     const { gameState, chopGameState } = props
 
     return (
@@ -25,4 +25,4 @@ const Index = (props: PathProps) => {
     )
 }
 
-export default Index
+export default Path

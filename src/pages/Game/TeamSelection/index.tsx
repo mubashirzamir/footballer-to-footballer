@@ -2,22 +2,23 @@ import { Player } from '@/structures/Player.ts'
 import { Team } from '@/structures/Team.ts'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
 import type { Playable } from '@/structures/Playable.ts'
-import useTeams from '@/hooks/useTeams.tsx'
 import Search from '@/pages/Game/Search.tsx'
 import TeamCard from './TeamCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
+import useServiceTransfers from '@/service-hooks/player/useServiceTransfers.ts'
 
 interface TeamSelectionProps {
     player: Player
     updateGameState: (playable: Playable) => void
 }
 
-const Index = (props: TeamSelectionProps) => {
+const TeamSelection = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
-    const { teams, loading } = useTeams(player)
-    const { filteredItems, handleSearchChange } = useSearch(teams) // TODO
+    const { teams, loading } = useServiceTransfers(player)
+    // @ts-ignore // TODO
+    const { filteredItems, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {
         updateGameState(team)
@@ -40,4 +41,4 @@ const Index = (props: TeamSelectionProps) => {
     )
 }
 
-export default Index
+export default TeamSelection
