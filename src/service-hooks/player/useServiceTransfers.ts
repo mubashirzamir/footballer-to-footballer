@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Team } from '@/structures/Team.ts'
 import { Logger } from '@/utils'
 
+const teamImageSource: string = import.meta.env.VITE_TEAM_IMAGE_SOURCE
+
 type TransferResponse = {
     id: string
     transfers: Transfer[]
@@ -67,6 +69,7 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setEndDate(previousTransfer ? previousTransfer.date : 'Present')
             .setSeasonStart(transfer.season)
             .setSeasonEnd(previousTransfer ? previousTransfer.season : 'Present')
+            .setImageUrl(teamImageSource.replace("PLACEHOLDER", transfer.clubTo.id))
 
         if (shouldAddTeam(team)) result.push(team)
     }
