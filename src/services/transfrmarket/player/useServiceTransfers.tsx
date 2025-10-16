@@ -40,7 +40,6 @@ const useServiceTransfers: UseServiceTeamsContract = (player: Player) => {
         isError,
         error,
     } = useQuery({
-        placeholderData: [], // TODO: Placeholder vs Initial Data?
         queryKey: ['teams', player.id],
         queryFn: async (): Promise<Team[]> => {
             const response: TransferResponse = await getTransfers(player.id)

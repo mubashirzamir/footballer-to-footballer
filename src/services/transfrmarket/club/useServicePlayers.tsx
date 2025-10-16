@@ -40,7 +40,6 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
         isError,
         error,
     } = useQuery({
-        placeholderData: [], // TODO: Placeholder vs Initial Data?
         queryKey: ['players', team.id, seasonId],
         queryFn: async (): Promise<Player[]> => {
             const response: ClubPlayersResponse = await fetchPlayers(team.id, seasonId)
