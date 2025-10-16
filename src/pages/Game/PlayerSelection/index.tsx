@@ -21,7 +21,6 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     const [season, setSeason] = useState(team.getSeasons()[0].id)
 
     const { players, loading } = useServicePlayers(team, season)
-    // @ts-ignore // TODO
     const { filteredItems, handleSearchChange } = useSearch(players)
 
     const onSeasonChange = (seasonId: string) => setSeason(seasonId)

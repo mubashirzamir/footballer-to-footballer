@@ -17,7 +17,6 @@ const TeamSelection = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
     const { teams, loading } = useServiceTeams(player)
-    // @ts-ignore // TODO
     const { filteredItems, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {

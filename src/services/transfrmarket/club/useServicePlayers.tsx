@@ -41,7 +41,7 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
         error,
     } = useQuery({
         placeholderData: [], // TODO: Placeholder vs Initial Data?
-        queryKey: ['players', team.id],
+        queryKey: ['players', team.id, seasonId],
         queryFn: async (): Promise<Player[]> => {
             const response: ClubPlayersResponse = await fetchPlayers(team.id, seasonId)
 
@@ -53,7 +53,11 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
 }
 
 const transformClubPlayersToPlayers = (players: ClubPlayer[]): Player[] => {
-return players.map((p) => Player.instance(p.id).setName(p.name).setImageUrl(p.image || ''))
+    return players.map((p) =>
+        Player.instance(p.id)
+            .setName(p.name)
+            .setImageUrl(p.image || '')
+    )
 }
 
 export default useServicePlayers
