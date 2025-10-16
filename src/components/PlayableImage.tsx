@@ -6,7 +6,6 @@ interface PlayerImageProps {
 }
 
 const PlayableImage = ({ imageUrl }: PlayerImageProps) => {
-    // TODO: Sensible fallback image in assets
     return (
         <Avatar>
             <AvatarImage src={imageUrl} className="object-contain w-full h-full" />

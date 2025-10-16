@@ -6,10 +6,12 @@ interface TeamCardProps {
     onTeamSelect: (team: Team) => void
 }
 const TeamCard = ({ team, onTeamSelect }: TeamCardProps) => {
+    const hoverClass = team.withoutClub ? 'cursor-not-allowed' : 'cursor-pointer'
+
     return (
         <div
             key={team.id}
-            className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted p-2"
+            className={`flex flex-row items-center gap-4 hover:bg-muted p-2 ${hoverClass}`}
             onClick={() => onTeamSelect(team)}
         >
             <div className="size-32">

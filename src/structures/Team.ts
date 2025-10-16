@@ -8,6 +8,7 @@ export class Team implements Playable {
     seasonStart: string = ''
     seasonEnd: string = ''
     imageUrl: string = '/ball.svg'
+    withoutClub: boolean = false
     readonly entityType = 'team'
 
     constructor(id: string) {
@@ -50,6 +51,12 @@ export class Team implements Playable {
 
     setImageUrl(imageUrl: string) {
         this.imageUrl = imageUrl
+
+        return this
+    }
+
+    setIsWithoutClub(withoutClub: boolean) {
+        this.withoutClub = withoutClub
 
         return this
     }

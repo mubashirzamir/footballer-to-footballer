@@ -70,11 +70,18 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setSeasonStart(transfer.season)
             .setSeasonEnd(previousTransfer ? previousTransfer.season : 'Present')
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
+            .setIsWithoutClub(isWithoutClub(transfer.clubTo.name))
 
         if (shouldAddTeam(team)) result.push(team)
     }
 
     return result
+}
+
+const isWithoutClub = (teamName: string): boolean => {
+    const lowerCaseName = teamName.trim().toLowerCase()
+
+    return lowerCaseName === 'without club'
 }
 
 const shouldAddTeam = (team: Team): boolean => {

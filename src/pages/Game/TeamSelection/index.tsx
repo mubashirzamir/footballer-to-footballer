@@ -20,6 +20,8 @@ const TeamSelection = (props: TeamSelectionProps) => {
     const { filteredItems, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {
+        if (team.withoutClub) return
+
         updateGameState(team)
     }
 
