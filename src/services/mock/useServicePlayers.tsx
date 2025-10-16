@@ -2,7 +2,8 @@ import type { Team } from '@/structures/Team.ts'
 import type { UseServicePlayersContract } from '@/services/useServicePlayers.tsx'
 import { Player } from '@/structures/Player.ts'
 
-const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: string) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const useServicePlayers: UseServicePlayersContract = (_team: Team, _seasonId: string) => {
     return {
         loading: false,
         isError: false,
