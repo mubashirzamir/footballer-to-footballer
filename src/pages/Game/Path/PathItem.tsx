@@ -29,7 +29,7 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
     }
 
     return (
-        <div className="flex items-center space-x-4 cursor-pointer" key={playable.id} onClick={handleClick}>
+        <div className="flex items-center space-x-4 cursor-pointer" onClick={handleClick}>
             <div className="size-8">
                 <PlayableImage imageUrl={playable.imageUrl} />
             </div>
