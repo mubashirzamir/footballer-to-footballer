@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 import useServicePlayerProfile from '@/services/useServicePlayerProfile.tsx'
 
 const useGame = (gameInfo: GameInfo) => {
-    if (gameInfo.startPlayer.id === gameInfo.endPlayer.id) {
-        throw new Error('Start and end player IDs cannot be the same')
-    }
-
     const [info, setInfo] = useState<GameInfo>(gameInfo)
+
+    useEffect(() => {
+        setInfo(gameInfo)
+    }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
 
     // use service hooks for both players
     const {

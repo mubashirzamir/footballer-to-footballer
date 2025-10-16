@@ -13,7 +13,7 @@ import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
 
 const Game = () => {
-    const { gameInfo, loading: gameInfoLoading } = useGameInfoFromLocation()
+    const { gameInfo, infoHealth } = useGameInfoFromLocation()
     const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
     const { time, timeTaken, reset, buzzer } = useGameTimer()
 
@@ -23,7 +23,7 @@ const Game = () => {
     useEffect(() => {
         setGameState([gameInfo.startPlayer])
         reset()
-    }, [gameInfo, setGameState])
+    }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
 
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.
@@ -42,7 +42,7 @@ const Game = () => {
         }
     }
 
-    if (gameInfoLoading) {
+    if (infoHealth.startPlayer.loading || infoHealth.endPlayer.loading) {
         return <BaseSpinner className="size-12" />
     }
 
