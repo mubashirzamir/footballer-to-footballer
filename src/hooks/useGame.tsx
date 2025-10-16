@@ -1,6 +1,6 @@
 import type { GameInfo, InfoHealth } from '@/structures'
 import { useEffect, useState } from 'react'
-import useServiceProfile from '@/service-hooks/player/useServiceProfile.ts'
+import useServicePlayerProfile from '@/services/useServicePlayerProfile.tsx'
 
 const useGame = (gameInfo: GameInfo) => {
     if (gameInfo.startPlayer.id === gameInfo.endPlayer.id) {
@@ -11,18 +11,18 @@ const useGame = (gameInfo: GameInfo) => {
 
     // use service hooks for both players
     const {
-        playerHydrated: startPlayerHydrated,
+        player: startPlayerHydrated,
         loading: loadingSP,
         isError: isErrorSP,
         error: errorSP,
-    } = useServiceProfile(info.startPlayer)
+    } = useServicePlayerProfile(info.startPlayer)
 
     const {
-        playerHydrated: endPlayerHydrated,
+        player: endPlayerHydrated,
         loading: loadingEP,
         isError: isErrorEP,
         error: errorEP,
-    } = useServiceProfile(info.endPlayer)
+    } = useServicePlayerProfile(info.endPlayer)
 
     // track health state
     const infoHealth: InfoHealth = {

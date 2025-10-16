@@ -1,6 +1,7 @@
 import request from '@/request.js'
 import { useQuery } from '@tanstack/react-query'
 import { Player } from '@/structures/Player.ts'
+import type { UseServicePlayerProfileContract } from '@/services/useServicePlayerProfile.tsx'
 
 interface PlayerProfileResponse {
     updatedAt: string
@@ -61,22 +62,23 @@ const getPlayerProfile = async (playerId: string): Promise<PlayerProfileResponse
     return await request.get(`/players/${playerId}/profile`)
 }
 
-const useServiceProfile = (player: Player) => {
+const useServiceProfile: UseServicePlayerProfileContract = (dehydratedPlayer: Player) => {
     const {
-        data: playerHydrated,
+        data: player = dehydratedPlayer,
         isLoading: loading,
         isError,
         error,
     } = useQuery({
-        placeholderData: player,
-        queryKey: ['player_profile', player.id],
+        placeholderData: dehydratedPlayer, // TODO: Placeholder vs Initial Data?
+        queryKey: ['player_profile', dehydratedPlayer.id],
         queryFn: async (): Promise<Player> => {
-            const response = await getPlayerProfile(player.id)
+            const response = await getPlayerProfile(dehydratedPlayer.id)
+
             return transformProfileToPlayer(response)
         },
     })
 
-    return { playerHydrated, loading, isError, error }
+    return { player, loading, isError, error }
 }
 
 const transformProfileToPlayer = (profile: PlayerProfileResponse): Player => {

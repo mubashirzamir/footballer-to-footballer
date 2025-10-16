@@ -8,7 +8,7 @@ import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
 import SeasonSelector from '@/pages/Game/PlayerSelection/SeasonSelector.tsx'
 import { useState } from 'react'
-import useServicePlayers from '@/service-hooks/club/useServicePlayers.ts'
+import useServicePlayers from '@/services/useServicePlayers.tsx'
 
 interface PlayerSelectionProps {
     team: Team

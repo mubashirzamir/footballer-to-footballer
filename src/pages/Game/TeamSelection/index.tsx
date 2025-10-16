@@ -6,7 +6,7 @@ import Search from '@/pages/Game/Search.tsx'
 import TeamCard from './TeamCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
-import useServiceTransfers from '@/service-hooks/player/useServiceTransfers.ts'
+import useServiceTeams from '@/services/useServiceTeams.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -16,7 +16,7 @@ interface TeamSelectionProps {
 const TeamSelection = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
-    const { teams, loading } = useServiceTransfers(player)
+    const { teams, loading } = useServiceTeams(player)
     // @ts-ignore // TODO
     const { filteredItems, handleSearchChange } = useSearch(teams)
 

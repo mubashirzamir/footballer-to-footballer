@@ -1,8 +1,8 @@
 import request from '@/request.js'
 import { Player } from '@/structures/Player.ts'
 import { useQuery } from '@tanstack/react-query'
-import { Logger } from '@/utils'
 import type { Team } from '@/structures/Team.ts'
+import type { UseServicePlayersContract } from '@/services/useServicePlayers.tsx'
 
 type ClubPlayersResponse = {
     id: string
@@ -28,27 +28,27 @@ type ClubPlayer = {
     status: string
 }
 
-const fetchPlayers = async (clubId: string, seasonId: string): Promise<ClubPlayersResponse[]> => {
+const fetchPlayers = async (clubId: string, seasonId: string): Promise<ClubPlayersResponse> => {
     return await request.get(`/clubs/${clubId}/players`, { params: { season_id: seasonId } })
 }
 
-const useServicePlayers = (team: Team, seasonId: string) => {
-    const { data: players, isLoading: loading } = useQuery({
-        placeholderData: [],
+const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: string) => {
+    const {
+        data: players = [],
+        isLoading: loading,
+        isError,
+        error,
+    } = useQuery({
+        placeholderData: [], // TODO: Placeholder vs Initial Data?
         queryKey: ['players', team.id],
         queryFn: async (): Promise<Player[]> => {
-            try {
-                // @ts-ignore // TODO
-                const response: ClubPlayerResponse = await fetchPlayers(team.id, seasonId)
-                return transformClubPlayersToPlayers(response.players)
-            } catch (error) {
-                Logger.log('usePlayers:', error)
-                return []
-            }
+            const response: ClubPlayersResponse = await fetchPlayers(team.id, seasonId)
+
+            return transformClubPlayersToPlayers(response.players)
         },
     })
 
-    return { players, loading }
+    return { players, loading, error, isError }
 }
 
 const transformClubPlayersToPlayers = (players: ClubPlayer[]): Player[] => {
