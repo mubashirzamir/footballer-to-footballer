@@ -9,6 +9,8 @@ import useSearch from '@/hooks/useSearch.tsx'
 import SeasonSelector from '@/pages/Game/PlayerSelection/SeasonSelector.tsx'
 import { useState } from 'react'
 import useServicePlayers from '@/services/useServicePlayers.tsx'
+import Error from '@/components/Error.tsx'
+import Empty from '@/components/Empty.tsx'
 
 interface PlayerSelectionProps {
     team: Team
@@ -20,7 +22,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
 
     const [season, setSeason] = useState(team.getSeasons()[0].id)
 
-    const { players, loading } = useServicePlayers(team, season)
+    const { players, loading, error } = useServicePlayers(team, season)
     const { filteredItems, handleSearchChange } = useSearch(players)
 
     const onSeasonChange = (seasonId: string) => setSeason(seasonId)
@@ -31,6 +33,10 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
 
     if (loading) {
         return <BaseSpinner className="size-8" />
+    }
+
+    if (error) {
+        return <Error error={error} />
     }
 
     return (
@@ -44,6 +50,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
             {filteredItems.map((player) => (
                 <PlayerCard player={player} onPlayerSelect={onPlayerSelect} />
             ))}
+            <Empty length={players.length} message="No players to show." />
         </div>
     )
 }

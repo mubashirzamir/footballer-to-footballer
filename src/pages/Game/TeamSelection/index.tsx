@@ -7,6 +7,8 @@ import TeamCard from './TeamCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
 import useServiceTeams from '@/services/useServiceTeams.tsx'
+import Error from '@/components/Error.tsx'
+import Empty from '@/components/Empty.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -16,7 +18,7 @@ interface TeamSelectionProps {
 const TeamSelection = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
-    const { teams, loading } = useServiceTeams(player)
+    const { teams, loading, error } = useServiceTeams(player)
     const { filteredItems, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {
@@ -29,6 +31,10 @@ const TeamSelection = (props: TeamSelectionProps) => {
         return <BaseSpinner className="size-8" />
     }
 
+    if (error) {
+        return <Error error={error} />
+    }
+
     return (
         <div>
             <TurnInfo>History of {player.name}</TurnInfo>
@@ -38,6 +44,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
             {filteredItems.map((team) => (
                 <TeamCard team={team} onTeamSelect={onTeamSelect} />
             ))}
+            <Empty length={teams.length} message="No teams to show." />
         </div>
     )
 }
