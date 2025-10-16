@@ -25,6 +25,20 @@ const Game = () => {
         reset()
     }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
 
+    // TODO: Too many useEffects, can this be done in a better way?
+    // Replace data in gameState if info is loaded later
+    useEffect(() => {
+        setGameState((prev) =>
+            prev.map((item) => {
+                if (item instanceof Player) {
+                    if (item.id === gameInfo.startPlayer.id) return gameInfo.startPlayer
+                    if (item.id === gameInfo.endPlayer.id) return gameInfo.endPlayer
+                }
+                return item
+            })
+        )
+    }, [gameInfo.startPlayer.name, gameInfo.endPlayer.name])
+
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.
     const tail = gameState[gameState.length - 1]
