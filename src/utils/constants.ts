@@ -4,7 +4,7 @@ export const ENV_IS_PROD = import.meta.env.PROD
 export const DELAY = 100 // 0.1 seconds
 
 export const API_IMPLEMENTATIONS = {
-    TRANSFRMARKET: 'transfrmarket',
+    TRANSFRMARKET: 'transfermarkt',
     FBREF: 'fbref',
     MOCK: 'mock',
 }

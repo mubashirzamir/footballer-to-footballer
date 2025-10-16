@@ -21,7 +21,9 @@ export class Player implements Playable {
     }
 
     setImageUrl(imageUrl: string) {
-        this.imageUrl = imageUrl
+        if (imageUrl !== '') {
+            this.imageUrl = imageUrl
+        }
 
         return this
     }

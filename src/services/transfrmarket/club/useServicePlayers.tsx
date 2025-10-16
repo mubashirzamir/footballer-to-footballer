@@ -13,6 +13,7 @@ type ClubPlayersResponse = {
 type ClubPlayer = {
     id: string
     name: string
+    image: string | undefined
     position: string
     dateOfBirth: string
     age: number
@@ -52,7 +53,7 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
 }
 
 const transformClubPlayersToPlayers = (players: ClubPlayer[]): Player[] => {
-    return players.map((p) => Player.instance(p.id).setName(p.name))
+return players.map((p) => Player.instance(p.id).setName(p.name).setImageUrl(p.image || ''))
 }
 
 export default useServicePlayers
