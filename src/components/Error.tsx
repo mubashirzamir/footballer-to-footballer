@@ -14,7 +14,7 @@ const Error = ({ error }: ErrorProps) => {
     if (!!ENV_IS_DEV) message = 'An error occurred. Please try again later.'
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-[200px]">
             <div className="p-4 bg-red-100 text-red-800 border border-red-400 rounded">
                 <span className="block sm:inline ml-2">{message}</span>
             </div>

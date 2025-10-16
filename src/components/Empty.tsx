@@ -7,7 +7,7 @@ const Empty = ({ length, message }: EmptyProps) => {
     if (length > 0) return
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-[200px]">
             <strong className="font-bold text-lg">{message || 'No items to show'}</strong>
         </div>
     )
