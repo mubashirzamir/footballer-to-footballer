@@ -2,6 +2,7 @@ import { API_IMPLEMENTATION, API_IMPLEMENTATIONS } from '@/utils/constants.ts'
 import type { Team } from '@/structures/Team.ts'
 import type { Player } from '@/structures/Player.ts'
 import useServiceTeamsTransfermarkt from '@/services/transfrmarket/player/useServiceTransfers.tsx'
+import useServiceTeamsMock from '@/services/mock/useServiceTeams.tsx'
 
 export interface UseServiceTeamsContract {
     (player: Player): {
@@ -15,8 +16,7 @@ export interface UseServiceTeamsContract {
 // choose which implementation to use BEFORE calling the hook
 const implementationMap = {
     [API_IMPLEMENTATIONS.TRANSFRMARKET]: useServiceTeamsTransfermarkt,
-    // add other implementations later:
-    // [API_IMPLEMENTATIONS.FBREF]: useServiceTeamsFbref,
+    [API_IMPLEMENTATIONS.MOCK]: useServiceTeamsMock
 }
 
 export const useServiceTeams: UseServiceTeamsContract = (player: Player) => {
@@ -33,7 +33,7 @@ export const useServiceTeams: UseServiceTeamsContract = (player: Player) => {
     // if there’s no matching implementation, return fallback
     if (!hookImpl) return fallback
 
-    // ✅ call the hook unconditionally
+    // call the hook unconditionally
     return hookImpl(player)
 }
 
