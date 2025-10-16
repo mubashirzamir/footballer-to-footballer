@@ -20,9 +20,19 @@ const useSearch = <T extends Record<string, any>>(items: T[], searchKey: keyof T
 const filter = <T extends Record<string, any>>(items: T[], query: string, searchKey: keyof T = 'name') => {
     if (!query) return items
 
+    const normalize = (str: string) => {
+        return str
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+    }
+
+    const normalizedQuery = normalize(query)
+
     return items.filter((item) => {
-        const value = item[searchKey] as string
-        return value.toLowerCase().includes(query.toLowerCase())
+        const raw = String(item[searchKey] ?? '')
+        const value = normalize(raw)
+        return value.includes(normalizedQuery)
     })
 }
 
