@@ -11,7 +11,7 @@ const Error = ({ error }: ErrorProps) => {
         <span className="whitespace-pre-wrap">{error?.message || String(error) || 'An unknown error occurred'}</span>
     )
 
-    if (!!ENV_IS_DEV) message = 'An error occurred. Please try again later.'
+    if (!ENV_IS_DEV) message = 'An error occurred. Please try again later.'
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[200px]">
