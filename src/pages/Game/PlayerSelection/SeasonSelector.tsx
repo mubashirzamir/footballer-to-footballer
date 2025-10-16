@@ -17,7 +17,7 @@ interface SeasonSelectorProps {
 const SeasonSelector = ({ seasonId, seasons, onChange }: SeasonSelectorProps) => {
     return (
         <Select value={seasonId} onValueChange={onChange}>
-            <SelectTrigger>
+            <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Select a season" />
             </SelectTrigger>
             <SelectContent>
