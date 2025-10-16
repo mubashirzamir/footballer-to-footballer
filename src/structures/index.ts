@@ -6,6 +6,7 @@ export type Game = {
     start_player_name: string
     end_player_id: string
     end_player_name: string
+    suggested_by: string
 }
 
 export type GameState = Playable[]
@@ -15,7 +16,18 @@ export type GameInfo = {
     endPlayer: Player
 }
 
+export type ProfileHealth = {
+    loading: boolean
+    isError: boolean
+    error: unknown
+}
+
+export type InfoHealth = {
+    startPlayer: ProfileHealth
+    endPlayer: ProfileHealth
+}
+
 export type GameDriver = {
     gameInfo: GameInfo
-    loading: boolean
+    infoHealth: InfoHealth
 }

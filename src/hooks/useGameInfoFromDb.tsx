@@ -1,24 +1,46 @@
 import { games } from '@/utils/db.tsx'
 import { useEffect, useState } from 'react'
-import { DELAY } from '@/utils/constants.ts'
-import type { GameDriver, GameInfo } from '@/structures'
+import type { GameDriver, GameInfo, InfoHealth } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import { Logger } from '@/utils'
+import useServiceProfile from '@/service-hooks/player/useServiceProfile.ts'
 
-const useGameInfoFromDb = (): GameDriver => {
-    const [loading, setLoading] = useState(false)
+export const useGameInfoFromDb = (): GameDriver => {
     const [info, setInfo] = useState<GameInfo>(getGameInfo())
 
-    // TODO: Awfully similar to useGameInfoFromLocation, refactor to remove duplication
-    useEffect(() => {
-        // Placeholder for API call to fetch player info
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, DELAY)
-    }, [])
+    // use service hooks for both players
+    const {
+        playerHydrated: startPlayerHydrated,
+        loading: loadingSP,
+        isError: isErrorSP,
+        error: errorSP,
+    } = useServiceProfile(info.startPlayer)
 
-    return { gameInfo: info, loading }
+    const {
+        playerHydrated: endPlayerHydrated,
+        loading: loadingEP,
+        isError: isErrorEP,
+        error: errorEP,
+    } = useServiceProfile(info.endPlayer)
+
+    // track health state
+    const infoHealth: InfoHealth = {
+        startPlayer: { loading: loadingSP, isError: isErrorSP, error: errorSP },
+        endPlayer: { loading: loadingEP, isError: isErrorEP, error: errorEP },
+    }
+
+    // update hydrated info when profiles load
+    useEffect(() => {
+        if (startPlayerHydrated || endPlayerHydrated) {
+            setInfo((prev) => ({
+                ...prev,
+                startPlayer: startPlayerHydrated ?? prev.startPlayer,
+                endPlayer: endPlayerHydrated ?? prev.endPlayer,
+            }))
+        }
+    }, [startPlayerHydrated, endPlayerHydrated])
+
+    return { gameInfo: info, infoHealth }
 }
 
 const getGameInfo = (): GameInfo => {

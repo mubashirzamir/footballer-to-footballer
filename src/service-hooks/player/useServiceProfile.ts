@@ -58,7 +58,7 @@ interface PlayerProfileResponse {
 }
 
 const getPlayerProfile = async (playerId: string): Promise<PlayerProfileResponse> => {
-    return await request.get(`/player/${playerId}/profile`)
+    return await request.get(`/players/${playerId}/profile`)
 }
 
 const useServiceProfile = (player: Player) => {

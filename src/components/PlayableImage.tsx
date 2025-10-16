@@ -9,7 +9,7 @@ const PlayableImage = ({ imageUrl }: PlayerImageProps) => {
     // TODO: Sensible fallback image in assets
     return (
         <Avatar>
-            <AvatarImage src={imageUrl} />
+            <AvatarImage src={imageUrl} className="object-contain w-full h-full" />
             <AvatarFallback>
                 <img src={ball} alt="Fallback" />
             </AvatarFallback>
