@@ -80,4 +80,8 @@ export class Team implements Playable {
 
         return year >= 50 ? 1900 + year : 2000 + year
     }
+
+    static convertYearToSeason(year: number) {
+        return `${year % 100}/${(year + 1) % 100}`
+    }
 }

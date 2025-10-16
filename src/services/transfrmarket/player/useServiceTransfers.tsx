@@ -59,6 +59,11 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
 
     const result = []
 
+    // TODO: utils
+    const today = new Date().toISOString()
+    const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
+    const currentSeasonString = Team.convertYearToSeason(currentSeason)
+
     for (let i = 0; i < transfers.length; i++) {
         const transfer = transfers[i]
         const previousTransfer = transfers[i - 1]
@@ -66,9 +71,9 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
         const team = new Team(transfer.clubTo.id)
             .setName(transfer.clubTo.name)
             .setStartDate(transfer.date)
-            .setEndDate(previousTransfer ? previousTransfer.date : 'Present')
+            .setEndDate(previousTransfer ? previousTransfer.date : today)
             .setSeasonStart(transfer.season)
-            .setSeasonEnd(previousTransfer ? previousTransfer.season : 'Present')
+            .setSeasonEnd(previousTransfer ? previousTransfer.season : currentSeasonString)
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
             .setIsWithoutClub(isWithoutClub(transfer.clubTo.name))
 
