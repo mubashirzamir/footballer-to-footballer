@@ -10,6 +10,7 @@ import { useState } from 'react'
 import useServicePlayers from '@/services/useServicePlayers.tsx'
 import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
+import { scrollToTop } from '@/utils'
 
 interface PlayerSelectionProps {
     team: Team
@@ -27,6 +28,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     const onSeasonChange = (seasonId: string) => setSeason(seasonId)
 
     const onPlayerSelect = (player: Player) => {
+        scrollToTop()
         updateGameState(player)
     }
 

@@ -10,6 +10,7 @@ import useServiceTeams from '@/services/useServiceTeams.tsx'
 import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
 import Text from '@/components/Text.tsx'
+import { scrollToTop } from '@/utils'
 
 interface TeamSelectionProps {
     player: Player
@@ -25,6 +26,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
     const onTeamSelect = (team: Team) => {
         if (team.withoutClub) return
 
+        scrollToTop()
         updateGameState(team)
     }
 
