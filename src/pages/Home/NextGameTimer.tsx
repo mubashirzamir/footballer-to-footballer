@@ -1,8 +1,13 @@
 import useNextGameTimer from '@/hooks/useNextGameTimer.tsx'
 import Text from '@/components/Text.tsx'
+import { __ } from '@/lang/lang.ts'
 
 const NextGameTimer = () => {
-    return <Text text={`Next Challenge: ${useNextGameTimer()}`} />
+    return (
+        <Text>
+            {__.messages.next_challenge}: {useNextGameTimer()}
+        </Text>
+    )
 }
 
 export default NextGameTimer

@@ -11,6 +11,7 @@ import useServicePlayers from '@/services/useServicePlayers.tsx'
 import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
 import { scrollToTop } from '@/utils'
+import { __ } from '@/lang/lang.ts'
 
 interface PlayerSelectionProps {
     team: Team
@@ -51,7 +52,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
             {filteredItems.map((player) => (
                 <PlayerCard player={player} onPlayerSelect={onPlayerSelect} />
             ))}
-            <Empty length={players.length} message="No players to show." />
+            <Empty length={players.length} message={__.messages.no_players} />
         </div>
     )
 }

@@ -4,21 +4,22 @@ import useGame from '@/hooks/useGame.tsx'
 import type { GameDriver, GameInfo } from '@/structures'
 import { API_IMPLEMENTATION, API_IMPLEMENTATIONS } from '@/utils/constants.ts'
 import { GAME_INFO as MOCK_GAME_INFO } from '@/services/mock/mock.ts'
+import { __ } from '@/lang/lang.ts'
 
 const useGameInfoFromLocation = (): GameDriver => {
     const { start_player_id: startPlayerId, end_player_id: endPlayerId } = useParams()
     const location = useLocation()
 
     if (!location.pathname.startsWith('/play/')) {
-        throw new Error('No game info in non-play route')
+        throw new Error(__.errors.no_game_info)
     }
 
     if (!startPlayerId || !endPlayerId) {
-        throw new Error('Missing player IDs in URL parameters')
+        throw new Error(__.errors.missing_player_ids)
     }
 
     if (startPlayerId === endPlayerId) {
-        throw new Error('Start and end player IDs cannot be the same')
+        throw new Error(__.errors.same_player_ids)
     }
 
     return useGame(getGamesFor(startPlayerId, endPlayerId, API_IMPLEMENTATION))

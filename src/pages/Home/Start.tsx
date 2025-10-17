@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { Button } from '@/components/ui/button.tsx'
 import type { GameInfo } from '@/structures'
 import Text from '@/components/Text.tsx'
+import { __ } from '@/lang/lang.ts'
 
 interface StartProps {
     gameInfo: GameInfo
@@ -13,7 +14,9 @@ const Start = ({ gameInfo }: StartProps) => {
     return (
         <Button className="cursor-pointer">
             <Link to={`play/${startPlayer.id}/${endPlayer.id}`}>
-                <Text text="Start" />
+                <Text>
+                    {__.messages.start}
+                </Text>
             </Link>
         </Button>
     )

@@ -11,6 +11,7 @@ import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
 import Text from '@/components/Text.tsx'
 import { scrollToTop } from '@/utils'
+import { __ } from '@/lang/lang.ts'
 
 interface TeamSelectionProps {
     player: Player
@@ -41,7 +42,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
     return (
         <div>
             <TurnInfo>
-                <Text className="text-lg">History of {player.name}</Text>
+                <Text className="text-lg">{__.messages.history_of} {player.name}</Text>
             </TurnInfo>
             <div className="my-2">
                 <Search onChange={handleSearchChange} />
@@ -49,7 +50,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
             {filteredItems.map((team) => (
                 <TeamCard team={team} onTeamSelect={onTeamSelect} />
             ))}
-            <Empty length={teams.length} message="No teams to show." />
+            <Empty length={teams.length} message={__.messages.no_teams} />
         </div>
     )
 }
