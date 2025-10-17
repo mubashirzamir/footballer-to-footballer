@@ -69,6 +69,7 @@ const useServiceProfile: UseServicePlayerProfileContract = (dehydratedPlayer: Pl
         isError,
         error,
     } = useQuery({
+        staleTime: Infinity,
         placeholderData: dehydratedPlayer,
         queryKey: ['player_profile', dehydratedPlayer.id],
         queryFn: async (): Promise<Player> => {

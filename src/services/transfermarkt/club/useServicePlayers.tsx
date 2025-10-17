@@ -40,6 +40,7 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
         isError,
         error,
     } = useQuery({
+        staleTime: Infinity,
         queryKey: ['players', team.id, seasonId],
         queryFn: async (): Promise<Player[]> => {
             const response: ClubPlayersResponse = await fetchPlayers(team.id, seasonId)
