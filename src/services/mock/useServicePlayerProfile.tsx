@@ -6,7 +6,7 @@ const useServicePlayerProfile: UseServicePlayerProfileContract = (player: Player
         loading: false,
         isError: false,
         error: null,
-        player: player.setName('Lionel Messi'),
+        player: player,
     }
 }
 

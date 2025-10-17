@@ -1,6 +1,6 @@
 import type { Game } from '@/structures'
 
-export const games: Record<string, Game> = {
+export const GAMES: Record<string, Game> = {
     '2025-10-18': {
         start_player_id: '3111',
         start_player_name: 'Zinedine Zidane',

@@ -1,7 +1,7 @@
 import type { GameState } from '@/structures'
 import { useEffect, useState } from 'react'
 import { DELAY } from '@/utils/constants.ts'
-import { mockGameState } from '@/utils/mock.ts'
+import { GAME_STATE } from '@/services/mock/mock.ts'
 
 const useShortestPossiblePath = (gameState: GameState) => {
     const [shortestPossiblePath, setShortestPossiblePath] = useState<GameState>([])
@@ -18,7 +18,7 @@ const useShortestPossiblePath = (gameState: GameState) => {
                     setFoundNewShortestPath(true)
                 }, DELAY)
             } else {
-                setShortestPossiblePath(mockGameState)
+                setShortestPossiblePath(GAME_STATE())
             }
 
             setLoading(false)
