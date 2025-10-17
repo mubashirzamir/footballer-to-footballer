@@ -116,6 +116,6 @@
   }
   body {
     @apply bg-background text-foreground;
-      font-family: monospace;
+      font-family: 'arial', serif;
   }
 }

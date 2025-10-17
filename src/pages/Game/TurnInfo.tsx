@@ -5,7 +5,7 @@ interface TurnInfoProps {
 }
 
 const TurnInfo = ({ children }: TurnInfoProps) => {
-    return <div className="text-xl font-medium flex justify-center">{children}</div>
+    return <div>{children}</div>
 }
 
 export default TurnInfo

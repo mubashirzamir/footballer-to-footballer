@@ -10,11 +10,14 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
     const { player } = props
 
     return (
-        <div>
-            <div className="md:size-80 sm:size-64 size-24">
+        <div className="flex flex-col items-center">
+            <div className="md:w-80 md:h-80 sm:w-64 sm:h-64 w-24 h-24">
                 <PlayableImage imageUrl={player.imageUrl} />
             </div>
-            <Text text={player.name} className="md:text-xl sm:text-xl font-bold mt-4 md:max-w-[20rem] sm:max-w-[16rem] max-w-[6rem]" />
+            <Text
+                text={player.name}
+                className="md:text-xl sm:text-xl font-bold mt-4 min-h-[3rem] md:w-20rem sm:w-16rem w-10rem"
+            />
         </div>
     )
 }

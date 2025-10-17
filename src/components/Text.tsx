@@ -5,7 +5,7 @@ interface TextProps {
 
 const Text = ({ text, className }: TextProps) => {
     return (
-        <span className={`truncate text-center block text- ${className}`} title={text} aria-label={text}>
+        <span className={`text-center block whitespace-normal break-words ${className}`} title={text} aria-label={text}>
             {text}
         </span>
     )

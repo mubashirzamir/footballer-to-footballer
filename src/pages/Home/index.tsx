@@ -14,9 +14,9 @@ const Home = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4 md:p-8">
-            <div className="flex flex-row items-center justify-center space-x-4 md:space-x-8 w-full max-w-md">
+            <div className="flex flex-row items-center justify-center space-x-8 w-full">
                 <PrimaryPlayer player={gameInfo.startPlayer} />
-                <Direction className="md:text-6xl sm:text-4xl text-2xl max-w-[2rem]" />
+                <Direction className="md:text-6xl sm:text-4xl text-2xl max-w-[4rem]" />
                 <PrimaryPlayer player={gameInfo.endPlayer} />
             </div>
             <Start gameInfo={gameInfo} />
