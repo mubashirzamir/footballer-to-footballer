@@ -55,10 +55,14 @@ export class Team implements Playable {
         return this
     }
 
-    setIsWithoutClub(withoutClub: boolean) {
+    setWithoutClub(withoutClub: boolean = true) {
         this.withoutClub = withoutClub
 
         return this
+    }
+
+    getCompactSeasonRange() {
+        return this.seasonStart.split('/')[0] + '-' + this.seasonEnd.split('/')[1]
     }
 
     // TODO: This method is not entirely accurate

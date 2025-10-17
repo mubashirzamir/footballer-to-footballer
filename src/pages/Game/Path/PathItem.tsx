@@ -1,6 +1,7 @@
 import type { Playable } from '@/structures/Playable.ts'
 import PlayableImage from '@/components/PlayableImage.tsx'
 import Direction from '@/components/Direction.tsx'
+import Text from '@/components/Text.tsx'
 
 interface PathItemProps {
     playable: Playable
@@ -18,27 +19,23 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
 
     const renderSeason = () => {
         if (playable.entityType === 'team') {
-            return (
-                <span>
-                    {/*TODO: TypeScript should be able to infer this but not doing so for some reason?*/}
-                    {/*@ts-ignore*/}
-                    {playable.seasonStart} - {playable.seasonEnd}
-                </span>
-            )
+            // TODO: TypeScript should be able to infer this but not doing so for some reason?
+            // @ts-ignore
+            return playable.getCompactSeasonRange()
         }
     }
 
     return (
-        <div className="flex items-center space-x-4 cursor-pointer" onClick={handleClick}>
-            <div className="size-8">
+        <div className="flex items-center cursor-pointer" onClick={handleClick}>
+            <div className="w-8 h-8 mr-2">
                 <PlayableImage imageUrl={playable.imageUrl} />
             </div>
             {isLast && (
-                <span>
+                <Text className="mr-2">
                     {playable.name} {renderSeason()}
-                </span>
+                </Text>
             )}
-            <Direction className="text-xl" />
+            <Direction className="mr-2" />
         </div>
     )
 }

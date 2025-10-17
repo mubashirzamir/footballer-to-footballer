@@ -74,7 +74,7 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setSeasonStart(transfer.season)
             .setSeasonEnd(previousTransfer ? previousTransfer.season : currentSeasonString)
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
-            .setIsWithoutClub(isWithoutClub(transfer.clubTo.name))
+            .setWithoutClub(isWithoutClub(transfer.clubTo.name))
 
         if (shouldAddTeam(team)) result.push(team)
     }
