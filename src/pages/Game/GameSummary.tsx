@@ -13,7 +13,7 @@ const GameSummary = ({ gameInfo }: GameSummaryProps) => {
         <div className="flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-center space-x-8">
                 <PlayableImageWithText player={gameInfo.startPlayer} />
-                <Direction mutable={true} className="text-2xl" />
+                <Direction mutable={true} className="text-4xl max-w-[2rem]" />
                 <PlayableImageWithText player={gameInfo.endPlayer} />
             </div>
         </div>
@@ -26,12 +26,12 @@ interface PlayableImageWithTextProps {
 
 const PlayableImageWithText = ({ player }: PlayableImageWithTextProps) => {
     return (
-        <div>
-            <div className="size-24">
+        <div className="flex flex-col items-center">
+            <div className="w-24 h-24">
                 <PlayableImage imageUrl={player.imageUrl} />
             </div>
             <div className="flex flex-col items-center">
-                <Text text={player.name} className="max-w-[10rem] mt-2" />
+                <Text text={player.name} className="font-bold min-w-[10rem] max-w-[10rem] mt-2" />
             </div>
         </div>
     )

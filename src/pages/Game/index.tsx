@@ -61,7 +61,7 @@ const Game = () => {
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-8">
             {!gameOver && <Timer time={time} />}
             <div>
                 <GameSummary gameInfo={gameInfo} />

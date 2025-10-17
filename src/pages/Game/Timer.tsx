@@ -1,5 +1,7 @@
+import Text from '@/components/Text.tsx'
+
 const Timer = ({ time }: { time: number }) => {
-    return <div className="text-center text-2xl font-bold">{time}s</div>
+    return <Text text={`${time}s`} className="font-bold md:text-2xl sm:text-xl" />
 }
 
 export default Timer
