@@ -16,7 +16,7 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
             </div>
             <Text
                 text={player.name}
-                className="md:text-xl sm:text-xl font-bold mt-4 min-h-[3rem] md:w-20rem sm:w-16rem w-10rem"
+                className="md:text-xl sm:text-xl font-bold mt-4 min-h-[3rem] md:w-[10rem] sm:w-[16rem] w-[10rem]"
             />
         </div>
     )
