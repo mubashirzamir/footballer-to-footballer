@@ -10,6 +10,8 @@ export class Logger {
     }
 }
 
+export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 export const debounce = (func: (...args: any[]) => void, wait: number) => {
     let timeout: ReturnType<typeof setTimeout> | null = null
 
