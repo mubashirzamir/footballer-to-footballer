@@ -1,7 +1,6 @@
 import { ENV_IS_DEV } from '@/utils/constants.ts'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
-import { JSX } from 'react'
 import { Logger } from '@/utils'
 
 interface ErrorProps {
@@ -9,7 +8,7 @@ interface ErrorProps {
 }
 
 const Error = ({ error }: ErrorProps) => {
-    let message: JSX.Element = <>{__.errors.error_for_user}</>
+    let message = <>{__.errors.error_for_user}</>
 
     if (ENV_IS_DEV) {
         // @ts-ignore
