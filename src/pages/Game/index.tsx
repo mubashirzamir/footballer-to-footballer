@@ -66,7 +66,7 @@ const Game = () => {
             <div>
                 <GameSummary gameInfo={gameInfo} />
             </div>
-            <div className="my-8">
+            <div className="my-4">
                 {gameOver ? (
                     <Win timeTaken={timeTaken} gameState={gameState} />
                 ) : (
