@@ -3,6 +3,7 @@ import type { Player } from '@/structures/Player.ts'
 import { useQuery } from '@tanstack/react-query'
 import { delay } from '@/utils'
 import { DELAY } from '@/utils/constants.ts'
+import { DEHHYDRATED_TO_HYDRATED_PLAYERS } from '@/services/mock/mock.ts'
 
 const useServicePlayerProfile: UseServicePlayerProfileContract = (dehydratedPlayer: Player) => {
     const {
@@ -17,7 +18,7 @@ const useServicePlayerProfile: UseServicePlayerProfileContract = (dehydratedPlay
         queryFn: async (): Promise<Player> => {
             await delay(DELAY)
 
-            return dehydratedPlayer
+            return DEHHYDRATED_TO_HYDRATED_PLAYERS()[dehydratedPlayer.id]
         },
     })
 

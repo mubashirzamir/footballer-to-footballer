@@ -37,7 +37,15 @@ export const PLAYERS = () => [RONALDO(), DI_MARIA(), MESSI()]
 
 export const TEAMS = () => [PSG(), REAL_MADRID()]
 
+export const DEHYDRATED_MESSI = () => Player.instance('Messi')
+export const DEHYDRATED_RONALDO = () => Player.instance('Ronaldo')
+
+export const DEHHYDRATED_TO_HYDRATED_PLAYERS = (): Record<string, Player> => ({
+    Messi: MESSI(),
+    Ronaldo: RONALDO(),
+})
+
 export const GAME_INFO = (): GameInfo => ({
-    startPlayer: MESSI(),
-    endPlayer: RONALDO(),
+    startPlayer: DEHYDRATED_MESSI(),
+    endPlayer: DEHYDRATED_RONALDO(),
 })
