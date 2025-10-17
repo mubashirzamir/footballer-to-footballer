@@ -11,7 +11,7 @@ const PlayerCard = ({ player, onPlayerSelect }: PlayerProps) => {
     return (
         <div
             key={player.id}
-            className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted p-2"
+            className="flex flex-row items-center gap-4 cursor-pointer hover:bg-muted py-2 border-b-2"
             onClick={() => onPlayerSelect(player)}
         >
             <div className="w-24 h-24 md:w-32 md:h-32">

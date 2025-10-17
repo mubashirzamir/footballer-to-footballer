@@ -13,7 +13,7 @@ const TeamCard = ({ team, onTeamSelect }: TeamCardProps) => {
     return (
         <div
             key={team.id}
-            className={`flex flex-row items-center gap-4 hover:bg-muted p-2 ${hoverClass}`}
+            className={`flex flex-row items-center gap-4 hover:bg-muted py-2 border-b-2 ${hoverClass}`}
             onClick={() => onTeamSelect(team)}
         >
             <div className="w-24 h-24 md:w-32 md:h-32">
