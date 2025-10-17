@@ -2,6 +2,9 @@ import { Player } from '@/structures/Player.ts'
 import { Team } from '@/structures/Team.ts'
 import type { GameInfo } from '@/structures'
 
+// The data is here is encapsulated in functions to avoid needlessly creating objects at least that is my understanding.
+// TODO: Later look into whether this is necessary or if we can just export the objects directly.
+
 export const MESSI = () =>
     Player.instance('Messi')
         .setName('Lionel Messi')
@@ -33,7 +36,7 @@ export const REAL_MADRID = () =>
 
 export const GAME_STATE = () => [MESSI(), PSG(), DI_MARIA(), REAL_MADRID(), RONALDO()]
 
-export const PLAYERS = () => [RONALDO(), DI_MARIA(), MESSI()]
+export const PLAYERS = () => [MESSI(), DI_MARIA(), RONALDO()]
 
 export const TEAMS = () => [PSG(), REAL_MADRID()]
 
