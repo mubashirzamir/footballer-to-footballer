@@ -1,13 +1,27 @@
 import type { UseServicePlayerProfileContract } from '@/services/useServicePlayerProfile.tsx'
 import type { Player } from '@/structures/Player.ts'
+import { useQuery } from '@tanstack/react-query'
+import { delay } from '@/utils'
+import { DELAY } from '@/utils/constants.ts'
 
-const useServicePlayerProfile: UseServicePlayerProfileContract = (player: Player) => {
-    return {
-        loading: false,
-        isError: false,
-        error: null,
-        player: player,
-    }
+const useServicePlayerProfile: UseServicePlayerProfileContract = (dehydratedPlayer: Player) => {
+    const {
+        data: player = dehydratedPlayer,
+        isLoading: loading,
+        isError,
+        error,
+    } = useQuery({
+        staleTime: Infinity,
+        placeholderData: dehydratedPlayer,
+        queryKey: ['player_profile', dehydratedPlayer.id],
+        queryFn: async (): Promise<Player> => {
+            await delay(DELAY)
+
+            return dehydratedPlayer
+        },
+    })
+
+    return { player, loading, isError, error }
 }
 
 export default useServicePlayerProfile
