@@ -4,7 +4,6 @@ import BaseSpinner from '@/components/BaseSpinner.tsx'
 import Search from '@/pages/Game/Search.tsx'
 import type { Playable } from '@/structures/Playable.ts'
 import PlayerCard from './PlayerCard.tsx'
-import TurnInfo from '@/pages/Game/TurnInfo.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
 import SeasonSelector from '@/pages/Game/PlayerSelection/SeasonSelector.tsx'
 import { useState } from 'react'
@@ -41,9 +40,9 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
 
     return (
         <div>
-            <TurnInfo>
+            <div className="flex flex-col items-center">
                 <SeasonSelector seasonId={season} seasons={team.getSeasons()} onChange={onSeasonChange} />
-            </TurnInfo>
+            </div>
             <div className="my-2">
                 <Search onChange={handleSearchChange} />
             </div>

@@ -1,12 +1,15 @@
+import type { ReactNode } from 'react'
+
 interface TextProps {
-    text: string
+    text?: string
+    children?: ReactNode // ideally string
     className?: string
 }
 
-const Text = ({ text, className }: TextProps) => {
+const Text = ({ text, children, className }: TextProps) => {
     return (
         <span className={`text-center block whitespace-normal break-words ${className}`} title={text} aria-label={text}>
-            {text}
+            {children || text}
         </span>
     )
 }

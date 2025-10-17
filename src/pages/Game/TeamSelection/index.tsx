@@ -9,6 +9,7 @@ import useSearch from '@/hooks/useSearch.tsx'
 import useServiceTeams from '@/services/useServiceTeams.tsx'
 import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
+import Text from '@/components/Text.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -37,7 +38,9 @@ const TeamSelection = (props: TeamSelectionProps) => {
 
     return (
         <div>
-            <TurnInfo>History of {player.name}</TurnInfo>
+            <TurnInfo>
+                <Text className="text-lg">History of {player.name}</Text>
+            </TurnInfo>
             <div className="my-2">
                 <Search onChange={handleSearchChange} />
             </div>
