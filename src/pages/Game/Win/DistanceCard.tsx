@@ -1,14 +1,15 @@
 import WinCard from '@/pages/Game/Win/WinCard.tsx'
+import Text from '@/components/Text.tsx'
 
 interface DistanceCardProps {
     distance: number
 }
 
-const DistanceCard = ({distance}: DistanceCardProps) => {
+const DistanceCard = ({ distance }: DistanceCardProps) => {
     return (
         <WinCard>
-            <div className="text-xl">Distance</div>
-            <div className="text-2xl font-bold">{distance}</div>
+            <Text className="text-xl font-bold">Distance</Text>
+            <Text className="text-2xl">{distance}</Text>
         </WinCard>
     )
 }
