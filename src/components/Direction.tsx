@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button.tsx'
 import { useNavigate, useParams } from 'react-router'
+import Text from '@/components/Text.tsx'
 
 interface DirectionProps {
     className?: string
@@ -21,7 +22,7 @@ const Direction = (props: DirectionProps) => {
     }
 
     const arrow = () => {
-        return <span className={className}>→</span>
+        return <Text text="➔" className={className} />
     }
 
     return (
