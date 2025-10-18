@@ -31,7 +31,7 @@ const PlayableImageWithText = ({ player }: PlayableImageWithTextProps) => {
                 <PlayableImage imageUrl={player.imageUrl} />
             </div>
             <div className="flex flex-col items-center">
-                <Text text={player.name} className="font-bold min-h-[3rem] w-[10rem] sm:w-[16rem] md:w-[20rem] mt-2" />
+                <Text text={player.name} className="font-bold min-h-[3rem] w-[8rem] sm:w-[16rem] md:w-[20rem] mt-2" />
             </div>
         </div>
     )
