@@ -11,7 +11,7 @@ const Path = (props: PathProps) => {
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-row flex-wrap">
+            <div className="flex flex-row flex-wrap gap-y-2">
                 {gameState.map((playable, index) => (
                     <PathItem
                         key={`path-item-${playable.id}-${index}`}
