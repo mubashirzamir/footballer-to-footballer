@@ -22,7 +22,7 @@ const Win = (props: WinProps) => {
                     <TimeCard time={timeTaken} />
                     <DistanceCard distance={(gameState.length - 1) / 2} />
                 </div>
-                {!ENV_IS_DEV && (
+                {ENV_IS_DEV && (
                     <JourneyCard>
                         <ShortestPossiblePath gameState={gameState} />
                     </JourneyCard>
