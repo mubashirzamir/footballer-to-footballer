@@ -15,5 +15,7 @@ export const en = {
         no_game_info: 'No game info in non-play route',
         missing_player_ids: 'Missing player IDs in URL parameters',
         same_player_ids: 'Start and end player IDs cannot be the same',
+        error_for_user: 'An error occurred. Please try again later.',
+        unknown_error: 'An unknown error occurred.',
     },
 }
