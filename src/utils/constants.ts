@@ -3,6 +3,8 @@ export const ENV_IS_PROD = import.meta.env.PROD
 
 export const DELAY = 1000 // 1 second
 
+export const RETRY_ATTEMPTS = 5
+
 export const API_IMPLEMENTATIONS = {
     TRANSFRMARKET: 'transfermarkt',
     FBREF: 'fbref',

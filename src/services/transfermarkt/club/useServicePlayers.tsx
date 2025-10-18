@@ -3,6 +3,7 @@ import { Player } from '@/structures/Player.ts'
 import { useQuery } from '@tanstack/react-query'
 import type { Team } from '@/structures/Team.ts'
 import type { UseServicePlayersContract } from '@/services/useServicePlayers.tsx'
+import { DELAY, RETRY_ATTEMPTS } from '@/utils/constants.ts'
 
 type ClubPlayersResponse = {
     id: string
@@ -40,6 +41,8 @@ const useServicePlayers: UseServicePlayersContract = (team: Team, seasonId: stri
         isError,
         error,
     } = useQuery({
+        retryDelay: DELAY,
+        retry: RETRY_ATTEMPTS,
         staleTime: Infinity,
         queryKey: ['players', team.id, seasonId],
         queryFn: async (): Promise<Player[]> => {

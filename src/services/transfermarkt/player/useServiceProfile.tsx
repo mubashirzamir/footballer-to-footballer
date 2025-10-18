@@ -2,6 +2,7 @@ import request from '@/request.js'
 import { useQuery } from '@tanstack/react-query'
 import { Player } from '@/structures/Player.ts'
 import type { UseServicePlayerProfileContract } from '@/services/useServicePlayerProfile.tsx'
+import { DELAY, RETRY_ATTEMPTS } from '@/utils/constants.ts'
 
 interface PlayerProfileResponse {
     updatedAt: string
@@ -69,6 +70,8 @@ const useServiceProfile: UseServicePlayerProfileContract = (dehydratedPlayer: Pl
         isError,
         error,
     } = useQuery({
+        retryDelay: DELAY,
+        retry: RETRY_ATTEMPTS,
         staleTime: Infinity,
         placeholderData: dehydratedPlayer,
         queryKey: ['player_profile', dehydratedPlayer.id],
