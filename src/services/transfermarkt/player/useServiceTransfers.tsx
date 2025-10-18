@@ -65,6 +65,22 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
     const currentSeasonString = Team.convertYearToSeason(currentSeason)
 
+    // TODO: Can we handle january transfers better?
+    // TODO: Add this info in the about and caveats that january transfers are handled this way
+    const beforeSettingSeasonEnd = (season: string, nextTransferSeason: string) => {
+        if (!nextTransferSeason) nextTransferSeason = currentSeasonString
+
+        const seasonYear = Team.convertToYear(season)
+        const nextTransferSeasonYear = Team.convertToYear(nextTransferSeason)
+
+        // Sanity checks
+        if (seasonYear >= nextTransferSeasonYear) return season
+
+        const firstHalf = parseInt(nextTransferSeason.split('/')[0])
+
+        return `${firstHalf - 1}`.padStart(2, '0') + '/' + `${firstHalf}`.padStart(2, '0')
+    }
+
     for (let i = 0; i < transfers.length; i++) {
         const transfer = transfers[i]
         const nextTransfer = transfers[i - 1] // Next transfer chronologically
@@ -74,7 +90,7 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setStartDate(transfer.date)
             .setEndDate(nextTransfer ? nextTransfer.date : today)
             .setSeasonStart(transfer.season)
-            .setSeasonEnd(nextTransfer ? beforeSettingSeasonEnd(nextTransfer.season) : currentSeasonString)
+            .setSeasonEnd(beforeSettingSeasonEnd(transfer.season, nextTransfer?.season))
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
             .setWithoutClub(isWithoutClub(transfer.clubTo.name))
 
@@ -82,14 +98,6 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     }
 
     return result
-}
-
-// TODO: Can we handle january transfers better?
-// TODO: Add this info in the about and caveats that january transfers are handled this way
-const beforeSettingSeasonEnd = (season: string) => {
-    const firstHalf = parseInt(season.split('/')[0])
-
-    return `${firstHalf - 1}`.padStart(2, '0') + '/' + `${firstHalf}`.padStart(2, '0')
 }
 
 const isWithoutClub = (teamName: string): boolean => {
