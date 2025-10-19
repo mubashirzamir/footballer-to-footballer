@@ -1,3 +1,4 @@
+// TODO: Structure and nest page wise
 export const en = {
     messages: {
         start: 'Start',
@@ -14,6 +15,14 @@ export const en = {
         help: 'Find the shortest connection between two players by linking them through clubs they’ve both played for, and then repeating this process with those clubs and their players.',
         help_example: 'For example to connect Messi to Ronaldo, the chain can be:',
         help_result: 'Resulting in a total distance of 2.',
+        home_button: 'Home',
+        about_button: 'About',
+        help_button: 'Help',
+        about_heading: 'About',
+        about_contact: 'Contact',
+        about_email: 'zamir.mubashir.dev@gmail.com',
+        about_disclaimer:
+            'Disclaimer: This product uses data from {link} but is not endorsed or certified by Transfermarkt.',
     },
     errors: {
         '404': 'Page not found',
