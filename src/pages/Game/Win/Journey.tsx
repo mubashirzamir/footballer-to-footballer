@@ -13,7 +13,12 @@ const Journey = (props: JourneyProps) => {
             <div className="flex flex-row">
                 <div className="flex flex-col">
                     {gameState.map((playable, index) => (
-                        <JourneyItem playable={playable} index={index} isLast={gameState.length - 1 === index} />
+                        <JourneyItem
+                            key={`${playable.entityType}_${playable.id}`}
+                            playable={playable}
+                            index={index}
+                            isLast={gameState.length - 1 === index}
+                        />
                     ))}
                 </div>
             </div>

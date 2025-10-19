@@ -50,7 +50,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
                 <Search onChange={handleSearchChange} />
             </div>
             {filteredItems.map((player) => (
-                <PlayerCard player={player} onPlayerSelect={onPlayerSelect} />
+                <PlayerCard key={player.id} player={player} onPlayerSelect={onPlayerSelect} />
             ))}
             <Empty length={players.length} message={__.messages.no_players} />
         </div>
