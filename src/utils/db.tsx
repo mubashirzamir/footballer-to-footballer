@@ -1,6 +1,20 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2025-10-20': {
+        start_player_id: '50202',
+        start_player_name: 'Eden Hazard',
+        end_player_id: '418560',
+        end_player_name: 'Erling Haaland',
+        suggested_by: 'mushi',
+    },
+    '2025-10-19': {
+        start_player_id: '3109',
+        start_player_name: 'Steven Gerrard',
+        end_player_id: '568177',
+        end_player_name: 'Cole Palmer',
+        suggested_by: 'mushi',
+    },
     '2025-10-18': {
         start_player_id: '3111',
         start_player_name: 'Zinedine Zidane',

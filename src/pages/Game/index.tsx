@@ -11,11 +11,13 @@ import Timer from '@/pages/Game/Timer.tsx'
 import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
 import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
+import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
-    const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
+    const { gameState, setGameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
     const { time, timeTaken, reset, buzzer } = useGameTimer()
+    useGameNavigation(gameState, pop)
 
     // TODO: This causes lots of re-rendering, find a better way to initialize state from props
     // If gameInfo changes (e.g. changing the direction), reset the game state and timer.

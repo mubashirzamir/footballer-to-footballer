@@ -10,6 +10,8 @@ const useGameState = (state: Playable[]) => {
     }
 
     const chop = (index: number) => {
+        // replace window
+
         setGameState((state) => state.slice(0, index + 1))
     }
 
