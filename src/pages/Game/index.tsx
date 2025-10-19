@@ -11,12 +11,36 @@ import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
 import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
+import { useEffect } from 'react'
 
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
-    const { gameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
-    const { time, timeTaken, buzzer } = useGameTimer()
+    const { gameState, setGameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
+    const { time, timeTaken, reset, buzzer } = useGameTimer()
     useGameNavigation(gameState, pop)
+
+    // Including reset in the dependency array causes an infinite loop.
+    useEffect(() => {
+        console.count('Infinite: Game')
+
+        setGameState([gameInfo.startPlayer])
+        reset()
+
+        return () => console.count('Infinite: Game (cleanup)')
+    }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
+
+    // Updates the game state to have the hydrated version of the start player.
+    useEffect(() => {
+        setGameState((state) => {
+            const first = state[0]
+            const start = gameInfo.startPlayer
+
+            if (first.id !== start.id) return state
+            if (first.name === start.name && first.imageUrl === start.imageUrl) return state
+
+            return [start, ...state.slice(1)]
+        })
+    }, [gameInfo.startPlayer, setGameState])
 
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.

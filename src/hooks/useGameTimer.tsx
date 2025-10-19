@@ -1,30 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const useGameTimer = () => {
     const [time, setTime] = useState(0)
     const [timeTaken, setTimeTaken] = useState(0)
-    const [running, setRunning] = useState(true)
+    const [isRunning, setIsRunning] = useState(false)
 
     useEffect(() => {
-        if (!running) return // stop if not running
+        if (!isRunning) return // stop if not running
 
         const interval = setInterval(() => {
             setTime((t) => t + 1)
         }, 1000)
 
-        return () => clearInterval(interval) // cleanup
-    }, [running]) // re-run when running changes
+        return () => {
+            if (interval) clearInterval(interval)
+        }
+    }, [isRunning]) // re-run when running changes
 
-    const reset = () => {
+    const reset = useCallback(() => {
         setTime(0)
         setTimeTaken(0)
-        setRunning(true)
-    }
+        setIsRunning(true)
+    }, [])
 
-    const buzzer = () => {
+    const buzzer = useCallback(() => {
         setTimeTaken(time) // capture
-        setRunning(false) // stop
-    }
+        setIsRunning(false)
+    }, [time])
 
     return { time, timeTaken, reset, buzzer }
 }
