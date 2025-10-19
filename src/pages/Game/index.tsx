@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import GameSummary from '@/pages/Game/GameSummary.tsx'
 import useGameInfoFromLocation from '@/hooks/useGameFromLocation.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
@@ -15,31 +14,9 @@ import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
-    const { gameState, setGameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
-    const { time, timeTaken, reset, buzzer } = useGameTimer()
+    const { gameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
+    const { time, timeTaken, buzzer } = useGameTimer()
     useGameNavigation(gameState, pop)
-
-    // TODO: This causes lots of re-rendering, find a better way to initialize state from props
-    // If gameInfo changes (e.g. changing the direction), reset the game state and timer.
-    // Do not include reset, it is breaking the timer.
-    useEffect(() => {
-        setGameState([gameInfo.startPlayer])
-        reset()
-    }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
-
-    // TODO: Too many useEffects, can this be done in a better way?
-    // Replace data in gameState if info is loaded later
-    useEffect(() => {
-        setGameState((prev) =>
-            prev.map((item) => {
-                if (item instanceof Player) {
-                    if (item.id === gameInfo.startPlayer.id) return gameInfo.startPlayer
-                    if (item.id === gameInfo.endPlayer.id) return gameInfo.endPlayer
-                }
-                return item
-            })
-        )
-    }, [gameInfo.startPlayer.name, gameInfo.endPlayer.name])
 
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.
