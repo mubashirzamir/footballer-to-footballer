@@ -16,18 +16,8 @@ import { useEffect } from 'react'
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
     const { gameState, setGameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
-    const { time, timeTaken, reset, buzzer } = useGameTimer()
+    const { time, timeTaken, buzzer } = useGameTimer()
     useGameNavigation(gameState, pop)
-
-    // Including reset in the dependency array causes an infinite loop.
-    useEffect(() => {
-        console.count('Infinite: Game')
-
-        setGameState([gameInfo.startPlayer])
-        reset()
-
-        return () => console.count('Infinite: Game (cleanup)')
-    }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
 
     // Updates the game state to have the hydrated version of the start player.
     useEffect(() => {
