@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import type { GameState } from '@/structures'
 import type { Playable } from '@/structures/Playable.ts'
+import { useNavigate } from 'react-router'
 
 const useGameState = (state: Playable[]) => {
     const [gameState, setGameState] = useState<GameState>(state)
+    const navigate = useNavigate()
 
     const append = (playable: Playable) => {
         setGameState((state) => [...state, playable])
     }
 
     const chop = (index: number) => {
-        // replace window
-
+        navigate(-(gameState.length - (index + 1)))
         setGameState((state) => state.slice(0, index + 1))
     }
 
