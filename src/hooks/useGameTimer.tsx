@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 const useGameTimer = () => {
     const [time, setTime] = useState(0)
     const [timeTaken, setTimeTaken] = useState(0)
-    const [isRunning, setIsRunning] = useState(false)
+    const [isRunning, setIsRunning] = useState(true)
 
     useEffect(() => {
         if (!isRunning) return // stop if not running
