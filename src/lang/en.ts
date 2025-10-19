@@ -8,6 +8,12 @@ export const en = {
         time: 'Time',
         distance: 'Distance',
         journey: 'Journey',
+        show_help: 'Can you connect these two players?',
+        show_help_link: 'Show me how.',
+        help_heading: 'How to Play',
+        help: 'Find the shortest connection between two players by linking them through clubs they’ve both played for, and then repeating this process with those clubs and their players.',
+        help_example: 'For example to connect Messi to Ronaldo, the chain can be:',
+        help_result: 'Resulting in a total distance of 2.',
     },
     errors: {
         '404': 'Page not found',
