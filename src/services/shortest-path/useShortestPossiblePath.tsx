@@ -45,15 +45,12 @@ const useShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState) => {
         queryKey: ['shortest_path', date, gameState],
         queryFn: async (): Promise<ShortestPathApiResponse> => {
             const response = await fetchShortestPath({ date, path: gameState })
-            console.log('mushi response', data)
 
             return response
         },
-        // staleTime: Infinity,
+        staleTime: Infinity,
         enabled: isTodaysGame, // ✅ only run the query if it's today's game
     })
-
-    console.log('mushi', data)
 
     return {
         isTodaysGame: isTodaysGame,

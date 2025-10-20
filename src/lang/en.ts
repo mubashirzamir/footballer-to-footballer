@@ -32,6 +32,7 @@ export const en = {
                 time: 'Time',
                 distance: 'Distance',
                 journey: 'Journey',
+                shortest_possible: '→ Shortest possible:',
             },
         },
         help: {
