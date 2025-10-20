@@ -22,12 +22,13 @@ const TeamSelection = (props: TeamSelectionProps) => {
     const { player, updateGameState } = props
 
     const { teams, loading, error } = useServiceTeams(player)
-    const { filteredItems, handleSearchChange } = useSearch(teams)
+    const { filteredItems, setQuery, handleSearchChange } = useSearch(teams)
 
     const onTeamSelect = (team: Team) => {
         if (team.withoutClub) return
 
         scrollToTop()
+        setQuery('')
         updateGameState(team)
     }
 

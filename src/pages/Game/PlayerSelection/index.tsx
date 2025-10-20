@@ -24,12 +24,13 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     const [season, setSeason] = useState(team.getSeasons()[0].id)
 
     const { players, loading, error } = useServicePlayers(team, season)
-    const { filteredItems, handleSearchChange } = useSearch(players)
+    const { filteredItems, setQuery, handleSearchChange } = useSearch(players)
 
     const onSeasonChange = (seasonId: string) => setSeason(seasonId)
 
     const onPlayerSelect = (player: Player) => {
         scrollToTop()
+        setQuery('')
         updateGameState(player)
     }
 
