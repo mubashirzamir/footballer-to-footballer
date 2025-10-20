@@ -23,6 +23,8 @@ const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<Shortest
     })
 }
 
+
+// TODO: More robust
 const useShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState) => {
     const todaysGameInfo = getGameInfo()
     const isTodaysGame =
