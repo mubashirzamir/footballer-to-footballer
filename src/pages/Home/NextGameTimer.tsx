@@ -5,7 +5,7 @@ import { __ } from '@/lang/lang.ts'
 const NextGameTimer = () => {
     return (
         <Text>
-            {__.messages.next_challenge}: {useNextGameTimer()}
+            {__.messages.home.next_challenge}: {useNextGameTimer()}
         </Text>
     )
 }

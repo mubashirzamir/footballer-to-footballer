@@ -9,7 +9,7 @@ interface DistanceCardProps {
 const DistanceCard = ({ distance }: DistanceCardProps) => {
     return (
         <WinCard>
-            <Text className="text-xl font-bold">{__.messages.distance}</Text>
+            <Text className="text-xl font-bold">{__.messages.game.win.distance}</Text>
             <Text className="text-2xl">{distance}</Text>
         </WinCard>
     )

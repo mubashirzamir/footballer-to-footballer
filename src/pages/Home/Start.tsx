@@ -15,7 +15,7 @@ const Start = ({ gameInfo }: StartProps) => {
         <Button className="cursor-pointer">
             <Link to={`play/${startPlayer.id}/${endPlayer.id}`}>
                 <Text>
-                    {__.messages.start}
+                    {__.messages.home.start}
                 </Text>
             </Link>
         </Button>

@@ -21,17 +21,17 @@ const HamburgerMenu = () => {
                 <DropdownMenuContent align="start">
                     <DropdownMenuItem asChild>
                         <Link to="/">
-                            <Text>{__.messages.home_button}</Text>
+                            <Text>{__.messages.nav.hamburger.home_button}</Text>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link to="/about">
-                            <Text>{__.messages.about_button}</Text>
+                            <Text>{__.messages.nav.hamburger.about_button}</Text>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link to="/help">
-                            <Text>{__.messages.help_button}</Text>
+                            <Text>{__.messages.nav.hamburger.help_button}</Text>
                         </Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>

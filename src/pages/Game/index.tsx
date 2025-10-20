@@ -12,6 +12,8 @@ import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import { useEffect } from 'react'
+import Text from '@/components/Text.tsx'
+import { __ } from '@/lang/lang.ts'
 
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
@@ -45,7 +47,7 @@ const Game = () => {
             case tail instanceof Team:
                 return <PlayerSelection team={tail} updateGameState={append} />
             default:
-                return <div>Unknown game phase</div>
+                return <Text>{__.messages.game.unknown_game_phase}</Text>
         }
     }
 

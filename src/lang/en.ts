@@ -1,30 +1,54 @@
 // TODO: Structure and nest page wise
 export const en = {
     messages: {
-        start: 'Start',
-        next_challenge: 'Next Challenge',
-        history_of: 'History of',
-        no_players: 'No players to show',
-        no_teams: 'No teams to show',
-        time: 'Time',
-        distance: 'Distance',
-        journey: 'Journey',
-        show_help: 'Can you connect these two players?',
-        show_help_link: 'Show me how.',
-        help_heading: 'How to Play',
-        help: 'Find the shortest connection between two players by linking them through clubs they’ve both played for, and then repeating this process with those clubs and their players.',
-        help_example: 'For example to connect Messi to Ronaldo, the chain can be:',
-        help_result: 'Resulting in a total distance of 2.',
-        home_button: 'Home',
-        about_button: 'About',
-        help_button: 'Help',
-        about_heading: 'About',
-        about_contact: 'Contact',
-        about_email: 'zamir.mubashir.dev@gmail.com',
-        about_disclaimer:
-            'Disclaimer: This product uses data from {link} but is not endorsed or certified by Transfermarkt.',
-        about_credits:
-            'Credits: This product was heavily inspired by {link}. Definitely check it out as well if you enjoyed this game!',
+        nav: {
+            hamburger: {
+                home_button: 'Home',
+                about_button: 'About',
+                help_button: 'Help',
+            },
+            mode_toggle: {
+                light: 'Light',
+                dark: 'Dark',
+                system: 'System',
+            },
+        },
+        home: {
+            start: 'Start',
+            next_challenge: 'Next Challenge',
+            show_help: 'Can you connect these two players?',
+            show_help_link: 'Show me how.',
+        },
+        game: {
+            unknown_game_phase: 'Unknown game phase',
+            team_selection: {
+                history_of: 'History of',
+                no_teams: 'No teams to show',
+            },
+            player_selection: {
+                no_players: 'No players to show',
+            },
+            win: {
+                time: 'Time',
+                distance: 'Distance',
+                journey: 'Journey',
+            },
+        },
+        help: {
+            title: 'How to Play',
+            text: 'Find the shortest connection between two players by linking them through clubs they’ve both played for, and then repeating this process with those clubs and their players.',
+            example: 'For example to connect Messi to Ronaldo, the chain can be:',
+            result: 'Resulting in a total distance of 2.',
+        },
+        about: {
+            title: 'About',
+            contact: 'Contact',
+            email: 'zamir.mubashir.dev@gmail.com',
+            disclaimer:
+                'Disclaimer: This product uses data from {link} but is not endorsed or certified by Transfermarkt.',
+            credits:
+                'Credits: This product was heavily inspired by {link}. Definitely check it out as well if you enjoyed this game!',
+        },
     },
     errors: {
         '404': 'Page not found',

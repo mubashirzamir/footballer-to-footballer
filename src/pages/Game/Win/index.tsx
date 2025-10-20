@@ -6,6 +6,7 @@ import Journey from '@/pages/Game/Win/Journey.tsx'
 import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
 import { ENV_IS_DEV } from '@/utils/constants.ts'
 import Text from '@/components/Text.tsx'
+import { __ } from '@/lang/lang.ts'
 
 interface WinProps {
     gameState: GameState
@@ -28,7 +29,7 @@ const Win = (props: WinProps) => {
                     </JourneyCard>
                 )}
                 <JourneyCard>
-                    <Text className="text-xl mb-4 text-center font-bold">Journey</Text>
+                    <Text className="text-xl mb-4 text-center font-bold">{__.messages.game.win.journey}</Text>
                     <Journey gameState={gameState} />
                 </JourneyCard>
             </div>

@@ -42,7 +42,9 @@ const TeamSelection = (props: TeamSelectionProps) => {
     return (
         <div>
             <TurnInfo>
-                <Text className="text-lg">{__.messages.history_of} {player.name}</Text>
+                <Text className="text-lg">
+                    {__.messages.game.team_selection.history_of} {player.name}
+                </Text>
             </TurnInfo>
             <div className="my-2">
                 <Search onChange={handleSearchChange} />
@@ -50,7 +52,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
             {filteredItems.map((team) => (
                 <TeamCard key={team.id} team={team} onTeamSelect={onTeamSelect} />
             ))}
-            <Empty length={teams.length} message={__.messages.no_teams} />
+            <Empty length={teams.length} message={__.messages.game.team_selection.no_teams} />
         </div>
     )
 }

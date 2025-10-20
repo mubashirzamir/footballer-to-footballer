@@ -5,9 +5,9 @@ import { Link } from 'react-router'
 const ShowHelp = () => {
     return (
         <div>
-            <Text>{__.messages.show_help}</Text>
+            <Text>{__.messages.home.show_help}</Text>
             <Link className="underline" to="/help">
-                <Text>{__.messages.show_help_link}</Text>
+                <Text>{__.messages.home.show_help_link}</Text>
             </Link>
         </div>
     )

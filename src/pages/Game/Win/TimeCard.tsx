@@ -10,7 +10,7 @@ interface TimeCardProps {
 const TimeCard = ({ time }: TimeCardProps) => {
     return (
         <WinCard>
-            <Text className="text-xl font-bold">{__.messages.time}</Text>
+            <Text className="text-xl font-bold">{__.messages.game.win.time}</Text>
             <Text className="text-2xl">{secondstoHourMinutesSeconds(time)}</Text>
         </WinCard>
     )

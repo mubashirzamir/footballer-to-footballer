@@ -52,7 +52,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
             {filteredItems.map((player) => (
                 <PlayerCard key={player.id} player={player} onPlayerSelect={onPlayerSelect} />
             ))}
-            <Empty length={players.length} message={__.messages.no_players} />
+            <Empty length={players.length} message={__.messages.game.player_selection.no_players} />
         </div>
     )
 }

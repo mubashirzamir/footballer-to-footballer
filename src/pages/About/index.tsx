@@ -2,17 +2,17 @@ import { __ } from '@/lang/lang.ts'
 import Text from '@/components/Text.tsx'
 
 const About = () => {
-    const { about_disclaimer, about_credits } = __.messages
-    const disclaimerParts = about_disclaimer.split('{link}')
-    const credit_parts = about_credits.split('{link}')
+    const { title, contact, email, disclaimer, credits } = __.messages.about
+    const disclaimerParts = disclaimer.split('{link}')
+    const credit_parts = credits.split('{link}')
 
     return (
         <div className="flex flex-col min-h-screen gap-4 p-2     md:p-8">
-            <Text className="text-start text-3xl">{__.messages.about_heading}</Text>
+            <Text className="text-start text-3xl">{title}</Text>
             <Text className="text-start">
-                {__.messages.about_contact}:&nbsp;
+                {contact}:&nbsp;
                 <a className="underline" href="mailto:">
-                    {__.messages.about_email}
+                    {email}
                 </a>
             </Text>
             <Text className="text-start">
