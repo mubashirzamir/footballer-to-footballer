@@ -1,13 +1,19 @@
 import type { GameState } from '@/structures'
 import PathItem from './PathItem.tsx'
+import { useNavigate } from 'react-router'
 
 interface PathProps {
     gameState: GameState
-    chopGameState: (index: number) => void
 }
 
 const Path = (props: PathProps) => {
-    const { gameState, chopGameState } = props
+    const { gameState } = props
+
+    const navigate = useNavigate()
+
+    const onClick = (index: number) => {
+        navigate(-(gameState.length - 1 - index))
+    }
 
     return (
         <div className="flex flex-col">
@@ -17,7 +23,7 @@ const Path = (props: PathProps) => {
                         key={`path-item-${playable.id}-${index}`}
                         playable={playable}
                         index={index}
-                        chopGameState={chopGameState}
+                        chopGameState={onClick}
                         isLast={gameState.length - 1 === index}
                     />
                 ))}

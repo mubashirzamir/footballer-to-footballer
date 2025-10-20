@@ -1,13 +1,17 @@
 import { useEffect, useRef } from 'react'
 import type { GameState } from '@/structures'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
-// Unnecessary complexity.
-// Works fine stand alone, but when game state is changed from path, we cannot keep browser history in sync.
-// useGameNavigation(gameState, pop)
-const useGameNavigation = (gameState: GameState, pop: () => void) => {
+const useGameNavigation = (gameState: GameState, chop: (index: number) => void) => {
     const navigate = useNavigate()
     const prevLength = useRef(gameState.length)
+    const chopRef = useRef(chop)
+    const location = useLocation()
+    const hash = Number(location.hash.replace('#', ''))
+
+    useEffect(() => {
+        chopRef.current = chop
+    }, [chop])
 
     useEffect(() => {
         if (gameState.length > prevLength.current) {
@@ -15,13 +19,14 @@ const useGameNavigation = (gameState: GameState, pop: () => void) => {
         }
 
         prevLength.current = gameState.length
-    }, [gameState, navigate])
+    }, [gameState.length, navigate])
 
-    // Adding pop to the dependency array breaks the feature. Not sure why.
+    // Adding hash to the dependency array breaks the feature. Not sure why.
     useEffect(() => {
         const handlePopState = () => {
-            pop()
+            chopRef.current(hash || 0)
         }
+
         window.addEventListener('popstate', handlePopState)
         return () => window.removeEventListener('popstate', handlePopState)
     }, [])

@@ -17,9 +17,9 @@ import { __ } from '@/lang/lang.ts'
 
 const Game = () => {
     const { gameInfo, infoHealth } = useGameInfoFromLocation()
-    const { gameState, setGameState, append, chop, pop } = useGameState([gameInfo.startPlayer])
+    const { gameState, setGameState, append, chop } = useGameState([gameInfo.startPlayer])
     const { time, timeTaken, buzzer } = useGameTimer()
-    useGameNavigation(gameState, pop)
+    useGameNavigation(gameState, chop)
 
     // Updates the game state to have the hydrated version of the start player.
     useEffect(() => {
@@ -72,7 +72,7 @@ const Game = () => {
                 ) : (
                     <>
                         <div className="mb-4">
-                            <Path gameState={gameState} chopGameState={chop} />
+                            <Path gameState={gameState} />
                         </div>
                         {render()}
                     </>
