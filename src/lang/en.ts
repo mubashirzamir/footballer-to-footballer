@@ -23,6 +23,8 @@ export const en = {
         about_email: 'zamir.mubashir.dev@gmail.com',
         about_disclaimer:
             'Disclaimer: This product uses data from {link} but is not endorsed or certified by Transfermarkt.',
+        about_credits:
+            'Credits: This product was heavily inspired by {link}. Definitely check it out as well if you enjoyed this game!',
     },
     errors: {
         '404': 'Page not found',

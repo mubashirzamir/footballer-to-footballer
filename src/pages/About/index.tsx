@@ -2,8 +2,9 @@ import { __ } from '@/lang/lang.ts'
 import Text from '@/components/Text.tsx'
 
 const About = () => {
-    const { about_disclaimer } = __.messages
-    const parts = about_disclaimer.split('{link}')
+    const { about_disclaimer, about_credits } = __.messages
+    const disclaimerParts = about_disclaimer.split('{link}')
+    const credit_parts = about_credits.split('{link}')
 
     return (
         <div className="flex flex-col min-h-screen gap-4 p-2     md:p-8">
@@ -15,7 +16,7 @@ const About = () => {
                 </a>
             </Text>
             <Text className="text-start">
-                {parts[0]}
+                {disclaimerParts[0]}
                 <a
                     href="https://www.transfermarkt.com"
                     target="_blank"
@@ -24,7 +25,19 @@ const About = () => {
                 >
                     transfermarkt.com
                 </a>
-                {parts[1]}
+                {disclaimerParts[1]}
+            </Text>
+            <Text className="text-start">
+                {credit_parts[0]}
+                <a
+                    href="https://movietomovie.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                >
+                    movietomovie.com
+                </a>
+                {credit_parts[1]}
             </Text>
         </div>
     )
