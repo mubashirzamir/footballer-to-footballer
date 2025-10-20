@@ -1,4 +1,4 @@
-import useShortestPossiblePath from '@/services/shortest-path/useShortestPossiblePath.tsx'
+import useServiceShortestPossiblePath from '@/services/shortest-path/useServiceShortestPossiblePath.tsx'
 import Journey from '@/pages/Game/Win/Journey.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
 import type { GameInfo, GameState } from '@/structures'
@@ -13,7 +13,7 @@ interface ShortestPossiblePathProps {
 }
 
 const ShortestPossiblePath = ({ gameInfo, gameState }: ShortestPossiblePathProps) => {
-    const { isTodaysGame, isShortest, message, shortestPath, loading, isError, error } = useShortestPossiblePath(
+    const { isTodaysGame, isShortest, shortestPath, loading, isError, error } = useServiceShortestPossiblePath(
         gameInfo,
         gameState
     )
@@ -30,7 +30,7 @@ const ShortestPossiblePath = ({ gameInfo, gameState }: ShortestPossiblePathProps
 
     const renderMessage = () => {
         if (!isShortest) return null
-        return <Text className="text-green-500 font-bold text-lg text-center mb-2">{message}</Text>
+        return <Text className="text-green-500 font-bold text-lg text-center mb-2">{__.messages.game.win.new_shortest_record}</Text>
     }
 
     return (

@@ -33,6 +33,7 @@ export const en = {
                 distance: 'Distance',
                 journey: 'Journey',
                 shortest_possible: '→ Shortest possible:',
+                new_shortest_record: '🎉 New shortest record!',
             },
         },
         help: {
