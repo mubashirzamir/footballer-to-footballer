@@ -51,7 +51,7 @@ const useShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState) => {
             return response
         },
         staleTime: Infinity,
-        enabled: isTodaysGame, // ✅ only run the query if it's today's game
+        enabled: isTodaysGame, // only run the query if it's today's game
     })
 
     return {
