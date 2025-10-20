@@ -14,7 +14,7 @@ const getGamesFor = (impl: string) => {
     return GAME_INFO_PROVIDERS[impl]?.() ?? GAME_INFO_PROVIDERS.default()
 }
 
-const getGameInfo = (): GameInfo => {
+export const getGameInfo = (): GameInfo => {
     const date = new Date().toISOString().split('T')[0]
     let info = {
         startPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),

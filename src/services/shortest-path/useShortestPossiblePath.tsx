@@ -1,0 +1,67 @@
+import { useQuery } from '@tanstack/react-query'
+import request from '@/request.ts'
+import type { Playable } from '@/structures/Playable.ts'
+import type { GameInfo, GameState } from '@/structures'
+import { getGameInfo } from '@/hooks/useGameInfoFromDb.tsx'
+
+export interface ShortestPathApiResponse {
+    foundGame: boolean
+    isShortest: boolean
+    message: string
+    shortestPath: Playable[]
+    error?: string
+}
+
+export interface ShortestPathApiRequest {
+    date: string
+    path: Playable[]
+}
+
+const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<ShortestPathApiResponse> => {
+    return await request.post('/shortest-path', body, {
+        baseURL: import.meta.env.VITE_API_SHORTEST_PATH_BASE_URL,
+    })
+}
+
+const useShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState) => {
+    const todaysGameInfo = getGameInfo()
+    const isTodaysGame =
+        todaysGameInfo.startPlayer.id === gameInfo.startPlayer.id &&
+        todaysGameInfo.endPlayer.id === gameInfo.endPlayer.id
+
+    const date = new Date().toISOString().split('T')[0]
+
+    const {
+        data = {
+            foundGame: false,
+            isShortest: false,
+            message: '',
+            shortestPath: [],
+        },
+        isLoading,
+        isError,
+        error,
+    } = useQuery<ShortestPathApiResponse>({
+        queryKey: ['shortest_path', date, gameState],
+        queryFn: async (): Promise<ShortestPathApiResponse> => {
+            const response = await fetchShortestPath({ date, path: gameState })
+            console.log('mushi response', data)
+
+            return response
+        },
+        // staleTime: Infinity,
+        enabled: isTodaysGame, // ✅ only run the query if it's today's game
+    })
+
+    console.log('mushi', data)
+
+    return {
+        isTodaysGame: isTodaysGame,
+        ...data,
+        loading: isLoading,
+        isError,
+        error,
+    }
+}
+
+export default useShortestPossiblePath

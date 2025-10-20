@@ -68,7 +68,7 @@ const Game = () => {
             </div>
             <div className="my-4">
                 {gameOver ? (
-                    <Win timeTaken={timeTaken} gameState={gameState} />
+                    <Win timeTaken={timeTaken} gameInfo={gameInfo} gameState={gameState} />
                 ) : (
                     <>
                         <div className="mb-4">

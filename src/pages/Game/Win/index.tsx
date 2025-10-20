@@ -1,20 +1,20 @@
-import type { GameState } from '@/structures'
+import type { GameInfo, GameState } from '@/structures'
 import TimeCard from '@/pages/Game/Win/TimeCard.tsx'
 import DistanceCard from '@/pages/Game/Win/DistanceCard.tsx'
 import ShortestPossiblePath from '@/pages/Game/Win/ShortestPossiblePath.tsx'
 import Journey from '@/pages/Game/Win/Journey.tsx'
 import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
-import { ENV_IS_DEV } from '@/utils/constants.ts'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
 
 interface WinProps {
-    gameState: GameState
     timeTaken: number // in seconds
+    gameInfo: GameInfo
+    gameState: GameState
 }
 
 const Win = (props: WinProps) => {
-    const { gameState, timeTaken } = props
+    const { timeTaken, gameInfo, gameState } = props
 
     return (
         <div>
@@ -23,11 +23,7 @@ const Win = (props: WinProps) => {
                     <TimeCard time={timeTaken} />
                     <DistanceCard distance={(gameState.length - 1) / 2} />
                 </div>
-                {ENV_IS_DEV && (
-                    <JourneyCard>
-                        <ShortestPossiblePath gameState={gameState} />
-                    </JourneyCard>
-                )}
+                <ShortestPossiblePath gameInfo={gameInfo} gameState={gameState} />
                 <JourneyCard>
                     <Text className="text-xl mb-4 text-center font-bold">{__.messages.game.win.journey}</Text>
                     <Journey gameState={gameState} />
