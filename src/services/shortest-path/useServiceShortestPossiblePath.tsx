@@ -29,7 +29,7 @@ const useServiceShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState
         todaysGameInfo.startPlayer.id === gameInfo.startPlayer.id &&
         todaysGameInfo.endPlayer.id === gameInfo.endPlayer.id
 
-    const date = new Date().toISOString().split('T')[0]
+    const date = new Date().toLocaleDateString('en-CA')
 
     const {
         data = {
