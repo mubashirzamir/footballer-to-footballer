@@ -15,7 +15,7 @@ const getGamesFor = (impl: string) => {
 }
 
 export const getGameInfo = (): GameInfo => {
-    const date = new Date().toISOString().split('T')[0]
+    const date = new Date().toLocaleDateString('en-CA')
     let info = {
         startPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
         endPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
