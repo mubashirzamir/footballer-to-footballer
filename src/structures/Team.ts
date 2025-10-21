@@ -61,6 +61,10 @@ export class Team implements Playable {
         return this
     }
 
+    getSeasonRange() {
+        return this.seasonStart + '-' + this.seasonEnd
+    }
+
     getCompactSeasonRange() {
         return this.seasonStart.split('/')[0] + '-' + this.seasonEnd.split('/')[1]
     }

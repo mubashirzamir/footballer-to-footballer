@@ -65,18 +65,36 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
     const currentSeasonString = Team.convertYearToSeason(currentSeason)
 
-    // TODO: Can we handle january transfers better?
-    // TODO: Add this info in the about and caveats that january transfers are handled this way
-    const beforeSettingSeasonEnd = (season: string, nextTransferSeason: string) => {
-        if (!nextTransferSeason) nextTransferSeason = currentSeasonString
+    // TODO: Can we handle january transfers better? Update: I did, actually now document and make this function cleaner
+    // TODO: Write tests
+    // TODO: Add this info in the about and caveats that transfers are handled this way
+    // Note: New season starts from 1 July on Transfermarkt
+    // Tested: players
+    // Torres: 7767
+    // Dier: 175722
+    // Xavi: 7607
+    const beforeSettingSeasonEnd = (transfer: Transfer, nextTransfer: Transfer | undefined) => {
+        if (!nextTransfer) {
+            return currentSeasonString
+        }
 
-        const seasonYear = Team.convertToYear(season)
-        const nextTransferSeasonYear = Team.convertToYear(nextTransferSeason)
+        const seasonYear = Team.convertToYear(transfer.season)
+        const nextTransferSeasonYear = Team.convertToYear(nextTransfer.season)
 
         // Sanity checks
-        if (seasonYear >= nextTransferSeasonYear) return season
+        if (seasonYear >= nextTransferSeasonYear) return transfer.season
 
-        const firstHalf = parseInt(nextTransferSeason.split('/')[0])
+        const [year, day, month] = nextTransfer.date.split('-')
+        const nextTransferDate = new Date(parseInt(year), parseInt(month), parseInt(day))
+        const deadlineDay = new Date(parseInt(year), 7, 1)
+        const splitPosition = nextTransferDate > deadlineDay ? 1 : 0
+
+        const firstHalf = parseInt(nextTransfer.season.split('/')[splitPosition])
+
+        // handle 00 -> 99 transition
+        if (firstHalf === 0) {
+            return `99/00`
+        }
 
         return `${firstHalf - 1}`.padStart(2, '0') + '/' + `${firstHalf}`.padStart(2, '0')
     }
@@ -90,7 +108,7 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setStartDate(transfer.date)
             .setEndDate(nextTransfer ? nextTransfer.date : today)
             .setSeasonStart(transfer.season)
-            .setSeasonEnd(beforeSettingSeasonEnd(transfer.season, nextTransfer?.season))
+            .setSeasonEnd(beforeSettingSeasonEnd(transfer, nextTransfer))
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
             .setWithoutClub(isWithoutClub(transfer.clubTo.name))
 

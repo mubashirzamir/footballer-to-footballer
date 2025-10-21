@@ -20,9 +20,7 @@ const TeamCard = ({ team, onTeamSelect }: TeamCardProps) => {
             </div>
             <div>
                 <Text className="text-start font-bold">{team.name}</Text>
-                <Text className="text-start">
-                    {team.seasonStart} - {team.seasonEnd}
-                </Text>
+                <Text className="text-start">{team.getSeasonRange()}</Text>
             </div>
         </div>
     )
