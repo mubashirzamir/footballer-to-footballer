@@ -1,14 +1,13 @@
 import Direction from '@/components/Direction.tsx'
 import PlayableImage from '@/components/PlayableImage.tsx'
-import type { GameInfo } from '@/structures'
 import type { Player } from '@/structures/Player.ts'
 import Text from '@/components/Text.tsx'
+import { useGameContext } from '@/hooks/useGameContext.tsx'
 
-interface GameSummaryProps {
-    gameInfo: GameInfo
-}
+const GameSummary = () => {
+    const { gameInfoContainer } = useGameContext()
+    const { gameInfo } = gameInfoContainer
 
-const GameSummary = ({ gameInfo }: GameSummaryProps) => {
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="flex flex-row items-center justify-center sm:space-x-4">

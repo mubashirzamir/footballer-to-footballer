@@ -1,7 +1,6 @@
 import { Player } from '@/structures/Player.ts'
 import { Team } from '@/structures/Team.ts'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
-import type { Playable } from '@/structures/Playable.ts'
 import Search from '@/pages/Game/Search.tsx'
 import TeamCard from './TeamCard.tsx'
 import TurnInfo from '@/pages/Game/TurnInfo.tsx'
@@ -12,15 +11,16 @@ import Empty from '@/components/Empty.tsx'
 import Text from '@/components/Text.tsx'
 import { scrollToTop } from '@/utils'
 import { __ } from '@/lang/lang.ts'
+import { useGameContext } from '@/hooks/useGameContext.tsx'
 
 interface TeamSelectionProps {
     player: Player
-    updateGameState: (playable: Playable) => void
 }
 
 const TeamSelection = (props: TeamSelectionProps) => {
-    const { player, updateGameState } = props
+    const { player } = props
 
+    const { gameStateContainer } = useGameContext()
     const { teams, loading, error } = useServiceTeams(player)
     const { filteredItems, setQuery, handleSearchChange } = useSearch(teams)
 
@@ -29,7 +29,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
 
         scrollToTop()
         setQuery('')
-        updateGameState(team)
+        gameStateContainer.append(team)
     }
 
     if (loading) {

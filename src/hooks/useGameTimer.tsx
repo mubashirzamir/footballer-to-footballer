@@ -17,6 +17,9 @@ const useGameTimer = () => {
         }
     }, [isRunning]) // re-run when running changes
 
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const reset = useCallback(() => {
         setTime(0)
         setTimeTaken(0)
@@ -28,7 +31,7 @@ const useGameTimer = () => {
         setIsRunning(false)
     }, [time])
 
-    return { time, timeTaken, reset, buzzer }
+    return { time, timeTaken, buzzer }
 }
 
 export default useGameTimer

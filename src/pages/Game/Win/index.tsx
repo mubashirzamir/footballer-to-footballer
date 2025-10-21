@@ -1,4 +1,3 @@
-import type { GameInfo, GameState } from '@/structures'
 import TimeCard from '@/pages/Game/Win/TimeCard.tsx'
 import DistanceCard from '@/pages/Game/Win/DistanceCard.tsx'
 import ShortestPossiblePath from '@/pages/Game/Win/ShortestPossiblePath.tsx'
@@ -6,15 +5,13 @@ import Journey from '@/pages/Game/Win/Journey.tsx'
 import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
+import { useGameContext } from '@/hooks/useGameContext.tsx'
 
-interface WinProps {
-    timeTaken: number // in seconds
-    gameInfo: GameInfo
-    gameState: GameState
-}
-
-const Win = (props: WinProps) => {
-    const { timeTaken, gameInfo, gameState } = props
+const Win = () => {
+    const { gameTimerContainer, gameInfoContainer, gameStateContainer } = useGameContext()
+    const { timeTaken } = gameTimerContainer
+    const { gameInfo } = gameInfoContainer
+    const { gameState } = gameStateContainer
 
     return (
         <div>

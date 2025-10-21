@@ -1,13 +1,10 @@
-import type { GameState } from '@/structures'
 import PathItem from './PathItem.tsx'
 import { useNavigate } from 'react-router'
+import { useGameContext } from '@/hooks/useGameContext.tsx'
 
-interface PathProps {
-    gameState: GameState
-}
-
-const Path = (props: PathProps) => {
-    const { gameState } = props
+const Path = () => {
+    const { gameStateContainer } = useGameContext()
+    const { gameState } = gameStateContainer
 
     const navigate = useNavigate()
 
@@ -20,7 +17,7 @@ const Path = (props: PathProps) => {
             <div className="flex flex-row flex-wrap gap-y-2">
                 {gameState.map((playable, index) => (
                     <PathItem
-                        key={`path-item-${playable.id}-${index}`}
+                        key={`${playable.id}_${index}`}
                         playable={playable}
                         index={index}
                         chopGameState={onClick}
