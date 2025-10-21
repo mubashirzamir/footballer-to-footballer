@@ -10,7 +10,7 @@ import NotFound from '@/pages/NotFound'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Help from '@/pages/Help'
 import About from '@/pages/About'
-import GameContextProvider from '@/contexts-providers/GameContextProvider.tsx'
+import ContextsProviders from '@/contexts-providers'
 
 const queryClient = new QueryClient()
 
@@ -27,9 +27,9 @@ const App = () => {
                                 <Route
                                     path="/play/:start_player_id/:end_player_id"
                                     element={
-                                        <GameContextProvider>
+                                        <ContextsProviders>
                                             <Game />
-                                        </GameContextProvider>
+                                        </ContextsProviders>
                                     }
                                 />
                                 <Route path="/help" element={<Help />} />

@@ -11,9 +11,11 @@ import { useEffect } from 'react'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
 import { useGameContext } from '@/hooks/useGameContext.tsx'
+import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 
 const Game = () => {
     const { gameInfoContainer, gameStateContainer, gameTimerContainer } = useGameContext()
+    useGameNavigation(gameStateContainer.gameState, gameStateContainer.chop)
 
     const { gameInfo, infoHealth } = gameInfoContainer
     const { setGameState, tail, gameOver } = gameStateContainer
