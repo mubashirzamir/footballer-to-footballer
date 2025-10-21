@@ -11,7 +11,7 @@ import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
 import { scrollToTop } from '@/utils'
 import { __ } from '@/lang/lang.ts'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
 
 interface PlayerSelectionProps {
     team: Team
@@ -20,7 +20,7 @@ interface PlayerSelectionProps {
 const PlayerSelection = (props: PlayerSelectionProps) => {
     const { team } = props
 
-    const { gameStateContainer } = useGameContext()
+    const { append } = useGameStateContext()
     const [season, setSeason] = useState(team.getSeasons()[0].id)
 
     const { players, loading, error } = useServicePlayers(team, season)
@@ -34,7 +34,7 @@ const PlayerSelection = (props: PlayerSelectionProps) => {
     const onPlayerSelect = (player: Player) => {
         scrollToTop()
         setQuery('')
-        gameStateContainer.append(player)
+        append(player)
     }
 
     if (loading) {

@@ -5,13 +5,14 @@ import Journey from '@/pages/Game/Win/Journey.tsx'
 import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameTimerContext } from '@/contexts-providers/game-timer/useGameTimerContext.tsx'
+import { useGameInfoContext } from '@/contexts-providers/game-info/useGameInfoContext.tsx'
+import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
 
 const Win = () => {
-    const { gameTimerContainer, gameInfoContainer, gameStateContainer } = useGameContext()
-    const { timeTaken } = gameTimerContainer
-    const { gameInfo } = gameInfoContainer
-    const { gameState } = gameStateContainer
+    const { timeTaken } = useGameTimerContext()
+    const { gameInfo } = useGameInfoContext()
+    const { gameState } = useGameStateContext()
 
     return (
         <div>

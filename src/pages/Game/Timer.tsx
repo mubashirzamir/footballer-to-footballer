@@ -1,10 +1,10 @@
 import Text from '@/components/Text.tsx'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameTimerContext } from '@/contexts-providers/game-timer/useGameTimerContext.tsx'
 
 const Timer = () => {
-    const { gameTimerContainer } = useGameContext()
+    const { time } = useGameTimerContext()
 
-    return <Text className="text-sm">{gameTimerContainer.time}</Text>
+    return <Text className="text-sm">{time}</Text>
 }
 
 export default Timer

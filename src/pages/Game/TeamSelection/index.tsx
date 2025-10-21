@@ -11,7 +11,7 @@ import Empty from '@/components/Empty.tsx'
 import Text from '@/components/Text.tsx'
 import { scrollToTop } from '@/utils'
 import { __ } from '@/lang/lang.ts'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
 
 interface TeamSelectionProps {
     player: Player
@@ -20,7 +20,7 @@ interface TeamSelectionProps {
 const TeamSelection = (props: TeamSelectionProps) => {
     const { player } = props
 
-    const { gameStateContainer } = useGameContext()
+    const { append } = useGameStateContext()
     const { teams, loading, error } = useServiceTeams(player)
     const { filteredItems, setQuery, handleSearchChange } = useSearch(teams)
 
@@ -29,7 +29,7 @@ const TeamSelection = (props: TeamSelectionProps) => {
 
         scrollToTop()
         setQuery('')
-        gameStateContainer.append(team)
+        append(team)
     }
 
     if (loading) {

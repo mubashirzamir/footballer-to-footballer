@@ -10,19 +10,15 @@ import Path from '@/pages/Game/Path/index.tsx'
 import { useEffect } from 'react'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
+import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
+import { useGameInfoContext } from '@/contexts-providers/game-info/useGameInfoContext.tsx'
 
 const Game = () => {
-    const { gameInfoContainer, gameStateContainer, gameTimerContainer } = useGameContext()
-    useGameNavigation(gameStateContainer.gameState, gameStateContainer.chop)
+    const { gameState, setGameState, chop, tail, gameOver } = useGameStateContext()
+    useGameNavigation(gameState, chop)
 
-    const { gameInfo, infoHealth } = gameInfoContainer
-    const { setGameState, tail, gameOver } = gameStateContainer
-
-    // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
-    // Since they will be the same we hit the game over condition, so we need to reset the timer.
-    if (gameStateContainer.gameOver && gameTimerContainer.timeTaken === 0) gameTimerContainer.buzzer()
+    const { gameInfo, infoHealth } = useGameInfoContext()
 
     // Updates the game state to have the hydrated version of the start player.
     useEffect(() => {

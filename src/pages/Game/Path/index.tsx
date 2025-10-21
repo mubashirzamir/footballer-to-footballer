@@ -1,10 +1,9 @@
 import PathItem from './PathItem.tsx'
 import { useNavigate } from 'react-router'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
 
 const Path = () => {
-    const { gameStateContainer } = useGameContext()
-    const { gameState } = gameStateContainer
+    const { gameState } = useGameStateContext()
 
     const navigate = useNavigate()
 

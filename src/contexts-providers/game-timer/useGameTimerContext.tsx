@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { GameInfoContext, type GameContextValue } from '@/contexts-providers/GameInfoContext.tsx'
+import { GameTimerContext, type GameTimerContextValue } from '@/contexts-providers/game-timer/GameTimerContext.tsx'
 
-export const useGameContext = (): GameContextValue => {
-    const ctx = useContext(GameInfoContext)
+export const useGameTimerContext = (): GameTimerContextValue => {
+    const ctx = useContext(GameTimerContext)
     if (!ctx) {
         throw new Error('useGameContext must be used within GameProvider')
     }

@@ -2,11 +2,10 @@ import Direction from '@/components/Direction.tsx'
 import PlayableImage from '@/components/PlayableImage.tsx'
 import type { Player } from '@/structures/Player.ts'
 import Text from '@/components/Text.tsx'
-import { useGameContext } from '@/hooks/useGameContext.tsx'
+import { useGameInfoContext } from '@/contexts-providers/game-info/useGameInfoContext.tsx'
 
 const GameSummary = () => {
-    const { gameInfoContainer } = useGameContext()
-    const { gameInfo } = gameInfoContainer
+    const { gameInfo } = useGameInfoContext()
 
     return (
         <div className="flex flex-col items-center justify-center">
