@@ -1,6 +1,5 @@
 import { type ReactNode, useMemo } from 'react'
 import useGameState from '@/hooks/useGameState.tsx'
-import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import { GameStateContext } from '@/contexts-providers/game-state/GameStateContext.tsx'
 import { useGameInfoContext } from '@/contexts-providers/game-info/useGameInfoContext.tsx'
 
@@ -11,8 +10,6 @@ interface GameContextProviderProps {
 const GameStateContextProvider = ({ children }: GameContextProviderProps) => {
     const { gameInfo } = useGameInfoContext()
     const { gameState, setGameState, tail, gameOver, append, chop } = useGameState([gameInfo.startPlayer], gameInfo)
-
-    useGameNavigation(gameState, chop)
 
     const value = useMemo(
         () => ({
