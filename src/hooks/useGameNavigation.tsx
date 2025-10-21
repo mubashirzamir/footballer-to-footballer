@@ -1,12 +1,10 @@
 import { useEffect, useRef } from 'react'
 import type { GameState } from '@/structures'
-import { useLocation, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 const useGameNavigation = (gameState: GameState, chop: (index: number) => void) => {
     const navigate = useNavigate()
     const prevLength = useRef(gameState.length)
-    const location = useLocation()
-    const hash = Number(location.hash.replace('#', ''))
 
     useEffect(() => {
         if (gameState.length > prevLength.current) {
@@ -19,7 +17,8 @@ const useGameNavigation = (gameState: GameState, chop: (index: number) => void) 
     // Adding hash to the dependency array breaks the feature. Not sure why.
     useEffect(() => {
         const handlePopState = () => {
-            chop(hash || 0)
+            const idx = Number(window.location.hash.replace('#', '')) || 0
+            chop(idx)
         }
 
         window.addEventListener('popstate', handlePopState)

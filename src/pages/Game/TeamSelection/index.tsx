@@ -50,8 +50,8 @@ const TeamSelection = (props: TeamSelectionProps) => {
             <div className="my-2">
                 <Search onChange={handleSearchChange} />
             </div>
-            {filteredItems.map((team) => (
-                <TeamCard key={team.id} team={team} onTeamSelect={onTeamSelect} />
+            {filteredItems.map((team, index) => (
+                <TeamCard key={`${index}_${team.id}`} team={team} onTeamSelect={onTeamSelect} />
             ))}
             <Empty length={teams.length} message={__.messages.game.team_selection.no_teams} />
         </div>
