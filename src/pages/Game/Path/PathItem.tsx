@@ -19,7 +19,7 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
 
     const renderSeason = () => {
         if (playable.entityType === 'team') {
-            // @ts-ignore // TODO: TypeScript should be able to infer this but not doing so for some reason.
+            // @ts-expect-error // TODO: TypeScript should be able to infer this but not doing so for some reason.
             return playable.getCompactSeasonRange()
         }
     }

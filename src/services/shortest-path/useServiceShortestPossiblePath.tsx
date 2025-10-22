@@ -52,9 +52,7 @@ const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     } = useQuery<ShortestPathApiResponse>({
         queryKey: ['shortest_path', date, gameState],
         queryFn: async (): Promise<ShortestPathApiResponse> => {
-            const response = await fetchShortestPath({ date, path: gameState })
-
-            return response
+            return await fetchShortestPath({ date, path: gameState })
         },
         staleTime: Infinity,
         enabled: isTodaysGame, // only run the query if it's today's game
