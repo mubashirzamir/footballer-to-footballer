@@ -3,6 +3,7 @@ import request from '@/request.ts'
 import type { Playable } from '@/structures/Playable.ts'
 import type { GameInfo, GameState } from '@/structures'
 import { getGameInfo } from '@/hooks/useGameInfoFromDb.tsx'
+import type { UseServiceShortestPossiblePathContract } from '@/services/useServiceShortestPathPossible.tsx'
 
 export interface ShortestPathApiResponse {
     isShortest: boolean
@@ -23,7 +24,10 @@ const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<Shortest
 }
 
 // TODO: More robust
-const useServiceShortestPossiblePath = (gameInfo: GameInfo, gameState: GameState) => {
+const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
+    gameInfo: GameInfo,
+    gameState: GameState
+) => {
     const todaysGameInfo = getGameInfo()
     const isTodaysGame =
         todaysGameInfo.startPlayer.id === gameInfo.startPlayer.id &&

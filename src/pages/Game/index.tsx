@@ -13,8 +13,9 @@ import { __ } from '@/lang/lang.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
 import { useGameStateContext } from '@/contexts-providers/game-state/useGameStateContext.tsx'
 import { useGameInfoContext } from '@/contexts-providers/game-info/useGameInfoContext.tsx'
+import ContextsProviders from '@/contexts-providers'
 
-const Game = () => {
+const Main = () => {
     const { gameState, setGameState, chop, tail, gameOver } = useGameStateContext()
     useGameNavigation(gameState, chop)
 
@@ -72,6 +73,14 @@ const Game = () => {
                 )}
             </div>
         </div>
+    )
+}
+
+const Game = () => {
+    return (
+        <ContextsProviders>
+            <Main />
+        </ContextsProviders>
     )
 }
 

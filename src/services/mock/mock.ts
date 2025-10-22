@@ -52,3 +52,9 @@ export const GAME_INFO = (): GameInfo => ({
     startPlayer: DEHYDRATED_MESSI(),
     endPlayer: DEHYDRATED_RONALDO(),
 })
+
+export const SHORTEST_PATH = () => ({
+    isShortest: true,
+    message: 'Shortest path found',
+    shortestPath: GAME_STATE(),
+})

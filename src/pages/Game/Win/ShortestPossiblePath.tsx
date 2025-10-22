@@ -1,4 +1,3 @@
-import useServiceShortestPossiblePath from '@/services/shortest-path/useServiceShortestPossiblePath.tsx'
 import Journey from '@/pages/Game/Win/Journey.tsx'
 import BaseSpinner from '@/components/BaseSpinner.tsx'
 import type { GameInfo, GameState } from '@/structures'
@@ -6,6 +5,7 @@ import JourneyCard from '@/pages/Game/Win/JourneyCard.tsx'
 import Error from '@/components/Error.tsx'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
+import useServiceShortestPossiblePath from '@/services/useServiceShortestPathPossible.tsx'
 
 interface ShortestPossiblePathProps {
     gameInfo: GameInfo
