@@ -49,7 +49,6 @@ const Main = () => {
         return <BaseSpinner className="size-12" />
     }
 
-    // TODO: Too many and too confusion conditions, pull them to separate components and pull conditions from gamestate
     return (
         <div className="p-4 md:p-8">
             {!gameOver && (

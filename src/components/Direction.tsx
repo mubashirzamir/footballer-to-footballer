@@ -7,13 +7,11 @@ interface DirectionProps {
     mutable?: boolean
 }
 
-// TODO: Separate logic and presentation
 const Direction = (props: DirectionProps) => {
     const { className = 'text-6xl', mutable = false } = props
 
     const { start_player_id: startPlayerId, end_player_id: endPlayerId } = useParams()
 
-    // TODO: Ask confirmation
     const onClick = () => {
         if (!mutable) return
 

@@ -7,7 +7,7 @@ import NoGame from '@/pages/NoGame'
 import ShowHelp from '@/pages/Home/ShowHelp.tsx'
 
 const Home = () => {
-    const { gameInfo } = useGameInfoFromDb() // TODO: Optimize with context
+    const { gameInfo } = useGameInfoFromDb()
 
     if (gameInfo.startPlayer.id === 'unknown') {
         return <NoGame />

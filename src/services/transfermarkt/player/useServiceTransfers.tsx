@@ -55,49 +55,12 @@ const useServiceTransfers: UseServiceTeamsContract = (player: Player) => {
     return { teams, loading, isError, error }
 }
 
+const today = new Date().toLocaleDateString('en-CA')
+
 const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
     if (transfers.length === 0) return []
 
     const result = []
-
-    // TODO: utils or move somewhere else
-    const today = new Date().toISOString()
-    const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
-    const currentSeasonString = Team.convertYearToSeason(currentSeason)
-
-    // TODO: Can we handle january transfers better? Update: I did, actually now document and make this function cleaner
-    // TODO: Write tests
-    // TODO: Add this info in the about and caveats that transfers are handled this way
-    // Note: New season starts from 1 July on Transfermarkt
-    // Tested: players
-    // Torres: 7767
-    // Dier: 175722
-    // Xavi: 7607
-    const beforeSettingSeasonEnd = (transfer: Transfer, nextTransfer: Transfer | undefined) => {
-        if (!nextTransfer) {
-            return currentSeasonString
-        }
-
-        const seasonYear = Team.convertToYear(transfer.season)
-        const nextTransferSeasonYear = Team.convertToYear(nextTransfer.season)
-
-        // Sanity checks
-        if (seasonYear >= nextTransferSeasonYear) return transfer.season
-
-        const [year, day, month] = nextTransfer.date.split('-')
-        const nextTransferDate = new Date(parseInt(year), parseInt(month), parseInt(day))
-        const deadlineDay = new Date(parseInt(year), 7, 1)
-        const splitPosition = nextTransferDate > deadlineDay ? 1 : 0
-
-        const firstHalf = parseInt(nextTransfer.season.split('/')[splitPosition])
-
-        // handle 00 -> 99 transition
-        if (firstHalf === 0) {
-            return `99/00`
-        }
-
-        return `${firstHalf - 1}`.padStart(2, '0') + '/' + `${firstHalf}`.padStart(2, '0')
-    }
 
     for (let i = 0; i < transfers.length; i++) {
         const transfer = transfers[i]
@@ -126,6 +89,47 @@ const isWithoutClub = (teamName: string): boolean => {
 
 const shouldAddTeam = (team: Team): boolean => {
     return team.name.trim().toLowerCase() !== 'retired'
+}
+
+const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
+const currentSeasonString = Team.convertYearToSeason(currentSeason)
+
+/**
+ * TODO:
+ *  1. Document behavior and make this function cleaner.
+ *  2. Write tests.
+ *  3. Add this info in the about and caveats that transfers are handled this way.
+ *
+ * Note: New season starts from 1 July on Transfermarkt
+ * Tested: players
+ * Torres: 7767
+ * Dier: 175722
+ * Xavi: 7607
+ */
+const beforeSettingSeasonEnd = (transfer: Transfer, nextTransfer: Transfer | undefined) => {
+    if (!nextTransfer) {
+        return currentSeasonString // e.g. "23/24"
+    }
+
+    const seasonYear = Team.convertToYear(transfer.season) // e.g., "04/05" -> 2004
+    const nextTransferSeasonYear = Team.convertToYear(nextTransfer.season) // e.g., "05/06" -> 2005
+
+    // Sanity checks
+    if (seasonYear >= nextTransferSeasonYear) return transfer.season // e.g. "04/05"
+
+    const [year, day, month] = nextTransfer.date.split('-') // e.g. "2005-07-15"
+    const nextTransferDate = new Date(parseInt(year), parseInt(month), parseInt(day)) // e.g. 15 July 2005
+    const deadlineDay = new Date(parseInt(year), 7, 1) // e.g. 1 July 2005
+    const splitPosition = nextTransferDate > deadlineDay ? 1 : 0
+
+    const seasonHalf = parseInt(nextTransfer.season.split('/')[splitPosition]) // e.g. "05/06" ->  05 if splitPosition is 0 or 06 if splitPosition is 1
+
+    // handle 00 -> 99 transition
+    if (seasonHalf === 0) {
+        return `99/00`
+    }
+
+    return `${seasonHalf - 1}`.padStart(2, '0') + '/' + `${seasonHalf}`.padStart(2, '0') // e.g. "05/06"
 }
 
 export default useServiceTransfers

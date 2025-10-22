@@ -3,7 +3,6 @@ import { Team } from '@/structures/Team.ts'
 import type { GameInfo } from '@/structures'
 
 // The data is here is encapsulated in functions to avoid needlessly creating objects at least that is my understanding.
-// TODO: Later look into whether this is necessary or if we can just export the objects directly.
 
 export const MESSI = () =>
     Player.instance('Messi')

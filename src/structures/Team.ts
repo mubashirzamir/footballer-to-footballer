@@ -69,8 +69,6 @@ export class Team implements Playable {
         return this.seasonStart.split('/')[0] + '-' + this.seasonEnd.split('/')[1]
     }
 
-    // TODO: This method is not entirely accurate
-    // TODO: Invert the loop instead of reversing the array at the end
     getSeasons() {
         const seasons = []
         const firstSeasonYear = Team.convertToYear(this.seasonStart) // e.g., "04/05" -> 2004

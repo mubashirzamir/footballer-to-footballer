@@ -1,4 +1,3 @@
-// TODO: Structure and nest page wise
 export const en = {
     messages: {
         nav: {

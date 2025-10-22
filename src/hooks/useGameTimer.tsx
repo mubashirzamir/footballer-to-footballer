@@ -32,7 +32,6 @@ const useGameTimer = () => {
         setIsRunning(false)
     }, [time])
 
-    // TODO: Is this the best place to do this?
     // When the game direction is reversed, gameState still holds the first player while gameInfo has the new end player.
     // Since they will be the same we hit the game over condition, so we need to reset the timer.
     if (gameOver && timeTaken === 0) buzzer()

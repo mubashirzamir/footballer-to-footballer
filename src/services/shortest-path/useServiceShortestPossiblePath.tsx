@@ -23,7 +23,12 @@ const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<Shortest
     })
 }
 
-// TODO: More robust
+/**
+ * TODO:
+ * 1. Function runs at 11:59:59 and isTodaysGame is true
+ * 2. const date = new Date().toLocaleDateString('en-CA') changes to next day
+ * 3. Request is sent with a today's date but yesterday's game info causing a mismatch
+ */
 const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     gameInfo: GameInfo,
     gameState: GameState
