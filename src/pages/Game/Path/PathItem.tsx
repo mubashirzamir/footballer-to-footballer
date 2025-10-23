@@ -2,6 +2,7 @@ import type { Playable } from '@/structures/Playable.ts'
 import PlayableImage from '@/components/PlayableImage.tsx'
 import Direction from '@/components/Direction.tsx'
 import Text from '@/components/Text.tsx'
+import { Team } from '@/structures/Team.ts'
 
 interface PathItemProps {
     playable: Playable
@@ -18,8 +19,7 @@ const PathItem = ({ playable, index, chopGameState, isLast }: PathItemProps) => 
     }
 
     const renderSeason = () => {
-        if (playable.entityType === 'team') {
-            // @ts-expect-error // TODO: TypeScript should be able to infer this but not doing so for some reason.
+        if (playable instanceof Team) {
             return playable.getCompactSeasonRange()
         }
     }
