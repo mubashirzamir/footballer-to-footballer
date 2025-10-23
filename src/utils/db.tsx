@@ -16,10 +16,10 @@ export const GAMES: Record<string, Game> = {
         suggested_by: 'mushi',
     },
     '2025-10-23': {
-        start_player_id: '50202',
-        start_player_name: 'Eden Hazard',
-        end_player_id: '418560',
-        end_player_name: 'Erling Haaland',
+        start_player_id: '3373',
+        start_player_name: 'Ronaldinho',
+        end_player_id: '28990',
+        end_player_name: 'Charlie Adam',
         suggested_by: 'mushi',
     },
     '2025-10-22': {
