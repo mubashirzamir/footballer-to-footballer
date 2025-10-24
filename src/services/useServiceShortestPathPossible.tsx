@@ -1,4 +1,4 @@
-import { API_IMPLEMENTATION, API_IMPLEMENTATIONS_SHORTEST_PATH } from '@/utils/constants.ts'
+import { API_IMPLEMENTATION_SHORTEST_PATH, API_IMPLEMENTATIONS_SHORTEST_PATH } from '@/utils/constants.ts'
 import useServiceShortestPossiblePathVercel from '@/services/shortest-path/useServiceShortestPossiblePath.tsx'
 import useServiceShortestPossiblePathMock from '@/services/mock/useServiceShortestPossiblePath.tsx'
 import type { GameInfo, GameState } from '@/structures'
@@ -28,7 +28,7 @@ export const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContr
     gameInfo: GameInfo,
     gameState: GameState
 ) => {
-    const hookImpl = implementationMap[API_IMPLEMENTATION]
+    const hookImpl = implementationMap[API_IMPLEMENTATION_SHORTEST_PATH]
 
     // fallback to a no-op implementation
     const fallback = {
