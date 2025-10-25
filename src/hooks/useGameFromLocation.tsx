@@ -33,6 +33,7 @@ const getGameInfo = (startPlayerId: string, endPlayerId: string): GameInfo => {
     return {
         startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('/ball.svg'),
         endPlayer: Player.instance(endPlayerId).setName('').setImageUrl('/ball.svg'),
+        contributor: 'unknown',
     }
 }
 
