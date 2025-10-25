@@ -19,6 +19,7 @@ export const getGameInfo = (): GameInfo => {
     let info = {
         startPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
         endPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
+        contributor: 'unknown',
     }
 
     try {
@@ -29,6 +30,7 @@ export const getGameInfo = (): GameInfo => {
             endPlayer: Player.instance(GAMES[date].end_player_id)
                 .setName(GAMES[date].end_player_name)
                 .setImageUrl('/ball.svg'),
+            contributor: GAMES[date].contributor,
         }
     } catch (e: unknown) {
         Logger.log(e)

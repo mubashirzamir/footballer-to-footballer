@@ -5,6 +5,7 @@ import useGameInfoFromDb from '@/hooks/useGameInfoFromDb.tsx'
 import NextGameTimer from '@/pages/Home/NextGameTimer.tsx'
 import NoGame from '@/pages/NoGame'
 import ShowHelp from '@/pages/Home/ShowHelp.tsx'
+import Contributor from '@/pages/Home/Contributor.tsx'
 
 const Home = () => {
     const { gameInfo } = useGameInfoFromDb()
@@ -25,6 +26,7 @@ const Home = () => {
             </div>
             <Start gameInfo={gameInfo} />
             <NextGameTimer />
+            <Contributor />
         </div>
     )
 }

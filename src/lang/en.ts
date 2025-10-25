@@ -17,6 +17,8 @@ export const en = {
             next_challenge: 'Next Challenge',
             show_help: 'Can you connect these two players?',
             show_help_link: 'Show me how.',
+            contributor: 'Contributor: ',
+            how_to_contribute: 'How to contribute a challenge?',
         },
         game: {
             unknown_game_phase: 'Unknown game phase',

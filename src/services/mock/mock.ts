@@ -50,6 +50,7 @@ export const DEHHYDRATED_TO_HYDRATED_PLAYERS = (): Record<string, Player> => ({
 export const GAME_INFO = (): GameInfo => ({
     startPlayer: DEHYDRATED_MESSI(),
     endPlayer: DEHYDRATED_RONALDO(),
+    contributor: 'mushi',
 })
 
 export const SHORTEST_PATH = () => ({

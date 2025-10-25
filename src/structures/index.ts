@@ -6,7 +6,7 @@ export type Game = {
     start_player_name: string
     end_player_id: string
     end_player_name: string
-    suggested_by: string
+    contributor: string
 }
 
 export type GameState = Playable[]
@@ -14,6 +14,7 @@ export type GameState = Playable[]
 export type GameInfo = {
     startPlayer: Player
     endPlayer: Player
+    contributor: string
 }
 
 export type ProfileHealth = {
