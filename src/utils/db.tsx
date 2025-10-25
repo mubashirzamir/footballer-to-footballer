@@ -1,6 +1,27 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2025-10-28': {
+        start_player_id: '145988',
+        start_player_name: 'Wilfried Zaha',
+        end_player_id: '1161',
+        end_player_name: 'Javier Zanetti',
+        contributor: 'mushi',
+    },
+    '2025-10-27': {
+        start_player_id: '5023',
+        start_player_name: 'Gianluigi Buffon',
+        end_player_id: '7562',
+        end_player_name: 'Santiago Cañizares',
+        contributor: 'mushi',
+    },
+    '2025-10-26': {
+        start_player_id: '7663',
+        start_player_name: 'Joaquín',
+        end_player_id: '197838',
+        end_player_name: 'Jamie Vardy',
+        contributor: 'mushi',
+    },
     '2025-10-25': {
         start_player_id: '37148',
         start_player_name: 'Gabriel Agbonlahor',
