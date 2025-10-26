@@ -10,7 +10,7 @@ import Contributor from '@/pages/Home/Contributor.tsx'
 const Home = () => {
     const { gameInfo } = useGameInfoFromDb()
 
-    if (gameInfo.startPlayer.id !== 'unknown') {
+    if (gameInfo.startPlayer.id === 'unknown') {
         return <NoGame />
     }
 
