@@ -5,7 +5,7 @@ import Search from '@/pages/Game/Search.tsx'
 import PlayerCard from './PlayerCard.tsx'
 import useSearch from '@/hooks/useSearch.tsx'
 import SeasonSelector from '@/pages/Game/PlayerSelection/SeasonSelector.tsx'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useServicePlayers from '@/services/useServicePlayers.tsx'
 import Error from '@/components/Error.tsx'
 import Empty from '@/components/Empty.tsx'
@@ -19,12 +19,28 @@ interface PlayerSelectionProps {
 
 const PlayerSelection = (props: PlayerSelectionProps) => {
     const { team } = props
+    const firstSeasonId = useMemo(() => team.getSeasons()[0].id, [team])
 
     const { append } = useGameStateContext()
-    const [season, setSeason] = useState(team.getSeasons()[0].id)
+    const [season, setSeason] = useState(firstSeasonId)
 
     const { players, loading, error } = useServicePlayers(team, season)
     const { filteredItems, setQuery, handleSearchChange } = useSearch(players)
+
+    /**
+     * Game: 2025-10-28
+     *
+     * Scenario where player jumps from one player selection to another.
+     * In this case this component does not unmount, and we were getting a stale state for season.
+     * Now in this scenario we check if the firstSeasonId changed in the scenario above.
+     * If it did we setSeason(firstSeasonId)
+     *
+     * Example:
+     * Zanetti -> Inter 2013/2014 -> Handanovic -> 2022/2023 -> Inter 2013/2014
+     */
+    useEffect(() => {
+        setSeason(firstSeasonId)
+    }, [firstSeasonId])
 
     const onSeasonChange = (seasonId: string) => {
         setQuery('')
