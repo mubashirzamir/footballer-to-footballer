@@ -34,9 +34,13 @@ const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     gameState: GameState
 ) => {
     const todaysGameInfo = getGameInfo()
-    const isTodaysGame =
+    const isRegular =
         todaysGameInfo.startPlayer.id === gameInfo.startPlayer.id &&
         todaysGameInfo.endPlayer.id === gameInfo.endPlayer.id
+    const isReversed =
+        todaysGameInfo.startPlayer.id === gameInfo.endPlayer.id &&
+        todaysGameInfo.endPlayer.id === gameInfo.startPlayer.id
+    const isTodaysGame = isRegular || isReversed
 
     const date = new Date().toLocaleDateString('en-CA')
 
