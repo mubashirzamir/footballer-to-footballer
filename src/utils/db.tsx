@@ -1,6 +1,41 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2025-11-02': {
+        start_player_id: '5950',
+        start_player_name: 'Pep Guardiola',
+        end_player_id: '39679',
+        end_player_name: 'Marouane Fellaini',
+        contributor: 'mushi',
+    },
+    '2025-11-01': {
+        start_player_id: '4112',
+        start_player_name: 'Rory Delap',
+        end_player_id: '7451',
+        end_player_name: 'Mikel Arteta',
+        contributor: 'mushi',
+    },
+    '2025-10-31': {
+        start_player_id: '44352',
+        start_player_name: 'Luis Suárez',
+        end_player_id: '6934',
+        end_player_name: 'Tuncay Şanlı',
+        contributor: 'mushi',
+    },
+    '2025-10-30': {
+        start_player_id: '34870',
+        start_player_name: 'Roberto Soldado',
+        end_player_id: '27306',
+        end_player_name: 'Mathieu Debuchy',
+        contributor: 'mushi',
+    },
+    '2025-10-29': {
+        start_player_id: '371998',
+        start_player_name: 'Vinicius Junior',
+        end_player_id: '72047',
+        end_player_name: 'Iago Aspas',
+        contributor: 'mushi',
+    },
     '2025-10-28': {
         start_player_id: '145988',
         start_player_name: 'Wilfried Zaha',
