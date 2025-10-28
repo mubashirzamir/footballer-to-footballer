@@ -66,6 +66,8 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
         const transfer = transfers[i]
         const nextTransfer = transfers[i - 1] // Next transfer chronologically
 
+        if (transfer.upcoming) continue // Skip upcoming transfers
+
         const team = new Team(transfer.clubTo.id)
             .setName(transfer.clubTo.name)
             .setStartDate(transfer.date)
