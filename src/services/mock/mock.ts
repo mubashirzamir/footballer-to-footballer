@@ -48,6 +48,7 @@ export const DEHHYDRATED_TO_HYDRATED_PLAYERS = (): Record<string, Player> => ({
 })
 
 export const GAME_INFO = (): GameInfo => ({
+    date: new Date().toLocaleDateString('en-CA'),
     startPlayer: DEHYDRATED_MESSI(),
     endPlayer: DEHYDRATED_RONALDO(),
     contributor: 'mushi',

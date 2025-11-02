@@ -3,16 +3,11 @@ import Direction from '@/components/Direction.tsx'
 import PrimaryPlayer from '@/pages/Home/PrimaryPlayer.tsx'
 import useGameInfoFromDb from '@/hooks/useGameInfoFromDb.tsx'
 import NextGameTimer from '@/pages/Home/NextGameTimer.tsx'
-import NoGame from '@/pages/NoGame'
 import ShowHelp from '@/pages/Home/ShowHelp.tsx'
 import Contributor from '@/pages/Home/Contributor.tsx'
 
 const Home = () => {
     const { gameInfo } = useGameInfoFromDb()
-
-    if (gameInfo.startPlayer.id === 'unknown') {
-        return <NoGame />
-    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4 md:p-8">

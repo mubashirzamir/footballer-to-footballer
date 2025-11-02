@@ -24,10 +24,8 @@ const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<Shortest
 }
 
 /**
- * TODO:
- * 1. Function runs at 11:59:59 and isTodaysGame is true
- * 2. const date = new Date().toLocaleDateString('en-CA') changes to next day
- * 3. Request is sent with a today's date but yesterday's game info causing a mismatch
+ * todaysGameInfo.date is used for API calls instead of gameInfo date because the gameInfo.date is always the current date.
+ * Whereas, todaysGameInfo.date falls back to the DEFAULT_GAME_DATE when there is no new game.
  */
 const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     gameInfo: GameInfo,
@@ -42,8 +40,6 @@ const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
         todaysGameInfo.endPlayer.id === gameInfo.startPlayer.id
     const isTodaysGame = isRegular || isReversed
 
-    const date = new Date().toLocaleDateString('en-CA')
-
     const {
         data = {
             isShortest: false,
@@ -54,9 +50,9 @@ const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
         isError,
         error,
     } = useQuery<ShortestPathApiResponse>({
-        queryKey: ['shortest_path', date, gameState],
+        queryKey: ['shortest_path', todaysGameInfo.date, gameState],
         queryFn: async (): Promise<ShortestPathApiResponse> => {
-            return await fetchShortestPath({ date, path: gameState })
+            return await fetchShortestPath({ date: todaysGameInfo.date, path: gameState })
         },
         staleTime: Infinity,
         enabled: isTodaysGame, // only run the query if it's today's game

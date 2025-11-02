@@ -12,6 +12,7 @@ export type Game = {
 export type GameState = Playable[]
 
 export type GameInfo = {
+    date: string, // YYYY-MM-DD
     startPlayer: Player
     endPlayer: Player
     contributor: string

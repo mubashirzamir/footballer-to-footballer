@@ -19,6 +19,7 @@ export const en = {
             show_help_link: 'Show me how.',
             contributor: 'Contributor: ',
             how_to_contribute: 'How to contribute a challenge?',
+            no_new_game: 'No new game today.'
         },
         game: {
             unknown_game_phase: 'Unknown game phase',
@@ -55,7 +56,6 @@ export const en = {
     },
     errors: {
         '404': 'Page not found',
-        no_game_today: 'No Game for Today.',
         no_game_info: 'No game info in non-play route',
         missing_player_ids: 'Missing player IDs in URL parameters',
         same_player_ids: 'Start and end player IDs cannot be the same',

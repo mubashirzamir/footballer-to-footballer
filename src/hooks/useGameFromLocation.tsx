@@ -31,6 +31,7 @@ const getGamesFor = (startPlayerId: string, endPlayerId: string, impl: string) =
 
 const getGameInfo = (startPlayerId: string, endPlayerId: string): GameInfo => {
     return {
+        date: new Date().toLocaleDateString('en-CA'),
         startPlayer: Player.instance(startPlayerId).setName('').setImageUrl('/ball.svg'),
         endPlayer: Player.instance(endPlayerId).setName('').setImageUrl('/ball.svg'),
         contributor: 'unknown',

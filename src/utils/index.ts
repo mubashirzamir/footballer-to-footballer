@@ -1,4 +1,5 @@
-import { ENV_IS_DEV } from '@/utils/constants.ts'
+import { DEFAULT_GAME, ENV_IS_DEV } from '@/utils/constants.ts'
+import type { GameInfo } from '@/structures'
 
 export const emptyFunction = () => {}
 
@@ -38,4 +39,13 @@ export const secondstoHourMinutesSeconds = (seconds: number) => {
     const ss = secs.toString().padStart(2, '0')
 
     return `${hh}:${mm}:${ss}`
+}
+
+export const isDefaultGame = (info: GameInfo) => {
+    const isRegular =
+        info.startPlayer.id === DEFAULT_GAME.startPlayer.id && info.endPlayer.id === DEFAULT_GAME.endPlayer.id
+    const isReversed =
+        info.startPlayer.id === DEFAULT_GAME.endPlayer.id && info.endPlayer.id === DEFAULT_GAME.startPlayer.id
+
+    return isRegular || isReversed
 }

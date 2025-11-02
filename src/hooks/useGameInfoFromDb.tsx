@@ -3,7 +3,7 @@ import type { GameDriver, GameInfo } from '@/structures'
 import { Player } from '@/structures/Player.ts'
 import { Logger } from '@/utils'
 import useGame from '@/hooks/useGame.tsx'
-import { API_IMPLEMENTATION, API_IMPLEMENTATIONS } from '@/utils/constants.ts'
+import { API_IMPLEMENTATION, API_IMPLEMENTATIONS, DEFAULT_GAME } from '@/utils/constants.ts'
 import { GAMES } from '@/utils/db.tsx'
 
 export const useGameInfoFromDb = (): GameDriver => {
@@ -16,14 +16,11 @@ const getGamesFor = (impl: string) => {
 
 export const getGameInfo = (): GameInfo => {
     const date = new Date().toLocaleDateString('en-CA')
-    let info = {
-        startPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
-        endPlayer: Player.instance('unknown').setName('Unknown').setImageUrl('/ball.svg'),
-        contributor: 'unknown',
-    }
+    let info = DEFAULT_GAME
 
     try {
         info = {
+            date,
             startPlayer: Player.instance(GAMES[date].start_player_id)
                 .setName(GAMES[date].start_player_name)
                 .setImageUrl('/ball.svg'),
