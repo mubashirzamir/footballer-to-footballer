@@ -11,7 +11,7 @@ const PrimaryPlayer = (props: PrimaryPlayerProps) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="md:w-80 md:h-80 sm:w-64 sm:h-64 w-24 h-24">
+            <div className="md:w-72 md:h-72 sm:w-64 sm:h-64 w-24 h-24">
                 <PlayableImage imageUrl={player.imageUrl} />
             </div>
             <Text
