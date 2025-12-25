@@ -11,7 +11,11 @@ const Contributor = () => {
             <Text className="italic text-sm">
                 {__.messages.home.contributor} {gameInfo.contributor}
             </Text>
-            {isDefaultGame(gameInfo) && <Text className="italic text-sm">{__.messages.home.no_new_game}</Text>}
+            {isDefaultGame(gameInfo) && (
+                <Text className="italic text-sm">
+                    {__.messages.home.no_new_game} {gameInfo.date}
+                </Text>
+            )}
             <Text className="italic underline text-sm">
                 <a
                     href="https://github.com/mubashirzamir/footballer-to-footballer/blob/main/src/utils/CONTRIBUTION_GUIDE.md"

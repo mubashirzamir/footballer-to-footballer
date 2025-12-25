@@ -49,3 +49,15 @@ export const isDefaultGame = (info: GameInfo) => {
 
     return isRegular || isReversed
 }
+
+/**
+ * Declared as a function instead of a `const` arrow function.
+ *
+ * - Function declarations are initialized during module instantiation, so they can be safely called during module load e.g. in constants.ts file.
+ * - `const` bindings are initialized only when execution reaches their declaration and are inaccessible beforehand (Temporal Dead Zone), which can cause runtime errors if accessed during module initialization.
+ */
+export function randomDate(from: Date, to: Date) {
+    const fromTime = from.getTime()
+    const toTime = to.getTime()
+    return new Date(fromTime + Math.random() * (toTime - fromTime)).toISOString().slice(0, 10)
+}
