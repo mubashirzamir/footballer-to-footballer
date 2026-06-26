@@ -1,0 +1,102 @@
+name: Generate new games
+
+on:
+  schedule:
+    # Runs every 10 days at 06:00 UTC. GitHub cron can't express "every 10 days"
+    # directly, so this runs daily and the job itself checks whether 10 days
+    # have passed since the last entry in games.ts before doing anything.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run even if fewer than 10 days have passed since the last game"
+        type: boolean
+        default: false
+      provider:
+        description: "Override LLM provider for this run only"
+        type: choice
+        options:
+          - "(use default)"
+          - openai
+          - anthropic
+          - gemini
+        default: "(use default)"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  # Flip this (or override via workflow_dispatch input below) to switch
+  # providers. Only the API key secret for the selected provider needs to
+  # actually be set in repo secrets — the others can be left empty.
+  DEFAULT_LLM_PROVIDER: anthropic # one of: openai | anthropic | gemini
+  # LLM_MODEL: leave unset to use the script's per-provider default,
+  # or set explicitly, e.g. gpt-4.1 / claude-sonnet-4-6 / gemini-2.5-pro
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check days since last game
+        id: gate
+        run: |
+          LAST_DATE=$(grep -oE "'[0-9]{4}-[0-9]{2}-[0-9]{2}'" src/utils/db.tsx | sort -r | head -1 | tr -d "'")
+          if [ -z "$LAST_DATE" ]; then
+            echo "Could not find any existing date in games.ts" >&2
+            exit 1
+          fi
+          DAYS_SINCE=$(( ( $(date -u -d "today" +%s) - $(date -u -d "$LAST_DATE" +%s) ) / 86400 ))
+          echo "Last game date: $LAST_DATE ($DAYS_SINCE days ago)"
+          if [ "$DAYS_SINCE" -ge 10 ] || [ "${{ github.event.inputs.force }}" = "true" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Resolve which provider this run will use: a workflow_dispatch
+          # override takes precedence, otherwise fall back to the default
+          # configured at the top of this file.
+          DISPATCH_PROVIDER="${{ github.event.inputs.provider }}"
+          if [ -n "$DISPATCH_PROVIDER" ] && [ "$DISPATCH_PROVIDER" != "(use default)" ]; then
+            echo "provider=$DISPATCH_PROVIDER" >> "$GITHUB_OUTPUT"
+          else
+            echo "provider=${{ env.DEFAULT_LLM_PROVIDER }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate new games
+        if: steps.gate.outputs.should_run == 'true'
+        env:
+          LLM_PROVIDER: ${{ steps.gate.outputs.provider }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          GAMES_FILE_PATH: src/utils/db.tsx
+          GAMES_TO_GENERATE: 10
+          RECENT_WINDOW: 60
+          CONTRIBUTOR: ai-agent
+        run: node scripts/generate-games.mjs
+
+      - name: Create pull request
+        if: steps.gate.outputs.should_run == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: add next 10 games"
+          branch: bot/add-games-${{ github.run_id }}
+          title: "Add next 10 games (auto-generated)"
+          body-path: pr-summary.md
+          labels: |
+            automated
+            needs-review
+          delete-branch: true
