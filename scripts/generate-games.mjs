@@ -52,7 +52,7 @@ if (!LLMGATEWAY_API_KEY) {
   process.exit(1);
 }
 
-const LLM_MODEL = process.env.LLM_MODEL || "google-ai-studio/gemini-2.5-flash-lite-lite"; // Default to a common model if not specified
+const LLM_MODEL = process.env.LLM_MODEL || "google-ai-studio/gemini-2.5-flash-lite"; // Default to a common model if not specified
 
 console.log(`Using LLM model: ${LLM_MODEL}`);
 
