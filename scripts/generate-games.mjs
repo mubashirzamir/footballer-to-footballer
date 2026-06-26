@@ -16,10 +16,9 @@
  *   5. Append validated entries as new dates, oldest-first continuing from
  *      the most recent existing date.
  *
- * Provider-agnostic: works against OpenAI, Anthropic, or Gemini, selected
- * via the LLM_PROVIDER env var. See callLLM() for the three adapters — that
- * is the only part of the file that differs per provider; every prompt and
- * all orchestration logic below it is shared.
+ * Provider-agnostic: uses OpenRouter as a unified gateway. Every prompt and
+ * all orchestration logic is shared — swap models by changing LLM_MODEL to
+ * any OpenRouter model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4).
  *
  * This script does NOT auto-merge anything. It only writes to a local file;
  * the calling GitHub Action handles branch/commit/PR creation.
@@ -44,42 +43,18 @@ const GAMES_TO_GENERATE = Number(process.env.GAMES_TO_GENERATE || 10);
 const RECENT_WINDOW = Number(process.env.RECENT_WINDOW || 60); // games to avoid repeating players from
 const CONTRIBUTOR = process.env.CONTRIBUTOR || "ai-agent";
 
-// --- LLM provider selection ---
-// LLM_PROVIDER: "openai" | "anthropic" | "gemini"
-// LLM_MODEL: model name for the chosen provider (sensible defaults below)
-const LLM_PROVIDER = (process.env.LLM_PROVIDER || "anthropic").toLowerCase();
-
-const DEFAULT_MODELS = {
-  openai: "gpt-4.1",
-  anthropic: "claude-sonnet-4-6",
-  gemini: "gemini-2.5-pro",
-};
-
-const LLM_MODEL = process.env.LLM_MODEL || DEFAULT_MODELS[LLM_PROVIDER];
-
-const API_KEY_ENV_VARS = {
-  openai: "OPENAI_API_KEY",
-  anthropic: "ANTHROPIC_API_KEY",
-  gemini: "GEMINI_API_KEY",
-};
-
-const API_KEYS = {
-  openai: process.env.OPENAI_API_KEY,
-  anthropic: process.env.ANTHROPIC_API_KEY,
-  gemini: process.env.GEMINI_API_KEY,
-};
-
-if (!["openai", "anthropic", "gemini"].includes(LLM_PROVIDER)) {
-  console.error(`Unknown LLM_PROVIDER "${LLM_PROVIDER}" — must be one of: openai, anthropic, gemini`);
+// --- LLM (via OpenRouter) ---
+// Uses a single OpenRouter API key for all model access.
+// Set OPENROUTER_API_KEY and optionally LLM_MODEL (any OpenRouter model slug).
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+if (!OPENROUTER_API_KEY) {
+  console.error("Missing OPENROUTER_API_KEY");
   process.exit(1);
 }
 
-if (!API_KEYS[LLM_PROVIDER]) {
-  console.error(`Missing API key for provider "${LLM_PROVIDER}". Set ${API_KEY_ENV_VARS[LLM_PROVIDER]}.`);
-  process.exit(1);
-}
+const LLM_MODEL = process.env.LLM_MODEL || "openai/gpt-4o-2024-11-20";
 
-console.log(`Using LLM provider: ${LLM_PROVIDER} (${LLM_MODEL})`);
+console.log(`Using LLM model: ${LLM_MODEL}`);
 
 // ---------------------------------------------------------------------------
 // Step 0: Read + parse the existing games.ts file
@@ -147,30 +122,17 @@ async function searchPlayer(name) {
 }
 
 // ---------------------------------------------------------------------------
-// Step 2: LLM adapter — the ONLY provider-specific section in this file.
-// Every call site below this just calls callLLM({ system, user }) and gets
-// back a plain string of model output, regardless of provider.
+// Step 2: LLM adapter — single OpenRouter endpoint, OpenAI-compatible format.
+// Every call site below just calls callLLM({ system, user }) and gets back
+// a plain string of model output, regardless of which model is used.
 // ---------------------------------------------------------------------------
 
 async function callLLM({ system, user }) {
-  switch (LLM_PROVIDER) {
-    case "openai":
-      return callOpenAI({ system, user });
-    case "anthropic":
-      return callAnthropic({ system, user });
-    case "gemini":
-      return callGemini({ system, user });
-    default:
-      throw new Error(`Unhandled provider: ${LLM_PROVIDER}`);
-  }
-}
-
-async function callOpenAI({ system, user }) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEYS.openai}`,
+      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
       model: LLM_MODEL,
@@ -183,55 +145,10 @@ async function callOpenAI({ system, user }) {
     }),
   });
   if (!res.ok) {
-    throw new Error(`OpenAI API error ${res.status}: ${await res.text()}`);
+    throw new Error(`OpenRouter API error ${res.status}: ${await res.text()}`);
   }
   const data = await res.json();
   return data.choices[0].message.content;
-}
-
-async function callAnthropic({ system, user }) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": API_KEYS.anthropic,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: LLM_MODEL,
-      max_tokens: 2000,
-      system,
-      messages: [{ role: "user", content: user }],
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(`Anthropic API error ${res.status}: ${await res.text()}`);
-  }
-  const data = await res.json();
-  const textBlock = data.content.find((b) => b.type === "text");
-  return textBlock ? textBlock.text : "";
-}
-
-async function callGemini({ system, user }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${LLM_MODEL}:generateContent?key=${API_KEYS.gemini}`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: system }] },
-      contents: [{ role: "user", parts: [{ text: user }] }],
-      generationConfig: {
-        maxOutputTokens: 2000,
-        responseMimeType: "application/json",
-      },
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(`Gemini API error ${res.status}: ${await res.text()}`);
-  }
-  const data = await res.json();
-  const parts = data.candidates?.[0]?.content?.parts || [];
-  return parts.map((p) => p.text || "").join("");
 }
 
 function extractJson(text) {
@@ -488,7 +405,7 @@ async function main() {
   const summaryLines = [
     `Adds ${datedGames.length} new daily games (${dates[0]} → ${dates[dates.length - 1]}).`,
     "",
-    `Generated using **${LLM_PROVIDER}** (${LLM_MODEL}).`,
+    `Generated using **${LLM_MODEL}** via OpenRouter.`,
     "",
     "| Date | Start | End | Rationale |",
     "|---|---|---|---|",

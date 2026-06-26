@@ -12,27 +12,17 @@ on:
         description: "Run even if fewer than 10 days have passed since the last game"
         type: boolean
         default: false
-      provider:
-        description: "Override LLM provider for this run only"
-        type: choice
-        options:
-          - "(use default)"
-          - openai
-          - anthropic
-          - gemini
-        default: "(use default)"
+      model:
+        description: "Override LLM model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4)"
+        type: string
+        required: false
 
 permissions:
   contents: write
   pull-requests: write
 
 env:
-  # Flip this (or override via workflow_dispatch input below) to switch
-  # providers. Only the API key secret for the selected provider needs to
-  # actually be set in repo secrets — the others can be left empty.
-  DEFAULT_LLM_PROVIDER: anthropic # one of: openai | anthropic | gemini
-  # LLM_MODEL: leave unset to use the script's per-provider default,
-  # or set explicitly, e.g. gpt-4.1 / claude-sonnet-4-6 / gemini-2.5-pro
+  LLM_MODEL: openai/gpt-4o-2024-11-20
 
 jobs:
   generate:
@@ -64,23 +54,17 @@ jobs:
             echo "should_run=false" >> "$GITHUB_OUTPUT"
           fi
 
-          # Resolve which provider this run will use: a workflow_dispatch
-          # override takes precedence, otherwise fall back to the default
-          # configured at the top of this file.
-          DISPATCH_PROVIDER="${{ github.event.inputs.provider }}"
-          if [ -n "$DISPATCH_PROVIDER" ] && [ "$DISPATCH_PROVIDER" != "(use default)" ]; then
-            echo "provider=$DISPATCH_PROVIDER" >> "$GITHUB_OUTPUT"
-          else
-            echo "provider=${{ env.DEFAULT_LLM_PROVIDER }}" >> "$GITHUB_OUTPUT"
+          # If a model override was provided via workflow_dispatch, pass it along.
+          MODEL_OVERRIDE="${{ github.event.inputs.model }}"
+          if [ -n "$MODEL_OVERRIDE" ]; then
+            echo "model=$MODEL_OVERRIDE" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Generate new games
         if: steps.gate.outputs.should_run == 'true'
         env:
-          LLM_PROVIDER: ${{ steps.gate.outputs.provider }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          LLM_MODEL: ${{ steps.gate.outputs.model || env.LLM_MODEL }}
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
           GAMES_FILE_PATH: src/utils/db.tsx
           GAMES_TO_GENERATE: 10
