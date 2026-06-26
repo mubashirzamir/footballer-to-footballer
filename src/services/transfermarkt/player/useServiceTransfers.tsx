@@ -73,7 +73,7 @@ const transformTransfersToTeams = (transfers: Transfer[]): Team[] => {
             .setStartDate(transfer.date)
             .setEndDate(nextTransfer ? nextTransfer.date : today)
             .setSeasonStart(transfer.season)
-            .setSeasonEnd(beforeSettingSeasonEnd(transfer, nextTransfer))
+            .setSeasonEnd(calculateSeasonEnd(transfer, nextTransfer, currentSeasonString))
             .setImageUrl(teamImageSource.replace('PLACEHOLDER', transfer.clubTo.id))
             .setWithoutClub(isWithoutClub(transfer.clubTo.name))
 
@@ -96,42 +96,47 @@ const shouldAddTeam = (team: Team): boolean => {
 const currentSeason = new Date().getMonth() >= 7 ? new Date().getFullYear() : new Date().getFullYear() - 1
 const currentSeasonString = Team.convertYearToSeason(currentSeason)
 
+const JULY = 7
+
+interface SeasonEndTransfer {
+    season: string
+    date: string
+}
+
 /**
- * TODO:
- *  1. Document behavior and make this function cleaner.
- *  2. Write tests.
- *  3. Add this info in the about and caveats that transfers are handled this way.
+ * Calculates the season end string for a player's club tenure.
  *
- * Note: New season starts from 1 July on Transfermarkt
- * Tested: players
- * Torres: 7767
- * Dier: 175722
- * Xavi: 7607
+ * Transfermarkt seasons are formatted as "04/05" (July 2004 – June 2005).
+ * When a player moves between clubs, this function determines the season
+ * end for the current club based on when the next transfer occurred:
+ *
+ * - If no next transfer → the player is still at the club, use current season
+ * - If next transfer is in a same/earlier season year → return transfer's season as-is
+ * - If next transfer is after July 1 → player left at season boundary, return next transfer's season
+ * - If next transfer is before/on July 1 → player left mid-season, return prior season
  */
-const beforeSettingSeasonEnd = (transfer: Transfer, nextTransfer: Transfer | undefined) => {
-    if (!nextTransfer) {
-        return currentSeasonString // e.g. "23/24"
-    }
+export const calculateSeasonEnd = (
+    transfer: SeasonEndTransfer,
+    nextTransfer: SeasonEndTransfer | undefined,
+    currentSeasonString: string,
+): string => {
+    if (!nextTransfer) return currentSeasonString
 
-    const seasonYear = Team.convertToYear(transfer.season) // e.g., "04/05" -> 2004
-    const nextTransferSeasonYear = Team.convertToYear(nextTransfer.season) // e.g., "05/06" -> 2005
+    const seasonYear = Team.convertToYear(transfer.season)
+    const nextTransferSeasonYear = Team.convertToYear(nextTransfer.season)
 
-    // Sanity checks
-    if (seasonYear >= nextTransferSeasonYear) return transfer.season // e.g. "04/05"
+    if (seasonYear >= nextTransferSeasonYear) return transfer.season
 
-    const [year, day, month] = nextTransfer.date.split('-') // e.g. "2005-07-15"
-    const nextTransferDate = new Date(parseInt(year), parseInt(month), parseInt(day)) // e.g. 15 July 2005
-    const deadlineDay = new Date(parseInt(year), 7, 1) // e.g. 1 July 2005
-    const splitPosition = nextTransferDate > deadlineDay ? 1 : 0
+    const [yearStr, monthStr, dayStr] = nextTransfer.date.split('-')
+    const nextTransferDate = new Date(Number(yearStr), Number(monthStr), Number(dayStr))
+    const deadlineDay = new Date(Number(yearStr), JULY, 1)
+    const halfIndex = nextTransferDate > deadlineDay ? 1 : 0
 
-    const seasonHalf = parseInt(nextTransfer.season.split('/')[splitPosition]) // e.g. "05/06" ->  05 if splitPosition is 0 or 06 if splitPosition is 1
+    const halfValue = Number(nextTransfer.season.split('/')[halfIndex])
 
-    // handle 00 -> 99 transition
-    if (seasonHalf === 0) {
-        return `99/00`
-    }
+    if (halfValue === 0) return '99/00'
 
-    return `${seasonHalf - 1}`.padStart(2, '0') + '/' + `${seasonHalf}`.padStart(2, '0') // e.g. "05/06"
+    return `${String(halfValue - 1).padStart(2, '0')}/${String(halfValue).padStart(2, '0')}`
 }
 
 export default useServiceTransfers
