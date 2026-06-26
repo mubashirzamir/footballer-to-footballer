@@ -202,8 +202,8 @@ function extractJson(text) {
 
 /**
  * Ask the LLM for `count` candidate pairs of well-known footballer NAMES
- * (never IDs), avoiding a given exclusion list, with a short rationale
- * for the connection between them. This is intentionally a name-only
+ * (never IDs), avoiding a given exclusion list.
+ * This is intentionally a name-only
  * step — IDs are resolved afterward against Transfermarkt directly.
  */
 async function proposeCandidatePairs(count, excludeNames) {
@@ -216,7 +216,7 @@ footballers from different clubs or eras. Avoid obscure players. Respond ONLY wi
 object, no preamble, no markdown fences.`;
 
   const user = `Propose ${count} start/end player name pairs as a JSON object like:
-{"pairs": [{"start_player_name": "...", "end_player_name": "...", "rationale": "short explanation of how a connection path could exist"}]}
+{"pairs": [{"start_player_name": "...", "end_player_name": "..."}]}
 
 Rules:
 - Use full, correctly-spelled real player names as they'd appear on Transfermarkt.
@@ -281,7 +281,7 @@ async function buildValidatedGames({ count, excludeIds, excludeNames }) {
       if (results.length >= count) break;
       processed++;
 
-      const { start_player_name, end_player_name, rationale } = pair;
+      const { start_player_name, end_player_name } = pair;
       console.log(`[${ts()}] --- Pair ${processed}/${candidatePairs.length}: "${start_player_name}" ↔ "${end_player_name}" ---`);
 
       if (
@@ -323,7 +323,6 @@ async function buildValidatedGames({ count, excludeIds, excludeNames }) {
         start_player_name: startPlayer.name,
         end_player_id: endPlayer.id,
         end_player_name: endPlayer.name,
-        rationale: rationale || "connection via shared club or national team",
       });
 
       console.log(`[${ts()}]   ✓ Accepted (${results.length}/${count}) — ${startPlayer.name} → ${endPlayer.name}`);
@@ -416,7 +415,7 @@ async function main() {
     console.log(
       `  ${date}: ${game.start_player_name} (${game.start_player_id}) -> ${game.end_player_name} (${game.end_player_id})`,
     );
-    console.log(`    rationale: ${game.rationale}`);
+
   }
 
   // Write a summary file the GitHub Action can drop straight into the PR body.
@@ -425,11 +424,11 @@ async function main() {
     "",
     `Generated using **${LLM_MODEL}** via LLMGateway (BYOK).`,
     "",
-    "| Date | Start | End | Rationale |",
-    "|---|---|---|---|",
+    "| Date | Start | End |",
+    "|---|---|---|",
     ...datedGames.map(
       ([date, g]) =>
-        `| ${date} | ${g.start_player_name} (${g.start_player_id}) | ${g.end_player_name} (${g.end_player_id}) | ${g.rationale} |`,
+        `| ${date} | ${g.start_player_name} (${g.start_player_id}) | ${g.end_player_name} (${g.end_player_id}) |`,
     ),
     "",
     "⚠️ Auto-generated. Player IDs were resolved against Transfermarkt search results — please double check before merging.",
