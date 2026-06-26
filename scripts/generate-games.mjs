@@ -157,11 +157,13 @@ async function callLLM({ system, user }) {
           { role: "system", content: system },
           { role: "user", content: user },
         ],
-        response_format: { type: "json_object" },
       }),
     });
     const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
-    const data = await res.json();
+    const raw = await res.text();
+    console.log(raw);
+    const data = JSON.parse(raw);
+    // const data = await res.json();
     if (!res.ok || data.error) {
       const msg = data.error?.message || `${res.status}`;
       const body = JSON.stringify(data).slice(0, 500);
