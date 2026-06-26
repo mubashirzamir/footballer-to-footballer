@@ -19,13 +19,13 @@ const Direction = (props: DirectionProps) => {
     }
 
     const arrow = () => {
-        return <Text text="➔" className={className} />
+        return <Text text={mutable ? '⇄' : '➔'} className={className} />
     }
 
     return (
         <div>
             {mutable ? (
-                <Button className="hover:rotate-180" variant="ghost" onClick={onClick}>
+                <Button className="hover:rotate-180" variant="ghost" onClick={onClick} title="Swap players" aria-label="Reverse direction">
                     {arrow()}
                 </Button>
             ) : (
