@@ -24,8 +24,19 @@ const fetchShortestPath = async (body: ShortestPathApiRequest): Promise<Shortest
 }
 
 /**
- * todaysGameInfo.date is used for API calls instead of gameInfo date because the gameInfo.date is always the current date.
- * Whereas, todaysGameInfo.date falls back to the DEFAULT_GAME_DATE when there is no new game.
+ * Submits the completed path to the Shortest Path KV store (keyed by date).
+ *
+ * Path normalization:
+ * The KV stores paths in canonical order (start→end). If the user flipped
+ * direction (isReversed), the gameState is reversed before submission so the
+ * stored path is always start→end. The API response is reversed back so the
+ * UI displays in the user's current orientation.
+ *
+ * Midnight cross-over:
+ * Not a practical concern — games complete in <1 minute, and getGameInfo()
+ * captures the date at render time. Even if a game straddles midnight, the
+ * KV key (date) is the date the game was started, which is the correct
+ * archival bucket.
  */
 const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     gameInfo: GameInfo,
@@ -52,7 +63,15 @@ const useServiceShortestPossiblePath: UseServiceShortestPossiblePathContract = (
     } = useQuery<ShortestPathApiResponse>({
         queryKey: ['shortest_path', todaysGameInfo.date, gameState],
         queryFn: async (): Promise<ShortestPathApiResponse> => {
-            return await fetchShortestPath({ date: todaysGameInfo.date, path: gameState })
+            const path = isReversed ? [...gameState].reverse() : gameState
+
+            const response = await fetchShortestPath({ date: todaysGameInfo.date, path })
+
+            if (isReversed) {
+                response.shortestPath.reverse();
+            }
+
+            return response
         },
         staleTime: Infinity,
         enabled: isTodaysGame, // only run the query if it's today's game
