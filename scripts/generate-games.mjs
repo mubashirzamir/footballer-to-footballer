@@ -209,12 +209,27 @@ Rules:
 - Vary eras/leagues/nationalities across the ${count} pairs — don't repeat the same two clubs every time.
 - Each pair should have a findable connection (shared club, shared national team, or well-known transfer link), but you do not need to specify the full path — just make sure one plausibly exists.`;
 
-  console.log(`[${ts()}] [LLM] Requesting ${count} candidate pairs...`);
-  const text = await callLLM({ system, user });
-  const parsed = extractJson(text);
-  const pairs = parsed.pairs || [];
-  console.log(`[${ts()}] [LLM] Parsed ${pairs.length} candidate pairs from response`);
-  return pairs;
+  const maxRetries = 3;
+  for (let i = 0; i < maxRetries; i++) {
+    console.log(`[${ts()}] [LLM] Requesting ${count} candidate pairs...`);
+    const text = await callLLM({ system, user });
+    try {
+      const parsed = extractJson(text);
+      const pairs = parsed.pairs || [];
+      if (pairs.length > 0) {
+        console.log(`[${ts()}] [LLM] Parsed ${pairs.length} candidate pairs from response`);
+        return pairs;
+      }
+      console.log(`[${ts()}] [LLM] Response had 0 pairs, retrying...`);
+    } catch (err) {
+      console.log(`[${ts()}] [LLM] Parse failed: ${err.message.slice(0, 200)}`);
+      if (i < maxRetries - 1) {
+        console.log(`[${ts()}] [LLM] Retry ${i + 1}/${maxRetries}...`);
+      } else {
+        throw err;
+      }
+    }
+  }
 }
 
 async function resolvePlayer(name) {
