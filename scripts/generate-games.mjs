@@ -152,7 +152,7 @@ async function callLLM({ system, user }) {
       body: JSON.stringify({
         model: LLM_MODEL,
         reasoning: {
-          max_tokens: 0,
+          effort: "none.",
         },
         max_tokens: 4000,
         messages: [
