@@ -13,14 +13,14 @@ on:
         type: boolean
         default: false
       model:
-        description: "Override LLM model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4, google-ai-studio/gemini-2.5-flash)"
+        description: "Override LLM model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4, google-ai-studio/gemini-2.5-flash-lite)"
 
 permissions:
   contents: write
   pull-requests: write
 
 env:
-  LLM_MODEL: google-ai-studio/gemini-2.5-flash
+  LLM_MODEL: google-ai-studio/gemini-2.5-flash-lite
 
 jobs:
   generate:

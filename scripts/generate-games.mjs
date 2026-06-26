@@ -17,7 +17,7 @@
  *
  * Provider-agnostic: uses LLMGateway as a unified gateway, allowing Bring Your Own Keys (BYOK).
  * Every prompt and all orchestration logic is shared — swap models by changing LLM_MODEL to
- * any LLMGateway-supported model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4, google-ai-studio/gemini-2.5-flash).
+ * any LLMGateway-supported model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4, google-ai-studio/gemini-2.5-flash-lite).
  *
  * This script does NOT auto-merge anything. It only writes to a local file;
  * the calling GitHub Action handles branch/commit/PR creation.
@@ -52,7 +52,7 @@ if (!LLMGATEWAY_API_KEY) {
   process.exit(1);
 }
 
-const LLM_MODEL = process.env.LLM_MODEL || "google-ai-studio/gemini-2.5-flash-lite"; // Default to a common model if not specified
+const LLM_MODEL = process.env.LLM_MODEL || "google-ai-studio/gemini-2.5-flash-lite-lite"; // Default to a common model if not specified
 
 console.log(`Using LLM model: ${LLM_MODEL}`);
 
