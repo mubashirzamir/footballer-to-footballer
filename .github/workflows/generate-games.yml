@@ -22,7 +22,7 @@ permissions:
   pull-requests: write
 
 env:
-  LLM_MODEL: qwen/qwen3-coder:free
+  LLM_MODEL: openrouter/free
 
 jobs:
   generate:

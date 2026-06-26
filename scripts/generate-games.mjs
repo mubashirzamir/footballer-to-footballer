@@ -51,7 +51,7 @@ if (!OPENROUTER_API_KEY) {
   process.exit(1);
 }
 
-const LLM_MODEL = process.env.LLM_MODEL || "qwen/qwen3-coder:free";
+const LLM_MODEL = process.env.LLM_MODEL || "openrouter/free";
 
 console.log(`Using LLM model: ${LLM_MODEL}`);
 
@@ -139,37 +139,48 @@ async function searchPlayer(name) {
 // ---------------------------------------------------------------------------
 
 async function callLLM({ system, user }) {
-  const t0 = Date.now();
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: LLM_MODEL,
-      max_tokens: 4000,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-      response_format: { type: "json_object" },
-    }),
-  });
-  const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
-  const data = await res.json();
-  if (!res.ok || data.error) {
-    const msg = data.error?.message || `${res.status}`;
-    throw new Error(`OpenRouter API error after ${elapsed}s: ${msg}`);
+  const maxRetries = 3;
+  for (let i = 0; i < maxRetries; i++) {
+    const t0 = Date.now();
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: LLM_MODEL,
+        max_tokens: 4000,
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user },
+        ],
+        response_format: { type: "json_object" },
+      }),
+    });
+    const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      const msg = data.error?.message || `${res.status}`;
+      const body = JSON.stringify(data).slice(0, 500);
+      console.log(`[${ts()}] [LLM] API error after ${elapsed}s: ${msg} — ${body}`);
+      if (i < maxRetries - 1) {
+        console.log(`[${ts()}] [LLM] Retry ${i + 1}/${maxRetries}...`);
+        continue;
+      }
+      throw new Error(`OpenRouter API error after ${elapsed}s: ${msg}`);
+    }
+    const content = data.choices?.[0]?.message?.content;
+    if (!content) {
+      console.log(`[${ts()}] [LLM] Empty content after ${elapsed}s, retrying...`);
+      if (i < maxRetries - 1) continue;
+      throw new Error(
+        `OpenRouter returned no choices after ${elapsed}s. Response: ${JSON.stringify(data).slice(0, 1000)}`,
+      );
+    }
+    console.log(`[${ts()}] [LLM] ← received response (${elapsed}s, ${content.length} chars)`);
+    return content;
   }
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) {
-    throw new Error(
-      `OpenRouter returned no choices after ${elapsed}s. Response: ${JSON.stringify(data).slice(0, 1000)}`,
-    );
-  }
-  console.log(`[${ts()}] [LLM] ← received response (${elapsed}s, ${content.length} chars)`);
-  return content;
 }
 
 function extractJson(text) {
