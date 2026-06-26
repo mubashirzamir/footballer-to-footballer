@@ -51,7 +51,7 @@ if (!OPENROUTER_API_KEY) {
   process.exit(1);
 }
 
-const LLM_MODEL = process.env.LLM_MODEL || "nvidia/nemotron-3-ultra-550b-a55b:free";
+const LLM_MODEL = process.env.LLM_MODEL || "qwen/qwen3-coder:free";
 
 console.log(`Using LLM model: ${LLM_MODEL}`);
 
@@ -259,7 +259,7 @@ async function buildValidatedGames({ count, excludeIds, excludeNames }) {
     const need = count - results.length;
     console.log(`[${ts()}] === Attempt ${attempts}/${maxAttempts} — need ${need} more game(s) ===`);
     const candidatePairs = await proposeCandidatePairs(
-      Math.min(need * 3, 30),
+      need + 3,
       Array.from(usedNamesThisRun),
     );
 

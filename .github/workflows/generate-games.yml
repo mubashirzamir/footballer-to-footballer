@@ -22,7 +22,7 @@ permissions:
   pull-requests: write
 
 env:
-  LLM_MODEL: nvidia/nemotron-3-ultra-550b-a55b:free
+  LLM_MODEL: qwen/qwen3-coder:free
 
 jobs:
   generate:
