@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+'2026-07-05': {
+start_player_id: '38253',
+start_player_name: 'Robert Lewandowski',
+end_player_id: '308708',
+end_player_name: 'Sócrates Belenguer',
+contributor: 'ai-agent',
+    },
+'2026-07-04': {
+start_player_id: '8021',
+start_player_name: 'Johan Cruyff',
+end_player_id: '63',
+end_player_name: 'Michael Ballack',
+contributor: 'ai-agent',
+    },
+'2026-07-03': {
+start_player_id: '3372',
+start_player_name: 'Rivaldo',
+end_player_id: '174874',
+end_player_name: 'Sir Bobby Charlton',
+contributor: 'ai-agent',
+    },
+'2026-07-02': {
+start_player_id: '7940',
+start_player_name: 'Ronald Koeman',
+end_player_id: '174986',
+end_player_name: 'George Best',
+contributor: 'ai-agent',
+    },
+'2026-07-01': {
+start_player_id: '7349',
+start_player_name: 'Raúl',
+end_player_id: '35604',
+end_player_name: 'Gerd Müller',
+contributor: 'ai-agent',
+    },
+'2026-06-30': {
+start_player_id: '7607',
+start_player_name: 'Xavi',
+end_player_id: '101045',
+end_player_name: 'Ruud Gullit',
+contributor: 'ai-agent',
+    },
+'2026-06-29': {
+start_player_id: '5803',
+start_player_name: 'Paolo Maldini',
+end_player_id: '8024',
+end_player_name: 'Diego Maradona',
+contributor: 'ai-agent',
+    },
+'2026-06-28': {
+start_player_id: '3139',
+start_player_name: 'David Beckham',
+end_player_id: '1527',
+end_player_name: 'Lothar Matthäus',
+contributor: 'ai-agent',
+    },
+'2026-06-27': {
+start_player_id: '3163',
+start_player_name: 'Frank Lampard',
+end_player_id: '74471',
+end_player_name: 'Marco van Basten',
+contributor: 'ai-agent',
+    },
+'2026-06-26': {
+start_player_id: '3207',
+start_player_name: 'Thierry Henry',
+end_player_id: '5817',
+end_player_name: 'Andrea Pirlo',
+contributor: 'ai-agent',
+    },
     '2025-11-02': {
         start_player_id: '5950',
         start_player_name: 'Pep Guardiola',
