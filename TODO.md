@@ -6,9 +6,6 @@
 
 ## General
 
-- [] Make it more apparent that the direction can be flipped in the Game component
-- [] Add tests, especially for contributed games to avoid duplicates.
-  - Would a pre-commit hook be useful here?
 - [] Address Code TODOs 
 
 ## [Shortest Path API](https://github.com/mubashirzamir/shortest-path-api)
