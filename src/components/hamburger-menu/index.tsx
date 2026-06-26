@@ -25,6 +25,11 @@ const HamburgerMenu = () => {
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
+                        <Link to="/archive">
+                            <Text>{__.messages.nav.hamburger.archive_button}</Text>
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                         <Link to="/about">
                             <Text>{__.messages.nav.hamburger.about_button}</Text>
                         </Link>

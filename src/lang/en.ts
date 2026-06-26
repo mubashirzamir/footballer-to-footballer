@@ -3,6 +3,7 @@ export const en = {
         nav: {
             hamburger: {
                 home_button: 'Home',
+                archive_button: 'Archive',
                 about_button: 'About',
                 help_button: 'Help',
             },
@@ -43,6 +44,10 @@ export const en = {
             text: 'Find the shortest connection between two players by linking them through clubs they’ve both played for, and then repeating this process with those clubs and their players.',
             example: 'For example to connect Messi to Ronaldo, the chain can be:',
             result: 'Resulting in a total distance of 2.',
+        },
+        archive: {
+            title: 'Game Archive',
+            no_games: 'No archived games available.',
         },
         about: {
             title: 'About',

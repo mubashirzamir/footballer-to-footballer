@@ -7,7 +7,7 @@ const About = () => {
     const credit_parts = credits.split('{link}')
 
     return (
-        <div className="flex flex-col min-h-screen gap-4 p-2     md:p-8">
+        <div className="flex flex-col min-h-screen gap-4 p-2 md:p-8">
             <Text className="text-start text-3xl">{title}</Text>
             <Text className="text-start">
                 {contact}:&nbsp;

@@ -10,6 +10,7 @@ import NotFound from '@/pages/NotFound'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Help from '@/pages/Help'
 import About from '@/pages/About'
+import Archive from '@/pages/Archive'
 
 const queryClient = new QueryClient()
 
@@ -25,6 +26,7 @@ const App = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="/play/:start_player_id/:end_player_id" element={<Game />} />
                                 <Route path="/help" element={<Help />} />
+                                <Route path="/archive" element={<Archive />} />
                                 <Route path="/about" element={<About />} />
                                 <Route path="*" element={<NotFound />} />
                             </Routes>
