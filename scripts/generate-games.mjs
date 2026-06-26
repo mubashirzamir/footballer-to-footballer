@@ -148,7 +148,7 @@ async function callLLM({ system, user }) {
     },
     body: JSON.stringify({
       model: LLM_MODEL,
-      max_tokens: 2000,
+      max_tokens: 4000,
       messages: [
         { role: "system", content: system },
         { role: "user", content: user },
@@ -196,18 +196,21 @@ function extractJson(text) {
 async function proposeCandidatePairs(count, excludeNames) {
   const system = `You generate puzzle pairs for a football "connections" game, similar in spirit \
 to a footballing six-degrees game. Each puzzle gives a player NAME pair (start, end) that a \
-knowledgeable football fan could plausibly connect through shared clubs, national teams, \
-transfers, or eras. Pairs should be interesting and well-known footballers — avoid obscure \
-players. Respond ONLY with a JSON object, no preamble, no markdown fences.`;
+knowledgeable football fan could connect through a chain of shared clubs or transfers. \
+Puzzles should require at least 2 intermediate steps — do NOT pick pairs who were direct club \
+teammates (e.g. Rooney & Ronaldo, Messi & Xavi). Pairs should be interesting, well-known \
+footballers from different clubs or eras. Avoid obscure players. Respond ONLY with a JSON \
+object, no preamble, no markdown fences.`;
 
   const user = `Propose ${count} start/end player name pairs as a JSON object like:
-{"pairs": [{"start_player_name": "...", "end_player_name": "...", "rationale": "short reason a connection exists"}]}
+{"pairs": [{"start_player_name": "...", "end_player_name": "...", "rationale": "short explanation of how a connection path could exist"}]}
 
 Rules:
 - Use full, correctly-spelled real player names as they'd appear on Transfermarkt.
 - Do NOT reuse any of these names (already used recently): ${JSON.stringify(excludeNames)}
-- Vary eras/leagues/nationalities across the ${count} pairs — don't repeat the same two clubs every time.
-- Each pair should have a findable connection (shared club, shared national team, or well-known transfer link), but you do not need to specify the full path — just make sure one plausibly exists.`;
+- The two players MUST NOT have been direct club teammates — the path between them should require intermediate connections.
+- Vary eras/leagues across the ${count} pairs — don't repeat the same two clubs every time.
+- Each pair should have a findable connection path through shared clubs or transfers, but do not list the full path.`;
 
   const maxRetries = 3;
   for (let i = 0; i < maxRetries; i++) {
