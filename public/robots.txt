@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://footballer-to-footballer.vercel.app/sitemap.xml
