@@ -4,7 +4,8 @@ import { __ } from '@/lang/lang.ts'
 import { GAMES } from '@/utils/db.tsx'
 
 const Archive = () => {
-    const entries = Object.entries(GAMES)
+    const today = new Date().toLocaleDateString('en-CA')
+    const entries = Object.entries(GAMES).filter(([date]) => date <= today)
 
     return (
         <div className="flex flex-col min-h-screen gap-4 p-2 md:p-8">
