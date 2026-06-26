@@ -15,9 +15,9 @@
  *   5. Append validated entries as new dates, oldest-first continuing from
  *      the most recent existing date.
  *
- * Provider-agnostic: uses OpenRouter as a unified gateway. Every prompt and
- * all orchestration logic is shared — swap models by changing LLM_MODEL to
- * any OpenRouter model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4).
+ * Provider-agnostic: uses LLMGateway as a unified gateway, allowing Bring Your Own Keys (BYOK).
+ * Every prompt and all orchestration logic is shared — swap models by changing LLM_MODEL to
+ * any LLMGateway-supported model slug (e.g. openai/gpt-4o, anthropic/claude-sonnet-4, google-ai-studio/gemini-2.5-flash).
  *
  * This script does NOT auto-merge anything. It only writes to a local file;
  * the calling GitHub Action handles branch/commit/PR creation.
@@ -42,16 +42,17 @@ const GAMES_TO_GENERATE = Number(process.env.GAMES_TO_GENERATE || 10);
 const RECENT_WINDOW = Number(process.env.RECENT_WINDOW || 60); // games to avoid repeating players from
 const CONTRIBUTOR = process.env.CONTRIBUTOR || "ai-agent";
 
-// --- LLM (via OpenRouter) ---
-// Uses a single OpenRouter API key for all model access.
-// Set OPENROUTER_API_KEY and optionally LLM_MODEL (any OpenRouter model slug).
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-if (!OPENROUTER_API_KEY) {
-  console.error("Missing OPENROUTER_API_KEY");
+// --- LLM (via LLMGateway) ---
+// Uses a single LLMGateway API key for all model access, with BYOK support for providers like Anthropic.
+// Set LLMGATEWAY_API_KEY and optionally LLM_MODEL (any LLMGateway-supported model slug).
+// Configure your provider API keys (e.g., ANTHROPIC_API_KEY) in the LLMGateway dashboard.
+const LLMGATEWAY_API_KEY = process.env.LLMGATEWAY_API_KEY;
+if (!LLMGATEWAY_API_KEY) {
+  console.error("Missing LLMGATEWAY_API_KEY");
   process.exit(1);
 }
 
-const LLM_MODEL = process.env.LLM_MODEL || "openrouter/free";
+const LLM_MODEL = process.env.LLM_MODEL || "google-ai-studio/gemini-2.5-flash"; // Default to a common model if not specified
 
 console.log(`Using LLM model: ${LLM_MODEL}`);
 
@@ -142,11 +143,11 @@ async function callLLM({ system, user }) {
   const maxRetries = 3;
   for (let i = 0; i < maxRetries; i++) {
     const t0 = Date.now();
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const res = await fetch("https://api.llmgateway.io/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${LLMGATEWAY_API_KEY}`,
       },
       body: JSON.stringify({
         model: LLM_MODEL,
@@ -168,14 +169,14 @@ async function callLLM({ system, user }) {
         console.log(`[${ts()}] [LLM] Retry ${i + 1}/${maxRetries}...`);
         continue;
       }
-      throw new Error(`OpenRouter API error after ${elapsed}s: ${msg}`);
+      throw new Error(`LLMGateway API error after ${elapsed}s: ${msg}`);
     }
     const content = data.choices?.[0]?.message?.content;
     if (!content) {
       console.log(`[${ts()}] [LLM] Empty content after ${elapsed}s, retrying...`);
       if (i < maxRetries - 1) continue;
       throw new Error(
-        `OpenRouter returned no choices after ${elapsed}s. Response: ${JSON.stringify(data).slice(0, 1000)}`,
+        `LLMGateway returned no choices after ${elapsed}s. Response: ${JSON.stringify(data).slice(0, 1000)}`,
       );
     }
     console.log(`[${ts()}] [LLM] ← received response (${elapsed}s, ${content.length} chars)`);
@@ -421,7 +422,7 @@ async function main() {
   const summaryLines = [
     `Adds ${datedGames.length} new daily games (${dates[0]} → ${dates[dates.length - 1]}).`,
     "",
-    `Generated using **${LLM_MODEL}** via OpenRouter.`,
+    `Generated using **${LLM_MODEL}** via LLMGateway (BYOK).`,
     "",
     "| Date | Start | End | Rationale |",
     "|---|---|---|---|",
