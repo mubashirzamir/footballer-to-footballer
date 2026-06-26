@@ -70,6 +70,10 @@ jobs:
           CONTRIBUTOR: ai-agent
         run: node scripts/generate-games.mjs
 
+      - name: Format
+        if: steps.gate.outputs.should_run == 'true'
+        run: npx prettier --write src/utils/db.tsx
+
       - name: Create pull request
         if: steps.gate.outputs.should_run == 'true'
         uses: peter-evans/create-pull-request@v8.1.1

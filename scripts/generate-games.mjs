@@ -351,12 +351,12 @@ async function buildValidatedGames({ count, excludeIds, excludeNames }) {
 // ---------------------------------------------------------------------------
 
 function formatEntry(date, game) {
-  return `'${date}': {
-start_player_id: '${game.start_player_id}',
-start_player_name: '${game.start_player_name.replace(/'/g, "\\'")}',
-end_player_id: '${game.end_player_id}',
-end_player_name: '${game.end_player_name.replace(/'/g, "\\'")}',
-contributor: '${CONTRIBUTOR}',
+  return `    '${date}': {
+        start_player_id: '${game.start_player_id}',
+        start_player_name: '${game.start_player_name.replace(/'/g, "\\'")}',
+        end_player_id: '${game.end_player_id}',
+        end_player_name: '${game.end_player_name.replace(/'/g, "\\'")}',
+        contributor: '${CONTRIBUTOR}',
     },`;
 }
 
