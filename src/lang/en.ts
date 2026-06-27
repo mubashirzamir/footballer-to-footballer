@@ -48,6 +48,7 @@ export const en = {
         archive: {
             title: 'Game Archive',
             no_games: 'No archived games available.',
+            page_size: 'Per page',
         },
         about: {
             title: 'About',

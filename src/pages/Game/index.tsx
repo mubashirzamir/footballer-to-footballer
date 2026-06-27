@@ -8,6 +8,7 @@ import TeamSelection from '@/pages/Game/TeamSelection/index.tsx'
 import PlayerSelection from '@/pages/Game/PlayerSelection/index.tsx'
 import Path from '@/pages/Game/Path/index.tsx'
 import { useEffect } from 'react'
+import { scrollToTop } from '@/utils'
 import Text from '@/components/Text.tsx'
 import { __ } from '@/lang/lang.ts'
 import useGameNavigation from '@/hooks/useGameNavigation.tsx'
@@ -20,6 +21,10 @@ const Main = () => {
     useGameNavigation(gameState, chop)
 
     const { gameInfo, infoHealth } = useGameInfoContext()
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     // Updates the game state to have the hydrated version of the start player.
     useEffect(() => {
