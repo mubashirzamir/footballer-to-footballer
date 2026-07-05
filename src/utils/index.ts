@@ -4,7 +4,7 @@ import type { GameInfo } from '@/structures'
 export const emptyFunction = () => {}
 
 export class Logger {
-    static log(...args: any[]) {
+    static log(...args: unknown[]) {
         if (ENV_IS_DEV) {
             console.log('F2F: ', ...args)
         }
@@ -17,10 +17,10 @@ export const scrollToTop = (behavior: ScrollBehavior = 'instant') => {
 
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export const debounce = (func: (...args: any[]) => void, wait: number) => {
+export const debounce = <T extends unknown[]>(func: (...args: T) => void, wait: number) => {
     let timeout: ReturnType<typeof setTimeout> | null = null
 
-    return (...args: any[]) => {
+    return (...args: T) => {
         if (timeout) clearTimeout(timeout)
 
         timeout = setTimeout(() => {

@@ -57,4 +57,6 @@ function Button({
   )
 }
 
+// shadcn/ui generates buttonVariants alongside Button; kept collocated to stay true to source
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants }

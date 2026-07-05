@@ -7,6 +7,8 @@ const useGame = (gameInfo: GameInfo) => {
 
     useEffect(() => {
         setInfo(gameInfo)
+        // narrow deps intentional: re-run only when player IDs change, not when gameInfo reference changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameInfo.startPlayer.id, gameInfo.endPlayer.id])
 
     // use service hooks for both players

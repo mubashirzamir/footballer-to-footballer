@@ -11,7 +11,7 @@ const Error = ({ error }: ErrorProps) => {
     let message = <>{__.errors.error_for_user}</>
 
     if (ENV_IS_DEV) {
-        // @ts-ignore
+        // @ts-expect-error - error is unknown, accessing .message is not type-safe
         message = <>{error?.message || String(error) || __.errors.unknown_error}</>
     }
 

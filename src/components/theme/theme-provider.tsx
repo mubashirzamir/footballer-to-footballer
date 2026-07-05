@@ -58,6 +58,8 @@ export function ThemeProvider({
     )
 }
 
+// shadcn/ui generates useTheme alongside ThemeProvider; kept collocated to stay true to source
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
     const context = useContext(ThemeProviderContext)
 
