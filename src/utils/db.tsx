@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-07-14': {
+        start_player_id: '3187',
+        start_player_name: 'Dennis Bergkamp',
+        end_player_id: '5958',
+        end_player_name: 'Francesco Totti',
+        contributor: 'ai-agent',
+    },
+    '2026-07-13': {
+        start_player_id: '135621',
+        start_player_name: 'Ruud Krol',
+        end_player_id: '3223',
+        end_player_name: 'Dwight Yorke',
+        contributor: 'ai-agent',
+    },
+    '2026-07-12': {
+        start_player_id: '3372',
+        start_player_name: 'Rivaldo',
+        end_player_id: '16980',
+        end_player_name: 'Jürgen Klinsmann',
+        contributor: 'ai-agent',
+    },
+    '2026-07-11': {
+        start_player_id: '103092',
+        start_player_name: 'Ferenc Puskás',
+        end_player_id: '3446',
+        end_player_name: 'Luís Figo',
+        contributor: 'ai-agent',
+    },
+    '2026-07-10': {
+        start_player_id: '17121',
+        start_player_name: 'Pelé',
+        end_player_id: '5959',
+        end_player_name: 'Gabriel Batistuta',
+        contributor: 'ai-agent',
+    },
+    '2026-07-09': {
+        start_player_id: '174874',
+        start_player_name: 'Sir Bobby Charlton',
+        end_player_id: '72343',
+        end_player_name: 'Karl-Heinz Rummenigge',
+        contributor: 'ai-agent',
+    },
+    '2026-07-08': {
+        start_player_id: '35604',
+        start_player_name: 'Gerd Müller',
+        end_player_id: '85458',
+        end_player_name: 'Kevin Keegan',
+        contributor: 'ai-agent',
+    },
+    '2026-07-07': {
+        start_player_id: '88994',
+        start_player_name: 'Michel Platini',
+        end_player_id: '7942',
+        end_player_name: 'Romário',
+        contributor: 'ai-agent',
+    },
+    '2026-07-06': {
+        start_player_id: '8021',
+        start_player_name: 'Johan Cruyff',
+        end_player_id: '174986',
+        end_player_name: 'George Best',
+        contributor: 'ai-agent',
+    },
+    '2026-07-05': {
+        start_player_id: '72347',
+        start_player_name: 'Franz Beckenbauer',
+        end_player_id: '3522',
+        end_player_name: 'Andriy Shevchenko',
+        contributor: 'ai-agent',
+    },
     '2026-07-05': {
         start_player_id: '2219',
         start_player_name: 'Philipp Lahm',
