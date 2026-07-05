@@ -69,7 +69,7 @@ jobs:
           GAMES_FILE_PATH: src/utils/db.tsx
           GAMES_TO_GENERATE: 10
           RECENT_WINDOW: 60
-          CONTRIBUTOR: ai-agent
+          CONTRIBUTOR: jarvis
         run: node scripts/generate-games.mjs
 
       - name: Format
