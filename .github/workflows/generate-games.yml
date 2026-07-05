@@ -2,14 +2,16 @@ name: Generate new games
 
 on:
   schedule:
-    # Runs every 10 days at 06:00 UTC. GitHub cron can't express "every 10 days"
-    # directly, so this runs daily and the job itself checks whether 10 days
-    # have passed since the last entry in games.ts before doing anything.
+    # Runs roughly every 9 days at 06:00 UTC. GitHub cron can't express
+    # "every 9 days" directly, so this runs daily and the job itself checks
+    # whether 9 days have passed since the last entry before doing anything.
+    # It generates 10 games per run, creating 1 day of overlap as a buffer
+    # against cron delays.
     - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: "Run even if fewer than 10 days have passed since the last game"
+        description: "Run even if fewer than 9 days have passed since the last game"
         type: boolean
         default: false
       model:
@@ -46,7 +48,7 @@ jobs:
           fi
           DAYS_SINCE=$(( ( $(date -u -d "today" +%s) - $(date -u -d "$LAST_DATE" +%s) ) / 86400 ))
           echo "Last game date: $LAST_DATE ($DAYS_SINCE days ago)"
-          if [ "$DAYS_SINCE" -ge 10 ] || [ "${{ github.event.inputs.force }}" = "true" ]; then
+          if [ "$DAYS_SINCE" -ge 9 ] || [ "${{ github.event.inputs.force }}" = "true" ]; then
             echo "should_run=true" >> "$GITHUB_OUTPUT"
           else
             echo "should_run=false" >> "$GITHUB_OUTPUT"

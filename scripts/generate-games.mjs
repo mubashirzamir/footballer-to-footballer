@@ -40,7 +40,7 @@ const TRANSFERMARKT_API_BASE =
 
 const GAMES_TO_GENERATE = Number(process.env.GAMES_TO_GENERATE || 10);
 const RECENT_WINDOW = Number(process.env.RECENT_WINDOW || 60); // games to avoid repeating players from
-const CONTRIBUTOR = process.env.CONTRIBUTOR || "ai-agent";
+const CONTRIBUTOR = process.env.CONTRIBUTOR || "jarvis";
 
 // --- LLM (via LLMGateway) ---
 // Uses a single LLMGateway API key for all model access, with BYOK support for providers like Anthropic.
@@ -92,15 +92,10 @@ function readExistingGames() {
   return { src, entries };
 }
 
-function nextDates(mostRecentDateStr, count) {
-  const dates = [];
-  const d = new Date(mostRecentDateStr + "T00:00:00Z");
-  for (let i = 1; i <= count; i++) {
-    const next = new Date(d);
-    next.setUTCDate(d.getUTCDate() + i);
-    dates.push(next.toISOString().slice(0, 10));
-  }
-  return dates;
+function addDays(dateStr, days) {
+  const d = new Date(dateStr + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
 }
 
 // ---------------------------------------------------------------------------
@@ -403,9 +398,14 @@ async function main() {
     excludeNames,
   });
 
+  // Determine the starting date for new games:
+  // - If the most recent entry is today or in the future, start from the day
+  //   after it (supports arbitrary re-runs without date conflicts).
+  // - Otherwise (recent entry is in the past), start from today (catches up
+  //   on missed dates).
   const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-  const dates = nextDates(yesterday, GAMES_TO_GENERATE);
+  const ref = mostRecentDate >= today ? addDays(mostRecentDate, 1) : today;
+  const dates = Array.from({ length: GAMES_TO_GENERATE }, (_, i) => addDays(ref, i));
   const datedGames = dates.map((date, i) => [date, games[i]]);
 
   const updatedSrc = insertEntries(src, datedGames);
