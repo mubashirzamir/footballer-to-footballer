@@ -208,7 +208,9 @@ to a footballing six-degrees game. Each puzzle gives a player NAME pair (start, 
 knowledgeable football fan could connect through a chain of shared clubs or transfers. \
 Puzzles should require at least 2 intermediate steps — do NOT pick pairs who were direct club \
 teammates (e.g. Rooney & Ronaldo, Messi & Xavi). Pairs should be interesting, well-known \
-footballers from different clubs or eras. Avoid obscure players. Respond ONLY with a JSON \
+footballers from different clubs or eras. Only include players whose senior career began in \
+the 2000s (born ~1985 or later). Vary nationalities and leagues across the batch for variety. \
+Avoid obscure players. Respond ONLY with a JSON \
 object, no preamble, no markdown fences.`;
 
   const user = `Propose ${count} start/end player name pairs as a JSON object like:
@@ -219,6 +221,7 @@ Rules:
 - Do NOT reuse any of these names (already used recently): ${JSON.stringify(excludeNames)}
 - The two players MUST NOT have been direct club teammates — the path between them should require intermediate connections.
 - Vary eras/leagues across the ${count} pairs — don't repeat the same two clubs every time.
+- Ensure reasonable nationality and league variety across the pairs.
 - Each pair should have a findable connection path through shared clubs or transfers, but do not list the full path.`;
 
   const maxRetries = 3;
