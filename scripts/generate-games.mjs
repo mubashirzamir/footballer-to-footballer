@@ -401,14 +401,15 @@ async function main() {
     excludeNames,
   });
 
-  // Determine the starting date for new games:
-  // - If the most recent entry is today or in the future, start from the day
-  //   after it (supports arbitrary re-runs without date conflicts).
-  // - Otherwise (recent entry is in the past), start from today (catches up
-  //   on missed dates).
-  const today = new Date().toISOString().slice(0, 10);
-  const ref = mostRecentDate >= today ? addDays(mostRecentDate, 1) : today;
-  const dates = Array.from({ length: GAMES_TO_GENERATE }, (_, i) => addDays(ref, i));
+  // Generate new dates starting from the day after the most recent entry,
+  // skipping any dates that already exist (e.g. manually added).
+  const existingDates = new Set(entries.map((e) => e.date));
+  const dates = [];
+  let cursor = addDays(mostRecentDate, 1);
+  while (dates.length < GAMES_TO_GENERATE) {
+    if (!existingDates.has(cursor)) dates.push(cursor);
+    cursor = addDays(cursor, 1);
+  }
   const datedGames = dates.map((date, i) => [date, games[i]]);
 
   const updatedSrc = insertEntries(src, datedGames);
