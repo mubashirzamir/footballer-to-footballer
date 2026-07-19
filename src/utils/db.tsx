@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-07-25': {
+        start_player_id: '58864',
+        start_player_name: 'Pierre-Emerick Aubameyang',
+        end_player_id: '230784',
+        end_player_name: 'Thomas Partey',
+        contributor: 'jarvis',
+    },
+    '2026-07-24': {
+        start_player_id: '8806',
+        start_player_name: 'Cesc Fàbregas',
+        end_player_id: '69751',
+        end_player_name: 'Jordi Alba',
+        contributor: 'jarvis',
+    },
+    '2026-07-23': {
+        start_player_id: '48280',
+        start_player_name: 'Edinson Cavani',
+        end_player_id: '54928',
+        end_player_name: 'Diego Godín',
+        contributor: 'jarvis',
+    },
+    '2026-07-22': {
+        start_player_id: '134425',
+        start_player_name: 'Raheem Sterling',
+        end_player_id: '406635',
+        end_player_name: 'Phil Foden',
+        contributor: 'jarvis',
+    },
+    '2026-07-21': {
+        start_player_id: '32467',
+        start_player_name: 'Ivan Rakitic',
+        end_player_id: '27992',
+        end_player_name: 'Luka Modrić',
+        contributor: 'jarvis',
+    },
+    '2026-07-20': {
+        start_player_id: '96341',
+        start_player_name: 'Romelu Lukaku',
+        end_player_id: '102226',
+        end_player_name: 'Thorgan Hazard',
+        contributor: 'jarvis',
+    },
+    '2026-07-19': {
+        start_player_id: '18922',
+        start_player_name: 'Karim Benzema',
+        end_player_id: '225083',
+        end_player_name: "N'Golo Kanté",
+        contributor: 'jarvis',
+    },
+    '2026-07-18': {
+        start_player_id: '125781',
+        start_player_name: 'Antoine Griezmann',
+        end_player_id: '122153',
+        end_player_name: 'Paul Pogba',
+        contributor: 'jarvis',
+    },
+    '2026-07-17': {
+        start_player_id: '200512',
+        start_player_name: 'Sadio Mané',
+        end_player_id: '139208',
+        end_player_name: 'Virgil van Dijk',
+        contributor: 'jarvis',
+    },
+    '2026-07-16': {
+        start_player_id: '132098',
+        start_player_name: 'Harry Kane',
+        end_player_id: '88755',
+        end_player_name: 'Kevin De Bruyne',
+        contributor: 'jarvis',
+    },
     '2026-07-15': {
         start_player_id: '26485',
         start_player_name: 'Jérôme Boateng',
