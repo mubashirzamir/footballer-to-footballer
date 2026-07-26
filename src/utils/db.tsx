@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-08-04': {
+        start_player_id: '13091',
+        start_player_name: 'Yaya Touré',
+        end_player_id: '39152',
+        end_player_name: 'Radamel Falcao',
+        contributor: 'jarvis',
+    },
+    '2026-08-03': {
+        start_player_id: '3520',
+        start_player_name: 'Pierre van Hooijdonk',
+        end_player_id: '238407',
+        end_player_name: 'Alexander Sørloth',
+        contributor: 'jarvis',
+    },
+    '2026-08-02': {
+        start_player_id: '240306',
+        start_player_name: 'Bruno Fernandes',
+        end_player_id: '28396',
+        end_player_name: 'Edin Dzeko',
+        contributor: 'jarvis',
+    },
+    '2026-08-01': {
+        start_player_id: '133964',
+        start_player_name: 'Lorenzo Insigne',
+        end_player_id: '45146',
+        end_player_name: 'Mario Balotelli',
+        contributor: 'jarvis',
+    },
+    '2026-07-31': {
+        start_player_id: '39153',
+        start_player_name: 'Gonzalo Higuaín',
+        end_player_id: '181767',
+        end_player_name: 'Marquinhos',
+        contributor: 'jarvis',
+    },
+    '2026-07-30': {
+        start_player_id: '37666',
+        start_player_name: 'Arturo Vidal',
+        end_player_id: '315779',
+        end_player_name: 'Christian Pulisic',
+        contributor: 'jarvis',
+    },
+    '2026-07-29': {
+        start_player_id: '128223',
+        start_player_name: 'Álvaro Morata',
+        end_player_id: '401173',
+        end_player_name: 'Jadon Sancho',
+        contributor: 'jarvis',
+    },
+    '2026-07-28': {
+        start_player_id: '45320',
+        start_player_name: 'Ángel Di María',
+        end_player_id: '16306',
+        end_player_name: 'Casemiro',
+        contributor: 'jarvis',
+    },
+    '2026-07-27': {
+        start_player_id: '25557',
+        start_player_name: 'Sergio Ramos',
+        end_player_id: '225083',
+        end_player_name: "N'Golo Kanté",
+        contributor: 'jarvis',
+    },
+    '2026-07-26': {
+        start_player_id: '18922',
+        start_player_name: 'Karim Benzema',
+        end_player_id: '29241',
+        end_player_name: 'Thiago Silva',
+        contributor: 'jarvis',
+    },
     '2026-07-25': {
         start_player_id: '58864',
         start_player_name: 'Pierre-Emerick Aubameyang',
