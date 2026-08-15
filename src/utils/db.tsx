@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-08-14': {
+        start_player_id: '161056',
+        start_player_name: 'Joshua Kimmich',
+        end_player_id: '243714',
+        end_player_name: 'Kingsley Coman',
+        contributor: 'jarvis',
+    },
+    '2026-08-13': {
+        start_player_id: '341092',
+        start_player_name: 'Federico Chiesa',
+        end_player_id: '171424',
+        end_player_name: 'Riyad Mahrez',
+        contributor: 'jarvis',
+    },
+    '2026-08-12': {
+        start_player_id: '75615',
+        start_player_name: 'Douglas Costa',
+        end_player_id: '69633',
+        end_player_name: 'Christian Eriksen',
+        contributor: 'jarvis',
+    },
+    '2026-08-11': {
+        start_player_id: '42460',
+        start_player_name: 'Ivan Perisic',
+        end_player_id: '44058',
+        end_player_name: 'Wojciech Szczesny',
+        contributor: 'jarvis',
+    },
+    '2026-08-10': {
+        start_player_id: '241641',
+        start_player_name: 'Bernardo Silva',
+        end_player_id: '46001',
+        end_player_name: 'Moussa Sissoko',
+        contributor: 'jarvis',
+    },
+    '2026-08-09': {
+        start_player_id: '176553',
+        start_player_name: 'Aymeric Laporte',
+        end_player_id: '79960',
+        end_player_name: 'Alex Sandro',
+        contributor: 'jarvis',
+    },
+    '2026-08-08': {
+        start_player_id: '102017',
+        start_player_name: 'Jorginho',
+        end_player_id: '238223',
+        end_player_name: 'Ederson',
+        contributor: 'jarvis',
+    },
+    '2026-08-07': {
+        start_player_id: '74229',
+        start_player_name: 'Koke',
+        end_player_id: '7161',
+        end_player_name: 'Jonas Hofmann',
+        contributor: 'jarvis',
+    },
+    '2026-08-06': {
+        start_player_id: '225083',
+        start_player_name: "N'Golo Kanté",
+        end_player_id: '56416',
+        end_player_name: 'Dries Mertens',
+        contributor: 'jarvis',
+    },
+    '2026-08-05': {
+        start_player_id: '25557',
+        start_player_name: 'Sergio Ramos',
+        end_player_id: '160438',
+        end_player_name: 'Mohamed Elneny',
+        contributor: 'jarvis',
+    },
     '2026-08-04': {
         start_player_id: '13091',
         start_player_name: 'Yaya Touré',
