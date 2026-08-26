@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-09-02': {
+        start_player_id: '39381',
+        start_player_name: 'Gareth Bale',
+        end_player_id: '5958',
+        end_player_name: 'Francesco Totti',
+        contributor: 'jarvis',
+    },
+    '2026-09-01': {
+        start_player_id: '26399',
+        start_player_name: 'Sergio Agüero',
+        end_player_id: '3373',
+        end_player_name: 'Ronaldinho',
+        contributor: 'jarvis',
+    },
+    '2026-08-31': {
+        start_player_id: '1161',
+        start_player_name: 'Javier Zanetti',
+        end_player_id: '3332',
+        end_player_name: 'Wayne Rooney',
+        contributor: 'jarvis',
+    },
+    '2026-08-30': {
+        start_player_id: '371998',
+        start_player_name: 'Vinicius Junior',
+        end_player_id: '369081',
+        end_player_name: 'Federico Valverde',
+        contributor: 'jarvis',
+    },
+    '2026-08-29': {
+        start_player_id: '401923',
+        start_player_name: 'Victor Osimhen',
+        end_player_id: '207929',
+        end_player_name: 'Dele Alli',
+        contributor: 'jarvis',
+    },
+    '2026-08-28': {
+        start_player_id: '105521',
+        start_player_name: 'Ciro Immobile',
+        end_player_id: '159471',
+        end_player_name: 'Serge Gnabry',
+        contributor: 'jarvis',
+    },
+    '2026-08-27': {
+        start_player_id: '315858',
+        start_player_name: 'Gianluigi Donnarumma',
+        end_player_id: '462250',
+        end_player_name: 'João Félix',
+        contributor: 'jarvis',
+    },
+    '2026-08-26': {
+        start_player_id: '35207',
+        start_player_name: 'Marco Reus',
+        end_player_id: '15799',
+        end_player_name: 'Santi Cazorla',
+        contributor: 'jarvis',
+    },
+    '2026-08-25': {
+        start_player_id: '342229',
+        start_player_name: 'Kylian Mbappé',
+        end_player_id: '91845',
+        end_player_name: 'Heung-min Son',
+        contributor: 'jarvis',
+    },
+    '2026-08-24': {
+        start_player_id: '225083',
+        start_player_name: "N'Golo Kanté",
+        end_player_id: '192279',
+        end_player_name: 'Kepa Arrizabalaga',
+        contributor: 'jarvis',
+    },
     '2026-08-24': {
         start_player_id: '225083',
         start_player_name: "N'Golo Kanté",
