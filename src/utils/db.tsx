@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-08-24': {
+        start_player_id: '225083',
+        start_player_name: "N'Golo Kanté",
+        end_player_id: '15904',
+        end_player_name: 'Thomas Vermaelen',
+        contributor: 'jarvis',
+    },
+    '2026-08-23': {
+        start_player_id: '398184',
+        start_player_name: 'Ferran Torres',
+        end_player_id: '54906',
+        end_player_name: 'Matteo Darmian',
+        contributor: 'jarvis',
+    },
+    '2026-08-22': {
+        start_player_id: '50202',
+        start_player_name: 'Eden Hazard',
+        end_player_id: '3455',
+        end_player_name: 'Zlatan Ibrahimović',
+        contributor: 'jarvis',
+    },
+    '2026-08-21': {
+        start_player_id: '85288',
+        start_player_name: 'Isco',
+        end_player_id: '36139',
+        end_player_name: 'Dusan Tadic',
+        contributor: 'jarvis',
+    },
+    '2026-08-20': {
+        start_player_id: '495666',
+        start_player_name: 'William Saliba',
+        end_player_id: '54781',
+        end_player_name: 'Nicolás Otamendi',
+        contributor: 'jarvis',
+    },
+    '2026-08-19': {
+        start_player_id: '502670',
+        start_player_name: 'Khvicha Kvaratskhelia',
+        end_player_id: '193082',
+        end_player_name: 'Alejandro Grimaldo',
+        contributor: 'jarvis',
+    },
+    '2026-08-18': {
+        start_player_id: '683840',
+        start_player_name: 'Pedri',
+        end_player_id: '303254',
+        end_player_name: 'Fikayo Tomori',
+        contributor: 'jarvis',
+    },
+    '2026-08-17': {
+        start_player_id: '412363',
+        start_player_name: 'Rodrygo',
+        end_player_id: '283196',
+        end_player_name: 'Kasper Dolberg',
+        contributor: 'jarvis',
+    },
+    '2026-08-16': {
+        start_player_id: '406625',
+        start_player_name: 'Lautaro Martínez',
+        end_player_id: '288230',
+        end_player_name: 'Ousmane Dembélé',
+        contributor: 'jarvis',
+    },
+    '2026-08-15': {
+        start_player_id: '418560',
+        start_player_name: 'Erling Haaland',
+        end_player_id: '7767',
+        end_player_name: 'Fernando Torres',
+        contributor: 'jarvis',
+    },
     '2026-08-14': {
         start_player_id: '161056',
         start_player_name: 'Joshua Kimmich',
