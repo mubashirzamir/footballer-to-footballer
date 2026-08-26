@@ -67,13 +67,6 @@ export const GAMES: Record<string, Game> = {
     '2026-08-24': {
         start_player_id: '225083',
         start_player_name: "N'Golo Kanté",
-        end_player_id: '192279',
-        end_player_name: 'Kepa Arrizabalaga',
-        contributor: 'jarvis',
-    },
-    '2026-08-24': {
-        start_player_id: '225083',
-        start_player_name: "N'Golo Kanté",
         end_player_id: '15904',
         end_player_name: 'Thomas Vermaelen',
         contributor: 'jarvis',
