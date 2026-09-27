@@ -1,6 +1,76 @@
 import type { Game } from '@/structures'
 
 export const GAMES: Record<string, Game> = {
+    '2026-09-12': {
+        start_player_id: '3408',
+        start_player_name: 'Diego Forlán',
+        end_player_id: '119228',
+        end_player_name: 'Luis Muriel',
+        contributor: 'jarvis',
+    },
+    '2026-09-11': {
+        start_player_id: '4380',
+        start_player_name: 'Robin van Persie',
+        end_player_id: '177907',
+        end_player_name: 'Harry Maguire',
+        contributor: 'jarvis',
+    },
+    '2026-09-10': {
+        start_player_id: '3366',
+        start_player_name: 'Kaká',
+        end_player_id: '148455',
+        end_player_name: 'Mohamed Salah',
+        contributor: 'jarvis',
+    },
+    '2026-09-09': {
+        start_player_id: '3924',
+        start_player_name: 'Didier Drogba',
+        end_player_id: '3160',
+        end_player_name: 'John Terry',
+        contributor: 'jarvis',
+    },
+    '2026-09-08': {
+        start_player_id: '3163',
+        start_player_name: 'Frank Lampard',
+        end_player_id: '3109',
+        end_player_name: 'Steven Gerrard',
+        contributor: 'jarvis',
+    },
+    '2026-09-07': {
+        start_player_id: '3207',
+        start_player_name: 'Thierry Henry',
+        end_player_id: '3187',
+        end_player_name: 'Dennis Bergkamp',
+        contributor: 'jarvis',
+    },
+    '2026-09-06': {
+        start_player_id: '7600',
+        start_player_name: 'Andrés Iniesta',
+        end_player_id: '7607',
+        end_player_name: 'Xavi',
+        contributor: 'jarvis',
+    },
+    '2026-09-05': {
+        start_player_id: '28003',
+        start_player_name: 'Lionel Messi',
+        end_player_id: '8198',
+        end_player_name: 'Cristiano Ronaldo',
+        contributor: 'jarvis',
+    },
+    '2026-09-04': {
+        start_player_id: '68290',
+        start_player_name: 'Neymar',
+        end_player_id: '225083',
+        end_player_name: "N'Golo Kanté",
+        contributor: 'jarvis',
+    },
+    '2026-09-03': {
+        start_player_id: '38253',
+        start_player_name: 'Robert Lewandowski',
+        end_player_id: '44352',
+        end_player_name: 'Luis Suárez',
+        contributor: 'jarvis',
+    },
     '2026-09-02': {
         start_player_id: '39381',
         start_player_name: 'Gareth Bale',
